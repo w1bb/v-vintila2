@@ -1,10 +1,5 @@
 $(document).ready(function() {
-	let saved_theme = localStorage.getItem("theme");
-	if (!saved_theme) {
-		saved_theme = "dark-mode";
-	}
-	$("body").removeClass(saved_theme == "dark-mode" ? "light-mode" : "dark-mode");
-	$("body").addClass(saved_theme);
+	hljs.highlightAll();
 
     $(document).on('keydown', function(event) {
         if ((event.ctrlKey && event.keyCode === 75) || event.keyCode === 191 || event.keyCode == 27) {
@@ -50,15 +45,7 @@ $(document).ready(function() {
 	});
 
 	$(".toggle-color-mode").on('click', function(event) {
-		if ($("body").hasClass("dark-mode")) {
-			$("body").removeClass("dark-mode");
-			$("body").addClass("light-mode");
-			localStorage.setItem('theme', "light-mode");
-		} else {
-			$("body").addClass("dark-mode");
-			$("body").removeClass("light-mode");
-			localStorage.setItem('theme', "dark-mode");
-		}
+		set_color_mode($("body").hasClass("dark-mode") ? "light-mode" : "dark-mode");
 	});
 
 	$(".copy-code").on('click', function(event) {
@@ -115,7 +102,8 @@ $(document).ready(function() {
 			'top': $(this).position().top - $("html").scrollTop() - 55,
 			'left': $(this).position().left,
 			'width': $(this).width(),
-			'height': $(this).height()
+			'height': $(this).height(),
+			'padding': 0
 		});
 		$("#image-zoom-overlay").addClass("visible");
 
