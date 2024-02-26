@@ -1,22 +1,32 @@
-<!DOCTYPE html>
-<html data-theme="dark-mode" lang="en">
-<head>
-<meta charset="utf-8"/>
-<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<script src="../../src/jquery-min.js"></script>
-<script src="../../src/index.js"></script>
-<link href="../../css/katex.min.css" rel="stylesheet"/>
-<script defer="" src="../../src/katex.min.js"></script>
-<script defer="" onload="renderMathInElement(document.body);" src="../../src/auto-render.min.js"></script>
-<script src="../../src/highlight.min.js"></script>
-<script src="../../src/matlab.min.js"></script>
-<link href="../../css/style.css" media="screen" rel="stylesheet" type="text/css"/>
-<link href="../../img/icons/wi64.png" rel="icon" type="image/x-icon"/>
-<title>N-AI Spam [ v-vintila ]</title>
+<!DOCTYPE html><html lang="en" data-theme="dark-mode"><head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <script src="../../src/jquery-min.js"></script>
+    <script src="../../src/jquery-ui.min.js"></script>
+    <script src="../../src/index.js"></script>
+
+    <link rel="stylesheet" href="../../css/katex.min.css"/>
+    <script defer="" src="../../src/katex.min.js"></script>
+    <script defer="" src="../../src/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+
+    <script src="../../src/highlight.min.js"></script>
+    <script src="../../src/matlab.min.js"></script>
+
+    <script>
+        function donate_alert(event) {
+            alert("Thank you for your interest in this project!\n\nIBAN (BCR):\nRO28 RNCB 0857 1709 5964 0001");
+            event.preventDefault();
+        }
+    </script>
+
+    <link rel="stylesheet" type="text/css" media="screen" href="../../css/style.css"/>
+    <link rel="icon" type="image/x-icon" href="../../img/icons/wi64.png"/>
+    <title>N-AI Spam [ v-vintila ]</title>
 </head>
 <body class="dark-mode">
-<script>
+    <script>
         function set_color_mode(new_color_mode) {
             if (new_color_mode == "light-mode") {
                 $("body").removeClass("dark-mode");
@@ -37,188 +47,234 @@
         }
         set_color_mode(saved_theme);
     </script>
-<section id="wipybg">
-<nav class="top">
-<div class="nav-content">
-<div class="nav-content-left">
-<div id="hamburger-open-nav-top-sidebar">
-<svg aria-hidden="true" height="24" viewbox="0 0 30 30" width="24"><path d="M4 7h22M4 15h22M4 23h22" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"></path></svg>
-</div>
-
-
-
-<a class="logo-container" href="../welcome/who-am-i.html"><div class="logo">Valentin-Ioan Vintilă</div></a><a class="section-link selected" href="../welcome/who-am-i.html">About me</a><a class="section-link" href="../../blog/2023/how-is-this-a-blog.html">Blog</a><a class="section-link" href="../../docs/resume.pdf">Résumé</a></div>
-<div class="nav-content-right">
-<a class="section-link" href="https://www.github.com/w1bb">
+    <section id="wipybg">
+        <nav class="top">
+            <div class="nav-content">
+                <div class="nav-content-left" wi-element="top-nav">
+                    <div id="hamburger-open-nav-top-sidebar">
+                        <svg width="24" height="24" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+                    </div>
+                    
+                    
+                    
+                <a class="logo-container" href="../welcome/who-am-i.html"><div class="logo">Valentin-Ioan Vintilă</div></a><a class="section-link selected" href="../welcome/who-am-i.html">About me</a><a class="section-link" href="../../blog/2023/how-is-this-a-blog.html">Blog</a><a class="section-link" href="../../numerical-methods/introducere/cuvant-inainte.html">Numerical Methods</a><a class="section-link" href="../../docs/resume.pdf">Résumé</a></div>
+                <div class="nav-content-right">
+                    <a href="https://www.github.com/w1bb" class="section-link">
                         GitHub
-                        <svg aria-hidden="true" class="iconExternalLink_nPIU" height="12" viewbox="0 0 24 24" width="12">
-<path d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z" fill="currentColor"></path>
-</svg>
-</a>
-<div class="toggle-color-mode-container">
-<div class="toggle-color-mode">
-<svg class="lightToggleIcon_pyhR" height="24" viewbox="0 0 24 24" width="24">
-<path d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z" fill="currentColor"></path>
-</svg>
-</div>
-</div>
-<div class="search-box">
-<div id="search-box-toggle">
-<svg class="DocSearch-Search-Icon" height="16" viewbox="0 0 20 20" width="16">
-<path d="M14.386 14.386l4.0877 4.0877-4.0877-4.0877c-2.9418 2.9419-7.7115 2.9419-10.6533 0-2.9419-2.9418-2.9419-7.7115 0-10.6533 2.9418-2.9419 7.7115-2.9419 10.6533 0 2.9419 2.9418 2.9419 7.7115 0 10.6533z" fill="none" fill-rule="evenodd" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
-</svg>
-<div class="search-box-text">Search (NOT WORKING)</div>
-<div class="search-box-key-container">
-<div class="search-box-key">/</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</nav>
-<div id="main-page">
-<div class="doc">
-<aside>
-<div id="aside-overlay"></div>
-<div class="sidebar-container">
-<div class="sidebar">
-<div class="sidebar-title-section">
-<div class="sidebar-title-section-content">
-<div class="sidebar-title-section-content-left">
-<a class="logo-container" href="../welcome/who-am-i.html">
-<div class="logo">Valentin-Ioan Vintilă</div>
-</a>
-</div>
-<div class="sidebar-title-section-content-right">
-<div class="toggle-color-mode-container">
-<div class="toggle-color-mode">
-<svg class="lightToggleIcon_pyhR" height="24" viewbox="0 0 24 24" width="24">
-<path d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z" fill="currentColor"></path>
-</svg>
-</div>
-</div>
-</div>
-</div>
-</div>
-<nav><ul class="generic-tree"><li class="tome"><a href="../welcome/who-am-i.html">About me</a></li><li class="tome"><a href="../../blog/2023/how-is-this-a-blog.html">Blog</a></li><li class="tome"><a href="../../docs/resume.pdf">Résumé</a></li></ul><ul class="main-tree"><li class="main-tree-category"><div class="main-tree-category-title"><a class="main-tree-category-title-content" href="../welcome/who-am-i.html"><html><body><div class="title-text">👋  Welcome</div></body></html><div class="title-collapse-btn"></div></a></div><ul class="secondary-tree lvl-1"><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../welcome/who-am-i.html"><div class="title-text">Who am I?</div></a></div><ul class="secondary-tree lvl-2"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../welcome/contests.html"><div class="title-text">Contests</div></a></div><ul class="secondary-tree lvl-2"></ul></li></ul></li><li class="main-tree-category"><div class="main-tree-category-title"><a class="main-tree-category-title-content" href="../learning-materials/numerical-methods.html"><html><body><div class="title-text">🎓  Learning materials</div></body></html><div class="title-collapse-btn"></div></a></div><ul class="secondary-tree lvl-1"><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../learning-materials/numerical-methods.html"><div class="title-text">Numerical Methods</div><div class="title-collapse-btn"></div></a></div><ul class="secondary-tree lvl-2"><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../learning-materials/numerical-methods/numerical-methods-book.html"><div class="title-text">Numerical Methods book</div><div class="badge badge-t2">RO  🌐</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../learning-materials/numerical-methods/past-lectures.html"><div class="title-text">Past labs</div><div class="badge badge-t2">RO  🌐</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../learning-materials/numerical-methods/exercises.html"><div class="title-text">Exercises</div><div class="badge badge-t2">RO  🌐</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../learning-materials/numerical-methods/homework-checker.html"><div class="title-text">Homework checker</div></a></div><ul class="secondary-tree lvl-3"></ul></li></ul></li></ul></li><li class="main-tree-category"><div class="main-tree-category-title"><a class="main-tree-category-title-content" href="chess-engines.html"><html><body><div class="title-text">💻  Software projects</div></body></html><div class="title-collapse-btn"></div></a></div><ul class="secondary-tree lvl-1"><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="chess-engines.html"><div class="title-text">Chess Engines</div><div class="title-collapse-btn"></div><div class="badge badge-t3">HOT  🔥</div></a></div><ul class="secondary-tree lvl-2"><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="chess-engines/wice.html"><div class="title-text">WiCE</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="chess-engines/adle.html"><div class="title-text">ADLE</div></a></div><ul class="secondary-tree lvl-3"></ul></li></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="wipybg.html"><div class="title-text">WiPyBG</div></a></div><ul class="secondary-tree lvl-2"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="wi-crypt.html"><div class="title-text">Wi-Crypt</div><div class="title-collapse-btn"></div></a></div><ul class="secondary-tree lvl-2"><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="wi-crypt/aes.html"><div class="title-text">AES 128/192/256</div></a></div><ul class="secondary-tree lvl-3"></ul></li></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="wiparser.html"><div class="title-text">WiParser</div></a></div><ul class="secondary-tree lvl-2"></ul></li><li class="secondary-tree-item selected final tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="n-ai-spam.html"><div class="title-text">N-AI Spam</div></a></div><ul class="secondary-tree lvl-2"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="v-vintila.html"><div class="title-text">v-vintila.com</div><div class="badge badge-t1">UPDATED  ✨</div></a></div><ul class="secondary-tree lvl-2"></ul></li></ul></li><li class="main-tree-category"><div class="main-tree-category-title"><a class="main-tree-category-title-content" href="../hardware-projects/carpino.html"><html><body><div class="title-text">🛠️  Hardware projects</div></body></html><div class="title-collapse-btn"></div></a></div><ul class="secondary-tree lvl-1"><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../hardware-projects/carpino.html"><div class="title-text">Cârpino™</div><div class="title-collapse-btn"></div><div class="badge badge-t3">HOT  🔥</div></a></div><ul class="secondary-tree lvl-2"><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../hardware-projects/carpino/circuit-design.html"><div class="title-text">Circuit design</div></a></div><ul class="secondary-tree lvl-3"></ul></li></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../hardware-projects/ralarm.html"><div class="title-text">ralarm</div><div class="title-collapse-btn"></div></a></div><ul class="secondary-tree lvl-2"><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../hardware-projects/ralarm/circuit-design.html"><div class="title-text">Circuit design</div></a></div><ul class="secondary-tree lvl-3"></ul></li></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../hardware-projects/audio-amplifier.html"><div class="title-text">Stereo audio amplifier</div><div class="title-collapse-btn"></div></a></div><ul class="secondary-tree lvl-2"><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../hardware-projects/audio-amplifier/circuit-design.html"><div class="title-text">Circuit design</div></a></div><ul class="secondary-tree lvl-3"></ul></li></ul></li></ul></li><li class="main-tree-category"><div class="main-tree-category-title"><a class="main-tree-category-title-content" href="../quantum-computing-projects/lab.html"><html><body><div class="title-text">⚛️  Quantum computing projects</div></body></html><div class="title-collapse-btn"></div></a></div><ul class="secondary-tree lvl-1"><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../quantum-computing-projects/lab.html"><div class="title-text">Lab: Qiskit, QFT, QPE and beyond</div></a></div><ul class="secondary-tree lvl-2"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../quantum-computing-projects/course.html"><div class="title-text">Course: Quantum Simulation - Perceiving nature through Quantum</div></a></div><ul class="secondary-tree lvl-2"></ul></li></ul></li><li class="main-tree-category"><div class="main-tree-category-title"><a class="main-tree-category-title-content" href="../smaller-projects/uni-projects.html"><html><body><div class="title-text">📖  Smaller projects</div></body></html><div class="title-collapse-btn"></div></a></div><ul class="secondary-tree lvl-1"><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../smaller-projects/uni-projects.html"><div class="title-text">Uni projects</div></a></div><ul class="secondary-tree lvl-2"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../smaller-projects/hazoses-trivia-bot.html"><div class="title-text">Hazoses trivia bot</div></a></div><ul class="secondary-tree lvl-2"></ul></li></ul></li></ul></nav>
-<div id="collapse-aside">
-<svg aria-hidden="true" class="collapseSidebarButtonIcon_kv0_" height="16" viewbox="0 0 20 20" width="16">
-<g fill="#7a7a7a"><path d="M9.992 10.023c0 .2-.062.399-.172.547l-4.996 7.492a.982.982 0 01-.828.454H1c-.55 0-1-.453-1-1 0-.2.059-.403.168-.551l4.629-6.942L.168 3.078A.939.939 0 010 2.528c0-.548.45-.997 1-.997h2.996c.352 0 .649.18.828.45L9.82 9.472c.11.148.172.347.172.55zm0 0"></path><path d="M19.98 10.023c0 .2-.058.399-.168.547l-4.996 7.492a.987.987 0 01-.828.454h-3c-.547 0-.996-.453-.996-1 0-.2.059-.403.168-.551l4.625-6.942-4.625-6.945a.939.939 0 01-.168-.55 1 1 0 01.996-.997h3c.348 0 .649.18.828.45l4.996 7.492c.11.148.168.347.168.55zm0 0"></path></g>
-</svg>
-</div>
-</div>
-<div id="expand-aside">
-<svg aria-hidden="true" class="collapseSidebarButtonIcon_kv0_" height="16" viewbox="0 0 20 20" width="16">
-<g fill="#7a7a7a"><path d="M9.992 10.023c0 .2-.062.399-.172.547l-4.996 7.492a.982.982 0 01-.828.454H1c-.55 0-1-.453-1-1 0-.2.059-.403.168-.551l4.629-6.942L.168 3.078A.939.939 0 010 2.528c0-.548.45-.997 1-.997h2.996c.352 0 .649.18.828.45L9.82 9.472c.11.148.172.347.172.55zm0 0"></path><path d="M19.98 10.023c0 .2-.058.399-.168.547l-4.996 7.492a.987.987 0 01-.828.454h-3c-.547 0-.996-.453-.996-1 0-.2.059-.403.168-.551l4.625-6.942-4.625-6.945a.939.939 0 01-.168-.55 1 1 0 01.996-.997h3c.348 0 .649.18.828.45l4.996 7.492c.11.148.168.347.168.55zm0 0"></path></g>
-</svg>
-</div>
-</div>
-</aside>
-<main>
-<div class="center-doc-container">
-<div class="center-doc">
-<div class="center-doc-article">
-<article>
-<nav class="nav-breadcrumbs">
-<ul class="breadcrumbs"><li class="breadcrumb"><a class="home" href="../welcome/who-am-i.html"><html><body><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <svg width="12" height="12" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU">
+                            <path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path>
+                        </svg>
+                    </a>
+                    <div class="toggle-color-mode-container">
+                        <div class="toggle-color-mode">
+                            <svg viewBox="0 0 24 24" width="24" height="24" class="lightToggleIcon_pyhR">
+                                <path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="search-box">
+                        <div id="search-box-toggle">
+                            <svg width="16" height="16" class="DocSearch-Search-Icon" viewBox="0 0 20 20">
+                                <path d="M14.386 14.386l4.0877 4.0877-4.0877-4.0877c-2.9418 2.9419-7.7115 2.9419-10.6533 0-2.9419-2.9418-2.9419-7.7115 0-10.6533 2.9418-2.9419 7.7115-2.9419 10.6533 0 2.9419 2.9418 2.9419 7.7115 0 10.6533z" stroke="currentColor" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path>
+                            </svg>
+                            <div class="search-box-text">Search (NOT WORKING)</div>
+                            <div class="search-box-key-container">
+                                <div class="search-box-key">/</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <div id="main-page">
+            <div class="doc">
+                <aside>
+                    <div id="aside-overlay"></div>
+                    <div class="sidebar-container">
+                        <div class="sidebar">
+                            <div class="sidebar-title-section">
+                                <div class="sidebar-title-section-content">
+                                    <div class="sidebar-title-section-content-left">
+                                        <a href="../welcome/who-am-i.html" class="logo-container">
+                                            <div class="logo">Valentin-Ioan Vintilă</div>
+                                        </a>
+                                    </div>
+                                    <div class="sidebar-title-section-content-right">
+                                        <div class="toggle-color-mode-container">
+                                            <div class="toggle-color-mode">
+                                                <svg viewBox="0 0 24 24" width="24" height="24" class="lightToggleIcon_pyhR">
+                                                    <path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <nav wi-element="aside-nav"><ul class="generic-tree"><li class="tome"><a href="../welcome/who-am-i.html">About me</a></li><li class="tome"><a href="../../blog/2023/how-is-this-a-blog.html">Blog</a></li><li class="tome"><a href="../../numerical-methods/introducere/cuvant-inainte.html">Numerical Methods</a></li><li class="tome"><a href="../../docs/resume.pdf">Résumé</a></li></ul><ul class="main-tree"><li class="main-tree-category"><div class="main-tree-category-title"><a class="main-tree-category-title-content" href="../welcome/who-am-i.html"><div class="title-text">👋  Welcome</div><div class="title-collapse-btn"></div></a></div><ul class="secondary-tree lvl-1"><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../welcome/who-am-i.html"><div class="title-text">Who am I?</div></a></div><ul class="secondary-tree lvl-2"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../welcome/contests.html"><div class="title-text">Contests</div><div class="badge badge-t1">UPDATED&nbsp;&nbsp;✨</div></a></div><ul class="secondary-tree lvl-2"></ul></li></ul></li><li class="main-tree-category"><div class="main-tree-category-title"><a class="main-tree-category-title-content" href="../learning-materials/numerical-methods.html"><div class="title-text">🎓  Learning materials</div><div class="title-collapse-btn"></div></a></div><ul class="secondary-tree lvl-1"><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../learning-materials/numerical-methods.html"><div class="title-text">Numerical Methods</div><div class="title-collapse-btn"></div></a></div><ul class="secondary-tree lvl-2"><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../learning-materials/numerical-methods/numerical-methods-book.html"><div class="title-text">Numerical Methods book</div><div class="badge badge-t2">RO&nbsp;&nbsp;🌐</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../learning-materials/numerical-methods/past-lectures.html"><div class="title-text">Past labs</div><div class="badge badge-t2">RO&nbsp;&nbsp;🌐</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../learning-materials/numerical-methods/exercises.html"><div class="title-text">Exercises</div><div class="badge badge-t2">RO&nbsp;&nbsp;🌐</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../learning-materials/numerical-methods/homework-checker.html"><div class="title-text">Homework checker</div></a></div><ul class="secondary-tree lvl-3"></ul></li></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../learning-materials/electronics.html"><div class="title-text">Electronics</div><div class="title-collapse-btn"></div></a></div><ul class="secondary-tree lvl-2"><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../learning-materials/electronics/past-lectures.html"><div class="title-text">Past labs</div><div class="badge badge-t2">RO&nbsp;&nbsp;🌐</div></a></div><ul class="secondary-tree lvl-3"></ul></li></ul></li></ul></li><li class="main-tree-category"><div class="main-tree-category-title"><a class="main-tree-category-title-content" href="uni-projects.html"><div class="title-text">💻  Software projects</div><div class="title-collapse-btn"></div></a></div><ul class="secondary-tree lvl-1"><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="uni-projects.html"><div class="title-text">Uni projects</div><div class="badge badge-t4">NEW&nbsp;&nbsp;😍</div></a></div><ul class="secondary-tree lvl-2"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="imd1.html"><div class="title-text">IMD1</div><div class="badge badge-t4">NEW&nbsp;&nbsp;😍</div></a></div><ul class="secondary-tree lvl-2"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="gobg.html"><div class="title-text">GoBG</div><div class="badge badge-t4">NEW&nbsp;&nbsp;😍</div></a></div><ul class="secondary-tree lvl-2"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="chess-engines.html"><div class="title-text">Chess Engines</div><div class="title-collapse-btn"></div></a></div><ul class="secondary-tree lvl-2"><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="chess-engines/wice.html"><div class="title-text">WiCE</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="chess-engines/adle.html"><div class="title-text">ADLE</div></a></div><ul class="secondary-tree lvl-3"></ul></li></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="wi-crypt.html"><div class="title-text">Wi-Crypt</div><div class="title-collapse-btn"></div></a></div><ul class="secondary-tree lvl-2"><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="wi-crypt/aes.html"><div class="title-text">AES 128/192/256</div></a></div><ul class="secondary-tree lvl-3"></ul></li></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="wiparser.html"><div class="title-text">WiParser</div></a></div><ul class="secondary-tree lvl-2"></ul></li><li class="secondary-tree-item selected final tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="n-ai-spam.html"><div class="title-text">N-AI Spam</div></a></div><ul class="secondary-tree lvl-2"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="v-vintila.html"><div class="title-text">v-vintila.com</div><div class="badge badge-t1">UPDATED&nbsp;&nbsp;✨</div></a></div><ul class="secondary-tree lvl-2"></ul></li></ul></li><li class="main-tree-category"><div class="main-tree-category-title"><a class="main-tree-category-title-content" href="../hardware-projects/carpino.html"><div class="title-text">🛠️  Hardware projects</div><div class="title-collapse-btn"></div></a></div><ul class="secondary-tree lvl-1"><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../hardware-projects/carpino.html"><div class="title-text">Cârpino™</div><div class="title-collapse-btn"></div><div class="badge badge-t3">HOT&nbsp;&nbsp;🔥</div></a></div><ul class="secondary-tree lvl-2"><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../hardware-projects/carpino/circuit-design.html"><div class="title-text">Circuit design</div></a></div><ul class="secondary-tree lvl-3"></ul></li></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../hardware-projects/ralarm.html"><div class="title-text">ralarm</div><div class="title-collapse-btn"></div></a></div><ul class="secondary-tree lvl-2"><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../hardware-projects/ralarm/circuit-design.html"><div class="title-text">Circuit design</div></a></div><ul class="secondary-tree lvl-3"></ul></li></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../hardware-projects/audio-amplifier.html"><div class="title-text">Stereo audio amplifier</div><div class="title-collapse-btn"></div></a></div><ul class="secondary-tree lvl-2"><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../hardware-projects/audio-amplifier/circuit-design.html"><div class="title-text">Circuit design</div></a></div><ul class="secondary-tree lvl-3"></ul></li></ul></li></ul></li><li class="main-tree-category"><div class="main-tree-category-title"><a class="main-tree-category-title-content" href="../quantum-computing-projects/lab.html"><div class="title-text">⚛️  Quantum computing projects</div><div class="title-collapse-btn"></div></a></div><ul class="secondary-tree lvl-1"><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../quantum-computing-projects/lab.html"><div class="title-text">Lab: Qiskit, QFT, QPE and beyond</div></a></div><ul class="secondary-tree lvl-2"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../quantum-computing-projects/course.html"><div class="title-text">Course: Quantum Simulation - Perceiving nature through Quantum</div></a></div><ul class="secondary-tree lvl-2"></ul></li></ul></li><li class="main-tree-category"><div class="main-tree-category-title"><a class="main-tree-category-title-content" href="../smaller-projects/hazoses-trivia-bot.html"><div class="title-text">📖  Smaller projects</div><div class="title-collapse-btn"></div></a></div><ul class="secondary-tree lvl-1"><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../smaller-projects/hazoses-trivia-bot.html"><div class="title-text">Hazoses trivia bot</div></a></div><ul class="secondary-tree lvl-2"></ul></li></ul></li></ul></nav>
+                            <div id="collapse-aside">
+                                <svg width="16" height="16" viewBox="0 0 20 20" aria-hidden="true" class="collapseSidebarButtonIcon_kv0_">
+                                    <g fill="#7a7a7a"><path d="M9.992 10.023c0 .2-.062.399-.172.547l-4.996 7.492a.982.982 0 01-.828.454H1c-.55 0-1-.453-1-1 0-.2.059-.403.168-.551l4.629-6.942L.168 3.078A.939.939 0 010 2.528c0-.548.45-.997 1-.997h2.996c.352 0 .649.18.828.45L9.82 9.472c.11.148.172.347.172.55zm0 0"></path><path d="M19.98 10.023c0 .2-.058.399-.168.547l-4.996 7.492a.987.987 0 01-.828.454h-3c-.547 0-.996-.453-.996-1 0-.2.059-.403.168-.551l4.625-6.942-4.625-6.945a.939.939 0 01-.168-.55 1 1 0 01.996-.997h3c.348 0 .649.18.828.45l4.996 7.492c.11.148.168.347.168.55zm0 0"></path></g>
+                                </svg>
+                            </div>
+                        </div>
+                        <div id="expand-aside">
+                            <svg width="16" height="16" viewBox="0 0 20 20" aria-hidden="true" class="collapseSidebarButtonIcon_kv0_">
+                                <g fill="#7a7a7a"><path d="M9.992 10.023c0 .2-.062.399-.172.547l-4.996 7.492a.982.982 0 01-.828.454H1c-.55 0-1-.453-1-1 0-.2.059-.403.168-.551l4.629-6.942L.168 3.078A.939.939 0 010 2.528c0-.548.45-.997 1-.997h2.996c.352 0 .649.18.828.45L9.82 9.472c.11.148.172.347.172.55zm0 0"></path><path d="M19.98 10.023c0 .2-.058.399-.168.547l-4.996 7.492a.987.987 0 01-.828.454h-3c-.547 0-.996-.453-.996-1 0-.2.059-.403.168-.551l4.625-6.942-4.625-6.945a.939.939 0 01-.168-.55 1 1 0 01.996-.997h3c.348 0 .649.18.828.45l4.996 7.492c.11.148.168.347.168.55zm0 0"></path></g>
+                            </svg>
+                        </div>
+                    </div>
+                </aside>
+                <main>
+                    <div class="center-doc-container">
+                        <div class="center-doc">
+                            <div class="center-doc-article">
+                                <article>
+                                    <nav class="nav-breadcrumbs">
+                                        <ul class="breadcrumbs" wi-element="breadcrumbs"><li class="breadcrumb"><a class="home" href="../welcome/who-am-i.html"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" xmlns:xlink= "http://www.w3.org/1999/xlink">
 <path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path>
-</svg></body></html></a></li><li class="breadcrumb"><span>About me</span></li><li class="breadcrumb"><span>💻  Software projects</span></li><li class="breadcrumb selected"><a href="n-ai-spam.html"><span>N-AI Spam</span></a></li></ul>
-</nav>
-<div id="main-article"><h1 id="h1-n-ai-spam">N-AI Spam<a class="hash-link" href="#h1-n-ai-spam">#</a></h1><p>2022's Baliza challenge (by Bitdefender) was all about creating a C (or Python) program that could detect 2000's spam emails based on their title and content. My algorithm won <strong>1st place</strong>, having an <a href="https://en.wikipedia.org/wiki/F-score">F-score</a> of \(F_1=95.63\%\).</p><p>The programs were <strong>NOT allowed</strong> to use any kind of AI, so they were limited by the quality of the chosen heuristics. Moreover, the participants were given 150 emails to test their algorithms on, but these were different than the emails used in the final evaluation. We were not given any hints or guides, so every implementaion detail was up to us.</p><div class="box admonition"><div class="box-title">❓  Name explanation</div><div class="box-content"><p>The project's name, <em>N-AI Spam</em>, is a wordplay. It doesn't just stand for <em>Non-AI Spam (detector)</em>, but it directly translates from <a href="https://en.wikipedia.org/wiki/Romanian_language">Romanian</a> and it means <em>"you don't have spam"</em>.</p></div></div><h2 id="h2-how-does-it-work">How does it work?<a class="hash-link" href="#h2-how-does-it-work">#</a></h2><p>Based on what I knew, I came up with a scoring system that would change once a certain value would be passed:</p><ul>
-<li>\(\text{score} &lt; 35\): the email is definitely HAM (<strong>DHAM</strong>), a.k.a. non-spam;</li>
-<li>\(35\leq\text{score} &lt; 42\): the email is probably HAM (<strong>PHAM</strong>);</li>
-<li>\(42\leq\text{score} &lt; 50\): the email is a (very) suspicious HAM (<strong>SHAM</strong>);</li>
-<li>\(50\leq\text{score}\): the email is SPAM (<strong>SPAM</strong>);</li>
-</ul><h2 id="h2-heuristics-used">Heuristics used<a class="hash-link" href="#h2-heuristics-used">#</a></h2><p>Some of the heuristics used include:</p><ul>
-<li><strong>Punctuation</strong> could indicate a SPAM email - for example, dollar signs could indicate money transfers wanted by potential malicious users, while exclamation marks could indicate urgency. A score is determined based on the number of characters relative to the number of words counted in the email;</li>
-<li><strong>Uppercase</strong> letters are usually used in excess or not at all when it comes to SPAM email. <a href="https://www.desmos.com/calculator/lw4qgluitr">Here</a> is the formula I found best suited for computing this score. In the end, everything is converted relative to the toal count of non-space characters;</li>
-<li><strong>Consonants</strong> don't appear naturally in groups of 4 or more, so this clue could raise a red flag. Obviously, links should be ignored;</li>
-<li><strong>Keywords</strong> that trigger a SPAM are very important - they include words such as 'money', 'purchase', 'deposit', 'diamond', 'risk', 'bank' etc. However, there are some words that could lower this score, including 'forwarded', 'newsletter' and 'yahoo' (it was big back then). If the same word occures multiple times, say n times in the same email, it should be counted only about \(\sqrt{n}\) times (my formula is a little bit more complicated, but for small values this works too);</li>
-<li><strong>Known spam email addresses</strong> should also be taken into account.</li>
-</ul><p>There are some other metrics that were used, but all in all, this is the algorithm. In the end, it also checks if there are duplicate emails inputed, since these are most likely SPAM. If an email is considered a PHAM or an SHAM, its score will be reevaluated to make sure it isn't actually a SPAM.</p><h2 id="h2-final-notes">Final notes<a class="hash-link" href="#h2-final-notes">#</a></h2><p>The algorithm was written in C and it was tested using some custom made tests as well. The code is very well documented.</p><div class="box note"><div class="box-title">Other tasks</div><div class="box-content"><p>The original challenge also contained some other task, but that one was trivial and it was only used to filter those who wanted to win an award from those who weren't all that interested.</p></div></div><h2 id="h2-source-code">Source code<a class="hash-link" href="#h2-source-code">#</a></h2><p>For more info, please check out the open-source code repository <a href="https://github.com/w1bb/N-AI-Spam">on GitHub</a>. The code is made available under the <a href="https://github.com/w1bb/N-AI-Spam/blob/master/LICENSE">MIT license</a>.</p><p>I value keeping my code open‑source. However, it's disheartening whenever I find that someone has copied my work without giving me proper credit. All I ask of you is to not claim my effort as your own.</p></div>
-<footer class="article-footer"><div class="footer-content"><div class="footer-content-part"><a class="edit-page" href="#"><html><body><svg aria-hidden="true" fill="currentColor" height="20" viewbox="0 0 40 40" width="20">
-<g>
-<path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path>
-</g>
-</svg> Improve this page</body></html></a></div><div class="footer-content-part"><span class="last-update"><html><body><p>Last updated on <b>Oct 22, 2023 (14:47)</b></p></body></html></span></div></div></footer>
-</article>
-<nav class="previous-next"><a class="prev" href="wiparser.html"><div class="sublabel">Previous</div><div class="label">WiParser</div></a><a class="next" href="v-vintila.html"><div class="sublabel">Next</div><div class="label">v-vintila.com</div></a></nav>
-</div>
-<div class="center-doc-toc">
-<div class="toc-container">
-<ul id="toc"><li><a href="#h2-how-does-it-work">How does it work?</a><ul></ul></li><li><a href="#h2-heuristics-used">Heuristics used</a><ul></ul></li><li><a href="#h2-final-notes">Final notes</a><ul></ul></li><li><a href="#h2-source-code">Source code</a><ul></ul></li></ul>
+</svg></a></li><li class="breadcrumb"><a href="../welcome/who-am-i.html"><span>About me</span></a></li><li class="breadcrumb"><a href="uni-projects.html"><span>💻  Software projects</span></a></li><li class="breadcrumb selected"><a href="n-ai-spam.html"><span>N-AI Spam</span></a></li></ul>
+                                    </nav>
+                                    <div id="main-article" wi-element="article"><h1 id="h1-n-ai-spam"> N-AI Spam <a class="hash-link" href="#h1-n-ai-spam">#</a></h1>
+<p>2022's Baliza challenge (by Bitdefender) was all about creating a C (or Python) program that could detect 2000's spam emails based on their title and content. My algorithm won <strong>1st place</strong>, having an <a href="https://en.wikipedia.org/wiki/F-score">F-score</a> of \(F_1=95.63\%\). </p>
+<p>The programs were <strong>NOT allowed</strong> to use any kind of AI, so they were limited by the quality of the chosen heuristics. Moreover, the participants were given 150 emails to test their algorithms on, but these were different than the emails used in the final evaluation. We were not given any hints or guides, so every implementaion detail was up to us. </p>
+<div class="box admonition">
+<div class="box-title">❓&nbsp; Name explanation</div>
+<div class="box-content"><p>The project's name, <em>N-AI Spam</em>, is a wordplay. It doesn't just stand for <em>Non-AI Spam (detector)</em>, but it directly translates from <a href="https://en.wikipedia.org/wiki/Romanian_language">Romanian</a> and it means <em>"you don't have spam"</em>. </p>
 </div>
 </div>
-</div>
-</div>
-</main>
-</div>
-</div>
-<footer class="page-footer">
-<div class="footer-content">
-<div class="footer-columns">
-<div class="footer-column">
-<div class="footer-column-title">Main topics</div>
-<ul class="footer-column-items">
-<li class="footer-column-item">
-<a href="https://www.v-vintila.com">About Valentin</a>
+<h2 id="h2-how-does-it-work"> How does it work? <a class="hash-link" href="#h2-how-does-it-work">#</a></h2>
+<p>Based on what I knew, I came up with a scoring system that would change once a certain value would be passed: </p>
+<ul>
+<li>
+<p> \(\text{score}\lt 35\): the email is definitely HAM (<strong>DHAM</strong>), a.k.a. non-spam; </p>
 </li>
-<li class="footer-column-item">
-<a href="#">Numerical Methods (RO)</a>
+<li>
+<p> \(35\leq\text{score}\lt 42\): the email is probably HAM (<strong>PHAM</strong>); </p>
+</li>
+<li>
+<p> \(42\leq\text{score}\lt 50\): the email is a (very) suspicious HAM (<strong>SHAM</strong>); </p>
+</li>
+<li>
+<p> \(50\leq\text{score}\): the email is SPAM (<strong>SPAM</strong>); </p>
 </li>
 </ul>
-</div>
-<div class="footer-column">
-<div class="footer-column-title">Contribute</div>
-<ul class="footer-column-items">
-<li class="footer-column-item">
-<a href="#" onclick="alert('Thank you for your interest in this project!\n\nIBAN (BCR):\nRO28 RNCB 0857 1709 5964 0001');event.preventDefault();">Donate</a>
+<h2 id="h2-heuristics-used"> Heuristics used <a class="hash-link" href="#h2-heuristics-used">#</a></h2>
+<p>Some of the heuristics used include: </p>
+<ul>
+<li>
+<p> <strong>Punctuation</strong> could indicate a SPAM email - for example, dollar signs could indicate money transfers wanted by potential malicious users, while exclamation marks could indicate urgency. A score is determined based on the number of characters relative to the number of words counted in the email; </p>
 </li>
-<li class="footer-column-item">
-<a href="https://www.github.com/w1bb/WiPyBG">WiPyBG</a>
+<li>
+<p> <strong>Uppercase</strong> letters are usually used in excess or not at all when it comes to SPAM email. <a href="https://www.desmos.com/calculator/lw4qgluitr">Here</a> is the formula I found best suited for computing this score. In the end, everything is converted relative to the toal count of non-space characters; </p>
 </li>
-</ul>
-</div>
-<div class="footer-column">
-<div class="footer-column-title">Social</div>
-<ul class="footer-column-items">
-<li class="footer-column-item">
-<a href="https://www.github.com/w1bb">GitHub</a>
+<li>
+<p> <strong>Consonants</strong> don't appear naturally in groups of 4 or more, so this clue could raise a red flag. Obviously, links should be ignored; </p>
 </li>
-<li class="footer-column-item">
-<a href="https://www.instagram.com/vi.vintila/">Instagram</a>
+<li>
+<p> <strong>Keywords</strong> that trigger a SPAM are very important - they include words such as 'money', 'purchase', 'deposit', 'diamond', 'risk', 'bank' etc. However, there are some words that could lower this score, including 'forwarded', 'newsletter' and 'yahoo' (it was big back then). If the same word occures multiple times, say n times in the same email, it should be counted only about \(\sqrt{n}\) times (my formula is a little bit more complicated, but for small values this works too); </p>
 </li>
-<li class="footer-column-item">
-<a href="https://linkedin.com/in/valentin-vintila">Linked In</a>
+<li>
+<p> <strong>Known spam email addresses</strong> should also be taken into account. </p>
 </li>
 </ul>
+<p>There are some other metrics that were used, but all in all, this is the algorithm. In the end, it also checks if there are duplicate emails inputed, since these are most likely SPAM. If an email is considered a PHAM or an SHAM, its score will be reevaluated to make sure it isn't actually a SPAM. </p>
+<h2 id="h2-final-notes"> Final notes <a class="hash-link" href="#h2-final-notes">#</a></h2>
+<p>The algorithm was written in C and it was tested using some custom made tests as well. The code is very well documented. </p>
+<div class="box note">
+<div class="box-title">Other tasks</div>
+<div class="box-content"><p>The original challenge also contained some other task, but that one was trivial and it was only used to filter those who wanted to win an award from those who weren't all that interested. </p>
 </div>
 </div>
-<div class="separator"></div>
-<span>The contents of this website are subject to copyright.</span>
-<span>© Valentin-Ioan VINTILĂ 2022-2023</span>
+<h2 id="h2-source-code"> Source code <a class="hash-link" href="#h2-source-code">#</a></h2>
+<p>For more info, please check out the open-source code repository <a href="https://github.com/w1bb/N-AI-Spam">on GitHub</a>. The code is made available under the <a href="https://github.com/w1bb/N-AI-Spam/blob/master/LICENSE">MIT license</a>. </p>
+<p>I value keeping my code open‑source. However, it's disheartening whenever I find that someone has copied my work without giving me proper credit. All I ask of you is to not claim my effort as your own. </p>
 </div>
-</footer>
-<div id="doc-search-overlay">
-<div class="search-container">
-<div class="search-box-container">
-<div class="search-box">
-<svg class="DocSearch-Search-Icon" height="16" viewbox="0 0 20 20" width="16">
-<path d="M14.386 14.386l4.0877 4.0877-4.0877-4.0877c-2.9418 2.9419-7.7115 2.9419-10.6533 0-2.9419-2.9418-2.9419-7.7115 0-10.6533 2.9418-2.9419 7.7115-2.9419 10.6533 0 2.9419 2.9418 2.9419 7.7115 0 10.6533z" fill="none" fill-rule="evenodd" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
-</svg>
-<input id="search-input" placeholder="Search everywhere (NOT WORKING)" type="text"/>
-</div>
-<div class="cancel-button">
-<div id="canel-doc-search">Cancel</div>
-</div>
-</div>
-<div class="search-results">
-<div class="pre-search">Results will appear as you type</div>
-</div>
-</div>
-</div>
-<div id="image-zoom-overlay"></div>
-<div id="scroll-to-top"></div>
-</section>
-</body>
-</html>
+                                    <footer class="article-footer" wi-element="article-footer"><div class="footer-content"><div class="footer-content-part"><a class="edit-page" href="#"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" aria-hidden="true">
+<g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g>
+</svg> Improve this page</a></div><div class="footer-content-part"><span class="last-update">Last updated on <b>Feb 20, 2024 (13:30)</b></span></div></div></footer>
+                                </article>
+                                <nav class="previous-next" wi-element="previous-next"><a class="prev" href="wiparser.html"><div class="sublabel">Previous</div><div class="label">WiParser</div></a><a class="prev" href="v-vintila.html"><div class="sublabel">Next</div><div class="label">v-vintila.com</div></a></nav>
+                            </div>
+                            <div class="center-doc-toc">
+                                <div class="toc-container">
+                                    <ul id="toc" wi-element="article-toc"><li><a href="#h2-how-does-it-work"> How does it work? </a><ul></ul></li><li><a href="#h2-heuristics-used"> Heuristics used </a><ul></ul></li><li><a href="#h2-final-notes"> Final notes </a><ul></ul></li><li><a href="#h2-source-code"> Source code </a><ul></ul></li></ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+        <footer class="page-footer">
+            <div class="footer-content">
+                <div class="footer-columns">
+                    <div class="footer-column">
+                        <div class="footer-column-title">Main topics</div>
+                        <ul class="footer-column-items">
+                            <li class="footer-column-item">
+                                <a href="https://www.v-vintila.com">About Valentin</a>
+                            </li>
+                            <li class="footer-column-item">
+                                <a href="https://www.v-vintila.com/numerical-methods/introducere/cuvant-inainte.html">Numerical Methods (RO)</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <div class="footer-column-title">Contribute</div>
+                        <ul class="footer-column-items">
+                            <li class="footer-column-item">
+                                <a href="#" onclick="donate_alert(event)">Donate</a>
+                            </li>
+                            <li class="footer-column-item">
+                                <a href="https://www.github.com/w1bb/IMD1">IMD1</a>
+                            </li>
+                            <li class="footer-column-item">
+                                <a href="https://www.github.com/w1bb/WiPyBG">WiPyBG</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <div class="footer-column-title">Social</div>
+                        <ul class="footer-column-items">
+                            <li class="footer-column-item">
+                                <a href="https://www.github.com/w1bb">GitHub</a>
+                            </li>
+                            <li class="footer-column-item">
+                                <a href="https://www.instagram.com/vi.vintila/">Instagram</a>
+                            </li>
+                            <li class="footer-column-item">
+                                <a href="https://linkedin.com/in/valentin-vintila">Linked In</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="separator"></div>
+                <span>The contents of this website are subject to copyright.</span>
+                <span>© Valentin-Ioan VINTILĂ 2022-2024</span>
+            </div>
+        </footer>
+        <div id="doc-search-overlay">
+            <div class="search-container">
+                <div class="search-box-container">
+                    <div class="search-box">
+                        <svg width="16" height="16" class="DocSearch-Search-Icon" viewBox="0 0 20 20">
+                            <path d="M14.386 14.386l4.0877 4.0877-4.0877-4.0877c-2.9418 2.9419-7.7115 2.9419-10.6533 0-2.9419-2.9418-2.9419-7.7115 0-10.6533 2.9418-2.9419 7.7115-2.9419 10.6533 0 2.9419 2.9418 2.9419 7.7115 0 10.6533z" stroke="currentColor" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                        </svg>
+                        <input type="text" id="search-input" placeholder="Search everywhere (NOT WORKING)"/>
+                    </div>
+                    <div class="cancel-button">
+                        <div id="canel-doc-search">Cancel</div>
+                    </div>
+                </div>
+                <div class="search-results">
+                    <div class="pre-search">Results will appear as you type</div>
+                </div>
+            </div>
+        </div>
+        <div id="image-zoom-overlay"></div>
+        <div id="scroll-to-top"></div>
+    </section>
+
+
+</body></html>
