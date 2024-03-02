@@ -135,12 +135,12 @@
 <path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path>
 </svg></a></li><li class="breadcrumb"><a href="../welcome/who-am-i.html"><span>About me</span></a></li><li class="breadcrumb"><a href="uni-projects.html"><span>💻  Software projects</span></a></li><li class="breadcrumb selected"><a href="wiparser.html"><span>WiParser</span></a></li></ul>
                                     </nav>
-                                    <div id="main-article" wi-element="article"><h1 id="h1-wiparser"> WiParser <a class="hash-link" href="#h1-wiparser">#</a></h1>
+                                    <div id="main-article" wi-element="article"><h1 id="h1-wiparser"> WiParser<a class="hash-link" href="#h1-wiparser">#</a></h1>
 <p><strong>WiParser</strong> is a modern parser combinator written from scratch in plain <strong>C++ 17</strong>. It is intended to provide a simple API that can be easily extended. </p>
-<h2 id="h2-why"> Why? <a class="hash-link" href="#h2-why">#</a></h2>
+<h2 id="h2-why"> Why?<a class="hash-link" href="#h2-why">#</a></h2>
 <p>I am currently planning to write a C compiler for a custom architecture (custom instruction set too), thus I need a parser. </p>
-<p>I thought that a <em>parser builder</em> could be used in other projects as well, so it would be a better choice. I chose <strong>C++</strong> because I am very familiar with it and because speed was a factor I took into account. </p>
-<h2 id="h2-short-example"> Short example <a class="hash-link" href="#h2-short-example">#</a></h2>
+<p> I thought that a <em>parser builder</em> could be used in other projects as well, so it would be a better choice. I chose <strong>C++</strong> because I am very familiar with it and because speed was a factor I took into account. </p>
+<h2 id="h2-short-example"> Short example<a class="hash-link" href="#h2-short-example">#</a></h2>
 <p>The following example is able to parse (and compute) a small LISP (Racket) mathematical instruction <em>(API 1.0.2b)</em>: </p>
 <div class="code-listing"><div class="copy-code"></div><pre><code class="language-cpp">void example_lisp() {
     using namespace wi;
@@ -198,13 +198,13 @@
 
     std::cout << ps.to_string() << std::endl;
 }</code></pre></div>
-<p>If we were to manually compute <code>[% (* 2 (- [+ 8 2] (pow 2 2))) 5]</code>, we would get: </p>
+<p> If we were to manually compute <code>[% (* 2 (- [+ 8 2] (pow 2 2))) 5]</code>, we would get: </p>
 \[2\cdot(8 + 2 - 2^2) \ \mathrm{mod}\ 5\equiv2\]
-<p>Here is the output we get when running the snippet above: </p>
+<p> Here is the output we get when running the snippet above: </p>
 <div class="code-listing"><div class="copy-code"></div><pre><code class="language-plaintext">{ target_string: "[% (* 2 (- [+ 8 2] (pow 2 2))) 5]",
   index: 33,
   result: 2 }</code></pre></div>
-<h2 id="h2-features"> Features <a class="hash-link" href="#h2-features">#</a></h2>
+<h2 id="h2-features"> Features<a class="hash-link" href="#h2-features">#</a></h2>
 <p>My design philosophy of a parser combinator is the following: </p>
 <ul>
 <li>
@@ -227,9 +227,9 @@
 </li>
 </ul>
 <p>All these features (and more!) were provided by my parser combinator. </p>
-<h2 id="h2-source-code"> Source code <a class="hash-link" href="#h2-source-code">#</a></h2>
+<h2 id="h2-source-code"> Source code<a class="hash-link" href="#h2-source-code">#</a></h2>
 <p>This project is provided under the <a href="https://github.com/w1bb/WiParser/blob/master/LICENSE">MIT License</a>. For more info about the author, check out <a href="https://www.v-vintila.com/">my personal website</a> or my <a href="https://www.github.com/w1bb">other projects</a>. </p>
-<h3 id="h3-documentation"> Documentation <a class="hash-link" href="#h3-documentation">#</a></h3>
+<h3 id="h3-documentation"> Documentation<a class="hash-link" href="#h3-documentation">#</a></h3>
 <p>The rich API provided by the current version of the project is explained in the <a href="https://github.com/w1bb/wiparser">repo's README</a> file - take a quick look! </p>
 </div>
                                     <footer class="article-footer" wi-element="article-footer"><div class="footer-content"><div class="footer-content-part"><a class="edit-page" href="#"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" aria-hidden="true">
@@ -272,7 +272,7 @@
                                 <a href="https://www.github.com/w1bb/IMD1">IMD1</a>
                             </li>
                             <li class="footer-column-item">
-                                <a href="https://www.github.com/w1bb/WiPyBG">WiPyBG</a>
+                                <a href="https://www.github.com/w1bb/GoBG">GoBG</a>
                             </li>
                         </ul>
                     </div>

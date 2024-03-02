@@ -135,26 +135,26 @@
 <path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path>
 </svg></a></li><li class="breadcrumb"><a href="../welcome/who-am-i.html"><span>About me</span></a></li><li class="breadcrumb"><a href="uni-projects.html"><span>💻  Software projects</span></a></li><li class="breadcrumb selected"><a href="gobg.html"><span>GoBG</span></a></li></ul>
                                     </nav>
-                                    <div id="main-article" wi-element="article"><h1 id="h1-gobg"> GoBG <a class="hash-link" href="#h1-gobg">#</a></h1>
+                                    <div id="main-article" wi-element="article"><h1 id="h1-gobg"> GoBG<a class="hash-link" href="#h1-gobg">#</a></h1>
 <div class="box note">
 <div class="box-title">Previous name</div>
-<div class="box-content"><p>This project was originally known as <a href="#h2-wipybg"><strong>WiPyBG</strong></a>. </p>
+<div class="box-content"><p> This project was originally known as <a href="#h2-wipybg"><strong>WiPyBG</strong></a>. </p>
 </div>
 </div>
-<p><strong>Go(lang) Book Generator</strong> is, as the name suggests, a book generator that aims to provide a quick and reliable way to produce HTML and/or \(\LaTeX\) books, being given a series of (enhanced) markdown documents. </p>
-<p>Under the hood, it uses the <a href="./imd1.html"><strong>IMD1</strong></a> engine, which provides both a quick and reliable way of writing articles. </p>
-<p>The project was specifically created primarily to aid the writing of my <a href="../learning-materials/numerical-methods.html">numerical methods book</a>, but it was later used to ((re)re)create <a href="./v-vintila.html">v-vintila.com</a>. </p>
-<h2 id="h2-why-i-wrote-my-own-solution"> Why I wrote my own solution? <a class="hash-link" href="#h2-why-i-wrote-my-own-solution">#</a></h2>
+<p> <strong>Go(lang) Book Generator</strong> is, as the name suggests, a book generator that aims to provide a quick and reliable way to produce HTML and/or \(\LaTeX\) books, being given a series of (enhanced) markdown documents. </p>
+<p> Under the hood, it uses the <a href="./imd1.html"><strong>IMD1</strong></a> engine, which provides both a quick and reliable way of writing articles. </p>
+<p> The project was specifically created primarily to aid the writing of my <a href="../learning-materials/numerical-methods.html">numerical methods book</a>, but it was later used to ((re)re)create <a href="./v-vintila.html">v-vintila.com</a>. </p>
+<h2 id="h2-why-i-wrote-my-own-solution"> Why I wrote my own solution?<a class="hash-link" href="#h2-why-i-wrote-my-own-solution">#</a></h2>
 <p>Q: <em>There are many book/article generators out there, why build one from scratch?</em> </p>
-<p>The question isn't without merit, so I might as well address it. I wanted to write an open&#8209;source book and I didn't find the tools I needed - in my case, a <del>markdown</del> IMD1 converter that generates a <strong>simple</strong> web interface (no <em>node.js</em>, no <em>php</em> etc.). </p>
-<p>I also wanted to extend markdown's basic functionality and allow for complex math equations, code listings, figures with captions and more. </p>
-<h2 id="h2-how-does-it-work"> How does it work? <a class="hash-link" href="#h2-how-does-it-work">#</a></h2>
+<p> The question isn't without merit, so I might as well address it. I wanted to write an open&#8209;source book and I didn't find the tools I needed - in my case, a <del>markdown</del> IMD1 converter that generates a <strong>simple</strong> web interface (no <em>node.js</em>, no <em>php</em> etc.). </p>
+<p> I also wanted to extend markdown's basic functionality and allow for complex math equations, code listings, figures with captions and more. </p>
+<h2 id="h2-how-does-it-work"> How does it work?<a class="hash-link" href="#h2-how-does-it-work">#</a></h2>
 <p>A <del>Python</del> Go script will read a YAML configuration file that contains the basic structure of the book. Depending on the user's intention, the script can either generate said structure in a hierarchical file order, or it can take such a structure and convert it into HTML or even \(\LaTeX\) (which can then be converted to PDF via <code>pdflatex</code>). </p>
-<p>For the HTML output, in order to display code listings, it uses <a href="https://highlightjs.org/">highlight.js</a>. For math equations, <a href="https://katex.org/">\(\KaTeX\)</a> is being used as a drop-in replacement for \(\LaTeX\). </p>
-<h2 id="h2-source-code"> Source code <a class="hash-link" href="#h2-source-code">#</a></h2>
+<p> For the HTML output, in order to display code listings, it uses <a href="https://highlightjs.org/">highlight.js</a>. For math equations, <a href="https://katex.org/">\(\KaTeX\)</a> is being used as a drop-in replacement for \(\LaTeX\). </p>
+<h2 id="h2-source-code"> Source code<a class="hash-link" href="#h2-source-code">#</a></h2>
 <p>As soon as the book is ready to ship, the project will become freely available on <a href="https://www.github.com/w1bb/gobg">GitHub</a> under the GNU GPLv3 License. </p>
-<p>Thank you for your interest and patience! </p>
-<h2 id="h2-wipybg"> WiPyBG <a class="hash-link" href="#h2-wipybg">#</a></h2>
+<p> Thank you for your interest and patience! </p>
+<h2 id="h2-wipybg"> WiPyBG<a class="hash-link" href="#h2-wipybg">#</a></h2>
 <p>Previously, this project was written in Python and used a normal Markdown engine. However, when upgrading to IMD1, I've ran into multiple issues that couldn't be fixed, so I've migrated everything to IMD1's native language, Go. </p>
 </div>
                                     <footer class="article-footer" wi-element="article-footer"><div class="footer-content"><div class="footer-content-part"><a class="edit-page" href="#"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" aria-hidden="true">
@@ -197,7 +197,7 @@
                                 <a href="https://www.github.com/w1bb/IMD1">IMD1</a>
                             </li>
                             <li class="footer-column-item">
-                                <a href="https://www.github.com/w1bb/WiPyBG">WiPyBG</a>
+                                <a href="https://www.github.com/w1bb/GoBG">GoBG</a>
                             </li>
                         </ul>
                     </div>

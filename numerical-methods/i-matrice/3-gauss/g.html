@@ -1,0 +1,439 @@
+<!DOCTYPE html><html lang="en" data-theme="dark-mode"><head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <script src="../../../src/jquery-min.js"></script>
+    <script src="../../../src/jquery-ui.min.js"></script>
+    <script src="../../../src/index.js"></script>
+
+    <link rel="stylesheet" href="../../../css/katex.min.css"/>
+    <script defer="" src="../../../src/katex.min.js"></script>
+    <script defer="" src="../../../src/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+
+    <script src="../../../src/highlight.min.js"></script>
+    <script src="../../../src/matlab.min.js"></script>
+
+    <script>
+        function donate_alert(event) {
+            alert("Thank you for your interest in this project!\n\nIBAN (BCR):\nRO28 RNCB 0857 1709 5964 0001");
+            event.preventDefault();
+        }
+    </script>
+
+    <link rel="stylesheet" type="text/css" media="screen" href="../../../css/style.css"/>
+    <link rel="icon" type="image/x-icon" href="../../../img/icons/wi64.png"/>
+    <title>Algoritmul G [ v-vintila ]</title>
+</head>
+<body class="dark-mode">
+    <script>
+        function set_color_mode(new_color_mode) {
+            if (new_color_mode == "light-mode") {
+                $("body").removeClass("dark-mode");
+                $("body").addClass("light-mode");
+                localStorage.setItem('theme', "light-mode");
+                document.querySelector("html").setAttribute("data-theme", "light-mode");
+            } else {
+                $("body").removeClass("light-mode");
+                $("body").addClass("dark-mode");
+                localStorage.setItem('theme', "dark-mode");
+                document.querySelector("html").setAttribute("data-theme", "dark-mode");
+            }
+        }
+
+        let saved_theme = localStorage.getItem("theme");
+        if (!saved_theme) {
+            saved_theme = "dark-mode";
+        }
+        set_color_mode(saved_theme);
+    </script>
+    <section id="wipybg">
+        <nav class="top">
+            <div class="nav-content">
+                <div class="nav-content-left" wi-element="top-nav">
+                    <div id="hamburger-open-nav-top-sidebar">
+                        <svg width="24" height="24" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+                    </div>
+                    
+                    
+                    
+                <a class="logo-container" href="../../introducere/cuvant-inainte.html"><div class="logo">Valentin-Ioan Vintilă</div></a><a class="section-link" href="../../../about-me/welcome/who-am-i.html">About me</a><a class="section-link" href="../../../blog/2023/how-is-this-a-blog.html">Blog</a><a class="section-link selected" href="../../introducere/cuvant-inainte.html">Numerical Methods</a><a class="section-link" href="../../../docs/resume.pdf">Résumé</a></div>
+                <div class="nav-content-right">
+                    <a href="https://www.github.com/w1bb" class="section-link">
+                        GitHub
+                        <svg width="12" height="12" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU">
+                            <path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path>
+                        </svg>
+                    </a>
+                    <div class="toggle-color-mode-container">
+                        <div class="toggle-color-mode">
+                            <svg viewBox="0 0 24 24" width="24" height="24" class="lightToggleIcon_pyhR">
+                                <path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="search-box">
+                        <div id="search-box-toggle">
+                            <svg width="16" height="16" class="DocSearch-Search-Icon" viewBox="0 0 20 20">
+                                <path d="M14.386 14.386l4.0877 4.0877-4.0877-4.0877c-2.9418 2.9419-7.7115 2.9419-10.6533 0-2.9419-2.9418-2.9419-7.7115 0-10.6533 2.9418-2.9419 7.7115-2.9419 10.6533 0 2.9419 2.9418 2.9419 7.7115 0 10.6533z" stroke="currentColor" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path>
+                            </svg>
+                            <div class="search-box-text">Search (NOT WORKING)</div>
+                            <div class="search-box-key-container">
+                                <div class="search-box-key">/</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <div id="main-page">
+            <div class="doc">
+                <aside>
+                    <div id="aside-overlay"></div>
+                    <div class="sidebar-container">
+                        <div class="sidebar">
+                            <div class="sidebar-title-section">
+                                <div class="sidebar-title-section-content">
+                                    <div class="sidebar-title-section-content-left">
+                                        <a href="../../introducere/cuvant-inainte.html" class="logo-container">
+                                            <div class="logo">Valentin-Ioan Vintilă</div>
+                                        </a>
+                                    </div>
+                                    <div class="sidebar-title-section-content-right">
+                                        <div class="toggle-color-mode-container">
+                                            <div class="toggle-color-mode">
+                                                <svg viewBox="0 0 24 24" width="24" height="24" class="lightToggleIcon_pyhR">
+                                                    <path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <nav wi-element="aside-nav"><ul class="generic-tree"><li class="tome"><a href="../../../about-me/welcome/who-am-i.html">About me</a></li><li class="tome"><a href="../../../blog/2023/how-is-this-a-blog.html">Blog</a></li><li class="tome"><a href="../../introducere/cuvant-inainte.html">Numerical Methods</a></li><li class="tome"><a href="../../../docs/resume.pdf">Résumé</a></li></ul><ul class="main-tree"><li class="main-tree-category"><div class="main-tree-category-title"><a class="main-tree-category-title-content" href="../../introducere/cuvant-inainte.html"><div class="title-text">Introducere</div><div class="title-collapse-btn"></div></a></div><ul class="secondary-tree lvl-1"><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../introducere/cuvant-inainte.html"><div class="title-text">Cuvânt înainte</div></a></div><ul class="secondary-tree lvl-2"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../introducere/notatii.html"><div class="title-text">Notații</div></a></div><ul class="secondary-tree lvl-2"></ul></li></ul></li><li class="main-tree-category"><div class="main-tree-category-title"><a class="main-tree-category-title-content" href="../introducere.html"><div class="title-text">I. Matrice</div><div class="title-collapse-btn"></div></a></div><ul class="secondary-tree lvl-1"><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../introducere.html"><div class="title-text">Ce studiem?</div></a></div><ul class="secondary-tree lvl-2"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../1-lu.html"><div class="title-text">1. Factorizarea LU</div><div class="title-collapse-btn"></div></a></div><ul class="secondary-tree lvl-2"><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../1-lu/introducere.html"><div class="title-text">Introducere</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../1-lu/doolittle.html"><div class="title-text">Factorizarea Doolittle</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../1-lu/crout.html"><div class="title-text">Factorizarea Crout</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../1-lu/cholesky.html"><div class="title-text">Factorizarea Cholesky</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../1-lu/sisteme.html"><div class="title-text">Rezolvarea sistemelor</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../1-lu/alte-factorizari.html"><div class="title-text">Alte factorizări LU</div><div class="badge badge-t1">Bonus&nbsp;&nbsp;✨</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../1-lu/exercitii.html"><div class="title-text">Exerciții</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../1-lu/lectura-suplimentara.html"><div class="title-text">Lectură suplimentară</div></a></div><ul class="secondary-tree lvl-3"></ul></li></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../2-qr.html"><div class="title-text">2. Factorizarea QR</div><div class="title-collapse-btn"></div></a></div><ul class="secondary-tree lvl-2"><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../2-qr/introducere.html"><div class="title-text">Introducere</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../2-qr/gram-schmidt.html"><div class="title-text">Factorizarea Gram-Schmidt</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../2-qr/gram-schmidt-modificat.html"><div class="title-text">Factorizarea Gram-Schmidt Modificată</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../2-qr/householder.html"><div class="title-text">Factorizarea Householder</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../2-qr/givens.html"><div class="title-text">Factorizarea Givens</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../2-qr/sisteme.html"><div class="title-text">Rezolvarea sistemelor</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../2-qr/exercitii.html"><div class="title-text">Exerciții</div><div class="badge badge-t3">În&nbsp;lucru</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../2-qr/lectura-suplimentara.html"><div class="title-text">Lectură suplimentară</div></a></div><ul class="secondary-tree lvl-3"></ul></li></ul></li><li class="secondary-tree-item selected"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../3-gauss.html"><div class="title-text">3. Eliminarea Guassiană</div><div class="title-collapse-btn"></div></a></div><ul class="secondary-tree lvl-2"><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="introducere.html"><div class="title-text">Introducere</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item selected final tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="g.html"><div class="title-text">Algoritmul G</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="gpp.html"><div class="title-text">Algoritmul GPP</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="gpps.html"><div class="title-text">Algoritmul GPPS</div><div class="badge badge-t3">În&nbsp;lucru</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="gpt.html"><div class="title-text">Algoritmul GPT</div><div class="badge badge-t3">În&nbsp;lucru</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="thomas.html"><div class="title-text">Algoritmul Thomas</div><div class="badge badge-t3">În&nbsp;lucru</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="gauss-jordan.html"><div class="title-text">Eliminarea Gauss-Jordan</div><div class="badge badge-t3">În&nbsp;lucru</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="exercitii.html"><div class="title-text">Exerciții</div><div class="badge badge-t3">În&nbsp;lucru</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="lectura-suplimentara.html"><div class="title-text">Lectură suplimentară</div><div class="badge badge-t3">În&nbsp;lucru</div></a></div><ul class="secondary-tree lvl-3"></ul></li></ul></li></ul></li><li class="main-tree-category"><div class="main-tree-category-title"><a class="main-tree-category-title-content" href="../../incheiere/bibliografie.html"><div class="title-text">Încheiere</div><div class="title-collapse-btn"></div></a></div><ul class="secondary-tree lvl-1"><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../incheiere/bibliografie.html"><div class="title-text">Bibliografie</div></a></div><ul class="secondary-tree lvl-2"></ul></li></ul></li></ul></nav>
+                            <div id="collapse-aside">
+                                <svg width="16" height="16" viewBox="0 0 20 20" aria-hidden="true" class="collapseSidebarButtonIcon_kv0_">
+                                    <g fill="#7a7a7a"><path d="M9.992 10.023c0 .2-.062.399-.172.547l-4.996 7.492a.982.982 0 01-.828.454H1c-.55 0-1-.453-1-1 0-.2.059-.403.168-.551l4.629-6.942L.168 3.078A.939.939 0 010 2.528c0-.548.45-.997 1-.997h2.996c.352 0 .649.18.828.45L9.82 9.472c.11.148.172.347.172.55zm0 0"></path><path d="M19.98 10.023c0 .2-.058.399-.168.547l-4.996 7.492a.987.987 0 01-.828.454h-3c-.547 0-.996-.453-.996-1 0-.2.059-.403.168-.551l4.625-6.942-4.625-6.945a.939.939 0 01-.168-.55 1 1 0 01.996-.997h3c.348 0 .649.18.828.45l4.996 7.492c.11.148.168.347.168.55zm0 0"></path></g>
+                                </svg>
+                            </div>
+                        </div>
+                        <div id="expand-aside">
+                            <svg width="16" height="16" viewBox="0 0 20 20" aria-hidden="true" class="collapseSidebarButtonIcon_kv0_">
+                                <g fill="#7a7a7a"><path d="M9.992 10.023c0 .2-.062.399-.172.547l-4.996 7.492a.982.982 0 01-.828.454H1c-.55 0-1-.453-1-1 0-.2.059-.403.168-.551l4.629-6.942L.168 3.078A.939.939 0 010 2.528c0-.548.45-.997 1-.997h2.996c.352 0 .649.18.828.45L9.82 9.472c.11.148.172.347.172.55zm0 0"></path><path d="M19.98 10.023c0 .2-.058.399-.168.547l-4.996 7.492a.987.987 0 01-.828.454h-3c-.547 0-.996-.453-.996-1 0-.2.059-.403.168-.551l4.625-6.942-4.625-6.945a.939.939 0 01-.168-.55 1 1 0 01.996-.997h3c.348 0 .649.18.828.45l4.996 7.492c.11.148.168.347.168.55zm0 0"></path></g>
+                            </svg>
+                        </div>
+                    </div>
+                </aside>
+                <main>
+                    <div class="center-doc-container">
+                        <div class="center-doc">
+                            <div class="center-doc-article">
+                                <article>
+                                    <nav class="nav-breadcrumbs">
+                                        <ul class="breadcrumbs" wi-element="breadcrumbs"><li class="breadcrumb"><a class="home" href="../../introducere/cuvant-inainte.html"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" xmlns:xlink= "http://www.w3.org/1999/xlink">
+<path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path>
+</svg></a></li><li class="breadcrumb"><a href="../../introducere/cuvant-inainte.html"><span>Numerical Methods</span></a></li><li class="breadcrumb"><a href="../introducere.html"><span>I. Matrice</span></a></li><li class="breadcrumb"><a href="../3-gauss.html"><span>3. Eliminarea Guassiană</span></a></li><li class="breadcrumb selected"><a href="g.html"><span>Algoritmul G</span></a></li></ul>
+                                    </nav>
+                                    <div id="main-article" wi-element="article"><h1 id="h1-algoritmul-g"> Algoritmul G<a class="hash-link" href="#h1-algoritmul-g">#</a></h1>
+<p>Eliminarea Gaussiană <strong>clasică</strong>, asemănătoare cu cea predată de obicei în cursurile de algebră liniară, poate fi ușor convertită într-un algoritm implementabil pe calculator. </p>
+<p> Voi deschide acest subiect printr-o vizualizare simplă, iar apoi voi detalia o explicație analitică, un exemplu practic, o analiză a complexității și un cod ilustrativ. </p>
+<h2 id="h2-vizualizarea-algoritmului"> Vizualizarea algoritmului<a class="hash-link" href="#h2-vizualizarea-algoritmului">#</a></h2>
+<p>Să explicăm întâi grafic algoritmul. </p>
+<p> Fie \(A\in\mathbb{R}^{4\times4}\), o matrice pătratică de coeficienți pentru sistemul de ecuații liniare \(A\bm{x}=\bm{b}\), unde \(x,b\in\mathbb{R}^4\). Atunci sistemul ia forma: </p>
+\[
+    A\bm{x}=\bm{b}\Rightarrow\begin{bmatrix}
+        a_{11} & \boxtimes & \boxtimes & \boxtimes \\
+        a_{21} & \boxtimes & \boxtimes & \boxtimes \\
+        a_{31} & \boxtimes & \boxtimes & \boxtimes \\
+        a_{41} & \boxtimes & \boxtimes & \boxtimes
+    \end{bmatrix} \begin{bmatrix}
+        x_1\\x_2\\x_3\\x_4
+    \end{bmatrix}=\begin{bmatrix}
+        b_1\\b_2\\b_3\\b_4
+    \end{bmatrix}\Rightarrow\overline{A}=\begin{bmatrix}
+    a_{11} & \boxtimes & \boxtimes & \boxtimes & b_1\\
+    a_{21} & \boxtimes & \boxtimes & \boxtimes & b_2 \\
+    a_{31} & \boxtimes & \boxtimes & \boxtimes & b_3 \\
+    a_{41} & \boxtimes & \boxtimes & \boxtimes & b_4
+\end{bmatrix}
+\]
+<p> Am folosit simbolul "\(\boxtimes\)" pentru a marca acele valori ce nu prezintă interes. Totodată, am notat \(\overline{A}=\begin{bmatrix}A&\bm{b}\end{bmatrix}\) <strong>matricea extinsă</strong>, utilă descrierii sistemului printr-o prescurtare. În forma unui sistem de ecuații liniare, notația matriceală poate fi văzută drept: </p>
+\[
+    \begin{cases}
+        a_{11}x_1&+\boxtimes x_2 + \boxtimes x_3 + \boxtimes x_4=b_1\\
+        a_{21}x_1&+\boxtimes x_2 + \boxtimes x_3 + \boxtimes x_4=b_2\\
+        a_{31}x_1&+\boxtimes x_2 + \boxtimes x_3 + \boxtimes x_4=b_3\\
+        a_{41}x_1&+\boxtimes x_2 + \boxtimes x_3 + \boxtimes x_4=b_4
+    \end{cases}
+\]
+<p> Transformarea primei ecuații în singura ce conține coeficienți nenuli pentru \(x_1\) se poate realiza în mai mulți pași, primul fiind de a scădea din a doua ecuație pe prima scalată cu \(\frac{a_{21}}{a_{11}}\). Astfel, se obține: </p>
+\[
+    \begin{cases}
+        a_{11}x_1&+\boxtimes x_2 + \boxtimes x_3 + \boxtimes x_4=b_1\\
+        \,\,\,\,\,0&+\boxtimes x_2 + \boxtimes x_3 + \boxtimes x_4=b_2'\\
+        a_{31}x_1&+\boxtimes x_2 + \boxtimes x_3 + \boxtimes x_4=b_3\\
+        a_{41}x_1&+\boxtimes x_2 + \boxtimes x_3 + \boxtimes x_4=b_4
+    \end{cases}\Leftrightarrow\overline{A}=\begin{bmatrix}
+        a_{11} & \boxtimes & \boxtimes & \boxtimes & b_1\\
+        0 & \boxtimes & \boxtimes & \boxtimes & b_2' \\
+        a_{31} & \boxtimes & \boxtimes & \boxtimes & b_3 \\
+        a_{41} & \boxtimes & \boxtimes & \boxtimes & b_4
+    \end{bmatrix}
+\]
+<p> Aceste operații nu modifică soluția finală (vezi <a href="./introducere.html">introducerea</a>). </p>
+<p> Continuând acest proces pentru cea de-a treia și cea de-a patra ecuație (considerând constantele \(\frac{a_{31}}{a_{11}}\), respectiv \(\frac{a_{41}}{a_{11}}\)), se va obține o singură ecuație ce conține un factor nenul pentru \(x_1\): </p>
+\[
+    \begin{cases}
+        a_{11}x_1&+\boxtimes x_2 + \boxtimes x_3 + \boxtimes x_4=b_1\\
+        \,\,\,\,\,0&+\boxtimes x_2 + \boxtimes x_3 + \boxtimes x_4=b_2'\\
+        \,\,\,\,\,0&+\boxtimes x_2 + \boxtimes x_3 + \boxtimes x_4=b_3'\\
+        \,\,\,\,\,0&+\boxtimes x_2 + \boxtimes x_3 + \boxtimes x_4=b_4'
+    \end{cases}\Leftrightarrow\overline{A}=\begin{bmatrix}
+        a_{11} & \boxtimes & \boxtimes & \boxtimes & b_1\\
+        0 & \boxtimes & \boxtimes & \boxtimes & b_2' \\
+        0 & \boxtimes & \boxtimes & \boxtimes & b_3' \\
+        0 & \boxtimes & \boxtimes & \boxtimes & b_4'
+    \end{bmatrix}
+\]
+<p> Acest proces se poate repeta pentru \(x_2\) (pornind de la a doua linie) și \(x_3\) (începând cu a treia linie). Rezultatul va fi o matrice superior triunghiulară ce poate fi rezolvată foarte rapid (vezi <a href="./../1-lu/sisteme.html">rezolvarea sistemelor folosind LU</a>): </p>
+\[
+    \begin{cases}
+        a_{11}x_1+a_{12}x_2 + a_{13}x_3 + a_{14}x_4=b_1\\
+        a_{22} x_2 + a_{23} x_3 + a_{24} x_4=b_2'\\
+        a_{33} x_3 + a_{34} x_4=b_3''\\
+        a_{44} x_4=b_4'''
+    \end{cases}\Leftrightarrow\overline{A}=\begin{bmatrix}
+        a_{11} & a_{12} &a_{13} & a_{14} & b_1\\
+        0 & a_{22} & a_{23} & a_{24} & b_2' \\
+        0 & 0 & a_{33} & a_{34} & b_3'' \\
+        0 & 0 & 0 & a_{44} & b_4'''
+    \end{bmatrix}
+\]
+<h2 id="h2-explicatia-algoritmica"> Explicația algoritmică<a class="hash-link" href="#h2-explicatia-algoritmica">#</a></h2>
+<p>Să încercăm să formalizăm vizualizarea anterioară. </p>
+<p> Fie \(A\bm{x}=\bm{b}\) un sistem de ecuații liniare, unde \(A\in\mathbb{R}^{n\times n}\) este o matrice pătratică și \(\bm{x},\bm{b}\in\mathbb{R}^n\) sunt vectori coloană. Notăm \(\overline{A}=\begin{bmatrix}A&\bm{b}\end{bmatrix}\) matricea extinsă ce conține elemente de forma \(\overline{a}_{ij}\in\overline{1,n}\) pe linia \(i\), coloana \(j\in\overline{1,n+1}\). </p>
+<p> Pentru fiecare linie \(i\) cu excepția ultimei (\(i\in\overline{1,n-1}\)), vom transforma fiecare element aflat sub \(\overline{a}_{ii}\) (anume \(\overline{a}_{ji}\), \(\forall j\in\overline{i+1,n}\)) în zero prin scăderea celei de-a \(i\)-a linie înmulțită cu \(\frac{\overline{a}_{ji}}{\overline{a}_{ii}}\) din a \(j\)-a linie. </p>
+<p> Matematic, algoritmul poate fi scris drept: </p>
+\[
+    \boxed{\bm{L_j}(\overline{A})\rightarrow \bm{L_j}(\overline{A})-\frac{\overline{a}_{ji}}{\overline{a}_{ii}}\cdot \bm{L_i}(\overline{A})}\,,\,\,\forall j\in\overline{i+1,n}
+\]
+<div class="box note">
+<div class="box-title">Notație</div>
+<div class="box-content"><p>Pe parcursul acestui capitol, voi folosi destul de des notația \(\bm{L_k}(M)\) pentru a denota a \(k\)-a linie a matricei \(M\). </p>
+<p> Spre exemplu, \(\bm{L_j}(\overline{A})=\begin{bmatrix}\overline{a}_{j1}&\dots&\overline{a}_{j,n+1}\end{bmatrix}\).</p>
+</div>
+</div>
+<p> Același algoritm poate fi reutilizat pentru orice fel de matrice \(A\), nu trebuie să fie o matrice pătratică, dar rezultatul se poate dovedi a fi inutil. Vom reveni asupra acestei noțiuni ulterior. </p>
+<h3 id="h3-exemplificarea-algoritmului"> Exemplificarea algoritmului<a class="hash-link" href="#h3-exemplificarea-algoritmului">#</a></h3>
+<p>Să considerăm următorul sistem de ecuații liniare, scris în formă matriceală: \(
+    \begin{bmatrix}
+        1 & -2 & 1\\
+        2 & 1 & -3\\
+        4 & -7 & 1
+    \end{bmatrix}\begin{bmatrix}
+    x_1\\x_2\\x_3
+\end{bmatrix}=\begin{bmatrix}
+0\\5\\1
+\end{bmatrix}\). Știm deci \(\overline{A}=\begin{bmatrix}
+    1 & -2 & 1 & | & 0\\
+    2 & 1 & -3 & | & 5\\
+    4 & -7 & 1 & | & 1
+\end{bmatrix}\). </p>
+<p> Putem acum să urmăm pașii descriși algoritmic: </p>
+<ul>
+<li>
+<p> <strong>Pasul 1.</strong> Golirea primei coloane. Se execută: </p>
+\[
+    \begin{cases}
+        \bm{L_2}(\overline{A})\rightarrow \bm{L_2}(\overline{A})-2 \bm{L_1}(\overline{A})\\
+        \bm{L_3}(\overline{A})\rightarrow \bm{L_3}(\overline{A})-4 \bm{L_1}(\overline{A})
+    \end{cases}\Rightarrow
+        \overline{A}=\begin{bmatrix}
+            1 & -2 & 1 & | & 0\\
+            0 & 5 & -5 & | & 5\\
+            0 & 1 & -3 & | & 1
+        \end{bmatrix}
+\]
+</li>
+</ul>
+<ul>
+<li>
+<p> <strong>Pasul 2.</strong> Golirea celei de-a doua coloane. Se execută: </p>
+\[
+    \bm{L_3}(\overline{A})\rightarrow \bm{L_3}(\overline{A})-\dfrac{1}{5}\cdot \bm{L_2}(\overline{A})
+    \Rightarrow
+    \overline{A}=\begin{bmatrix}
+        1 & -2 & 1 & | & 0\\
+        0 & 5 & -5 & | & 5\\
+        0 & 0 & -2 & | & 0
+    \end{bmatrix}
+\]
+</li>
+</ul>
+<p><strong>Concluzie.</strong> Se rezolvă sistemul superior triunghiular (de jos în sus) și se obține \(
+    \begin{cases}
+        x_3=0\\
+        x_2=1\\
+        x_1=2
+    \end{cases}\). </p>
+<h2 id="h2-cod-ilustrativ"> Cod ilustrativ<a class="hash-link" href="#h2-cod-ilustrativ">#</a></h2>
+<p>Codul de mai jos implementează algoritmul G (funcția <code>G</code>), primind parametrii reprezentativi sistemului \(A\bm{x}=\bm{b}\): </p>
+<ul>
+<li>
+<p> <code>A</code> - matricea coeficienților sistemului; </p>
+</li>
+<li>
+<p> <code>b</code> - vectorul coloană din partea dreaptă a egalității. </p>
+</li>
+</ul>
+<p>Funcția returnează perechea <code>[A, b]</code>, echivalentul unui sistem triunghiular de ecuații liniare pe care se poate aplica apoi <code>SST</code>-ul <a href="./../1-lu/sisteme.html">explicat anterior</a>. </p>
+<div class="code-listing"><div class="copy-code"></div><pre><code class="language-matlab">function [A, b] = G(A, b)
+    [m, n] = size(A);
+    Ae = [A, b];
+    for p = [1 : n-1]
+        if (A(p ,p) == 0)
+            continue;
+        end
+        for l = p+1 : n
+            arg = Ae(l, p) / Ae(p, p);
+            Ae(l, :) = Ae(l, :) - arg * Ae(p, :);
+        end
+    end
+    A = Ae(:, 1:n);
+    b = Ae(:, n+1);
+end</code></pre></div>
+<h3 id="h3-analiza-complexitatii"> Analiza complexității<a class="hash-link" href="#h3-analiza-complexitatii">#</a></h3>
+<p>Fie \(GE_i(n,m)\) numărul de operații necesare pentru a calcula cel de-al \(i\)-lea pas. Pentru a transforma elementele \(\overline{a}_{i+1,i},\dots,\overline{a}_{n,i}\) în zero, toate liniile \(i+1,\dots, n\) trebuie reevaluate. </p>
+<p> A \(j\)-a linie (\(j\in\overline{i+1,n}\)) va conține în acest moment exclusiv valori nule înaintea celei de-a \(i\)-a coloane, așadar elementele ce necesită o transformare se află pe pozițiile \(\overline{a}_{ji},\dots,\overline{a}_{jm}\). Dacă se consideră constant costul de înmulțire a unui număr cu un altul și de a scădea din rezultat o valoare, atunci \(GE_i(n,m)\) va lua valoarea: </p>
+\[\begin{split}
+    GE_i(n,m)&=\sum_{j=i+1}^n(m-i+1)=(n-i)(m-i+1)\\
+    &= nm - ni - mi + n + i^2 - i\\
+    &= \left(nm + n\right) - (n+m+1)i + i^2
+\end{split}\]
+<p> Cu toate acestea, dat fiind faptul că \(n\) și \(m\) pot fi două valori distincte (\(n\neq m\)), trebuie recalculat numărul de pași din algoritmul nostru. Vom ilustra cele trei posibilități în care ne putem afla: </p>
+<div class="figure">
+<div class="subfigure"><img src="../../../img/nm/3-gauss/ge-1.png"><div class="subcaption"><p> \(n\lt m\) (\(n-1\) pași) </p>
+</div></div>
+<div class="subfigure"><img src="../../../img/nm/3-gauss/ge-2.png"><div class="subcaption"><p> \(n=m\) (\(n-1\) steps) </p>
+</div></div>
+<div class="subfigure"><img src="../../../img/nm/3-gauss/ge-3.png"><div class="subcaption"><p> \(n\gt m\) (\(m\) steps) </p>
+</div></div>
+</div>
+<p> După cum se poate observa în ilustrațiile de mai sus, se vor executa mereu \(\mu=\min\{n-1,m\}\). Așadar, costul total poate fi calculat drept suma tuturor acestor costuri mai mici. \(GE(n, m)\) va fi: </p>
+\[\begin{split}
+    GE(n,m)&=\sum_{i=1}^{\mu}T_i(n,m)\\
+    &=\sum_{i=1}^{\mu}\left(nm + n\right) - (n+m+1)i + i^2\\
+    &= \sum_{i=1}^{\mu}\left(nm + n\right) - \sum_{i=1}^{\mu}(n+m+1)i + \sum_{i=1}^{\mu}i^2\\
+    &= \left(nm + n\right)\mu - (n+m+1)\cdot\frac{ \mu\cdot(\mu+1)}{2}
+    +\frac{\mu\cdot(\mu+1)\cdot (2\mu+1)}{6}
+\end{split}\]
+<p> Astfel, complexitatea temporală a algoritmului poate fi interpretată drept \(O(mn\mu)= O(mn\cdot\min\{m,n\})\) - la aceasta, se va adăuga (dacă se dorește soluționarea unui sistem de ecuații liniare) complexitatea de a rezolva un SST (vezi <a href="./../1-lu/sisteme.html">rezolvarea SEL folosind LU</a>). Complexitatea finală va fi deci dictată de eliminarea gaussiană, așadar \(O(mn\cdot\min\{m,n\})\). </p>
+<h2 id="h2-necesitatea-unei-imbunatatiri"> Necesitatea unei îmbunătățiri<a class="hash-link" href="#h2-necesitatea-unei-imbunatatiri">#</a></h2>
+<p>Din nefericire, nu suntem pe deplin satisfăcuți de acest algoritm. </p>
+<p> Să considerăm următorul sistem: </p>
+\[
+    A\bm{x}=\bm{b}\Rightarrow\begin{bmatrix}
+        0 & \boxtimes & \boxtimes \\
+        1 & \boxtimes & \boxtimes \\
+        0 & \boxtimes & \boxtimes
+    \end{bmatrix} \begin{bmatrix}
+        x_1\\x_2\\x_3
+    \end{bmatrix}=\begin{bmatrix}
+        b_1\\b_2\\b_3
+    \end{bmatrix}
+\]
+<p> Deoarece elementul \(a_{11}\) este nul, în urma execuției algoritmului, pe prima coloană nu se va întâmpla nimic. Este deci nevoie de o modalitate de a îndrepta situația. </p>
+<p> Vom explora o soluție în subcapitolul următor. </p>
+<h2 id="h2-licenta"> Licență<a class="hash-link" href="#h2-licenta">#</a></h2>
+
+ <p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/">The book <a property="dct:title" rel="cc:attributionURL" href="https://v-vintila.com">"Metode Numerice"</a>, written by <a rel="cc:attributionURL dct:creator" property="cc:attributionName" href="https://v-vintila.com">Valentin-Ioan Vintilă</a>, is licensed under <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">CC BY-NC-SA 4.0 <img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1"><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1"><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/nc.svg?ref=chooser-v1"><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/sa.svg?ref=chooser-v1"></a></p> 
+</div>
+                                    <footer class="article-footer" wi-element="article-footer"><div class="footer-content"><div class="footer-content-part"><a class="edit-page" href="#"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" aria-hidden="true">
+<g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g>
+</svg> Improve this page</a></div><div class="footer-content-part"><span class="last-update">Last updated on <b>Mar 02, 2024 (15:17)</b></span></div></div></footer>
+                                </article>
+                                <nav class="previous-next" wi-element="previous-next"><a class="prev" href="introducere.html"><div class="sublabel">Previous</div><div class="label">Introducere</div></a><a class="prev" href="gpp.html"><div class="sublabel">Next</div><div class="label">Algoritmul GPP</div></a></nav>
+                            </div>
+                            <div class="center-doc-toc">
+                                <div class="toc-container">
+                                    <ul id="toc" wi-element="article-toc"><li><a href="#h2-vizualizarea-algoritmului"> Vizualizarea algoritmului </a><ul></ul></li><li><a href="#h2-explicatia-algoritmica"> Explicația algoritmică </a><ul><li><a href="#h3-exemplificarea-algoritmului"> Exemplificarea algoritmului </a></li></ul></li><li><a href="#h2-cod-ilustrativ"> Cod ilustrativ </a><ul><li><a href="#h3-analiza-complexitatii"> Analiza complexității </a></li></ul></li><li><a href="#h2-necesitatea-unei-imbunatatiri"> Necesitatea unei îmbunătățiri </a><ul></ul></li><li><a href="#h2-licenta"> Licență </a><ul></ul></li></ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+        <footer class="page-footer">
+            <div class="footer-content">
+                <div class="footer-columns">
+                    <div class="footer-column">
+                        <div class="footer-column-title">Main topics</div>
+                        <ul class="footer-column-items">
+                            <li class="footer-column-item">
+                                <a href="https://www.v-vintila.com">About Valentin</a>
+                            </li>
+                            <li class="footer-column-item">
+                                <a href="https://www.v-vintila.com/numerical-methods/introducere/cuvant-inainte.html">Numerical Methods (RO)</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <div class="footer-column-title">Contribute</div>
+                        <ul class="footer-column-items">
+                            <li class="footer-column-item">
+                                <a href="#" onclick="donate_alert(event)">Donate</a>
+                            </li>
+                            <li class="footer-column-item">
+                                <a href="https://www.github.com/w1bb/IMD1">IMD1</a>
+                            </li>
+                            <li class="footer-column-item">
+                                <a href="https://www.github.com/w1bb/GoBG">GoBG</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <div class="footer-column-title">Social</div>
+                        <ul class="footer-column-items">
+                            <li class="footer-column-item">
+                                <a href="https://www.github.com/w1bb">GitHub</a>
+                            </li>
+                            <li class="footer-column-item">
+                                <a href="https://www.instagram.com/vi.vintila/">Instagram</a>
+                            </li>
+                            <li class="footer-column-item">
+                                <a href="https://linkedin.com/in/valentin-vintila">Linked In</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="separator"></div>
+                <span>The contents of this website are subject to copyright.</span>
+                <span>© Valentin-Ioan VINTILĂ 2022-2024</span>
+            </div>
+        </footer>
+        <div id="doc-search-overlay">
+            <div class="search-container">
+                <div class="search-box-container">
+                    <div class="search-box">
+                        <svg width="16" height="16" class="DocSearch-Search-Icon" viewBox="0 0 20 20">
+                            <path d="M14.386 14.386l4.0877 4.0877-4.0877-4.0877c-2.9418 2.9419-7.7115 2.9419-10.6533 0-2.9419-2.9418-2.9419-7.7115 0-10.6533 2.9418-2.9419 7.7115-2.9419 10.6533 0 2.9419 2.9418 2.9419 7.7115 0 10.6533z" stroke="currentColor" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                        </svg>
+                        <input type="text" id="search-input" placeholder="Search everywhere (NOT WORKING)"/>
+                    </div>
+                    <div class="cancel-button">
+                        <div id="canel-doc-search">Cancel</div>
+                    </div>
+                </div>
+                <div class="search-results">
+                    <div class="pre-search">Results will appear as you type</div>
+                </div>
+            </div>
+        </div>
+        <div id="image-zoom-overlay"></div>
+        <div id="scroll-to-top"></div>
+    </section>
+
+
+</body></html>

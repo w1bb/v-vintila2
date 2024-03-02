@@ -135,44 +135,70 @@
 <path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path>
 </svg></a></li><li class="breadcrumb"><a href="../../welcome/who-am-i.html"><span>About me</span></a></li><li class="breadcrumb"><a href="../numerical-methods.html"><span>🎓  Learning materials</span></a></li><li class="breadcrumb"><a href="../numerical-methods.html"><span>Numerical Methods</span></a></li><li class="breadcrumb selected"><a href="exercises.html"><span>Exercises</span></a></li></ul>
                                     </nav>
-                                    <div id="main-article" wi-element="article"><h1 id="h1-exercitii"> Exerciții <a class="hash-link" href="#h1-exercitii">#</a></h1>
+                                    <div id="main-article" wi-element="article"><h1 id="h1-exercitii"> Exerciții<a class="hash-link" href="#h1-exercitii">#</a></h1>
 <p>Pentru a veni în sprijinul studenților, mai ales a celor care își doresc să aprofundeze materia, am conceput o listă de exerciții pe care le pot lucra. </p>
-<p>Exerciții de o dificultate asemănătoare se vor regăsi și în cadrul diverselor teste de laborator, așdar tratați-le cu seriozitate! </p>
-<h2 id="h2-metode-numerice-matriceale"> Metode numerice matriceale <a class="hash-link" href="#h2-metode-numerice-matriceale">#</a></h2>
-<p><strong>Ex. 1.</strong> Să se calculeze factorizarea Crout pentru matricea următoare: </p>
-\[A=\begin{bmatrix}1&-1&2\\3&3&-5\\2&0&0\end{bmatrix}\]
-<p><strong>Ex. 2.</strong> Fie \(A\) o matrice pătratică a cărei factorizare QR este dată, \(A=QR\). Cum poate fi soluționat ușor un sistem liniar de forma \(A\bm{x}=\bm{b}\), presupunând că acesta are o unică soluție? Fiți cât se poate de expliciți. </p>
-<p><strong>Ex. 3.</strong> Dați exemplu de un sistem rău condiționat cu două ecuații și două necunoscute. Calculați numărul său de condiționare și interpretați-l. </p>
-<p><strong>Ex. 4.</strong> Să se găsească, prin orice metodă considerați potrivită, factorizarea QR a matricei: </p>
-\[A=\begin{bmatrix}3&8&4&-1\\0&-7&-7&1\\0&5&-2&8\\0&0&0&9\end{bmatrix}\]
-<p><strong>Ex. 5.</strong> Implementați în Octave metoda lui Jacobi sub forma unei funcții ce soluționează un sistem de ecuații liniare de forma \(A\bm{x}=\bm{b}\) utilizând formula analitică. </p>
-<p><strong>Ex. 6.</strong> Explicați formularea matriceală a metodei lui Jacobi. </p>
-<p><strong>Ex. 7.</strong> Care este clasa matricelor ce vor converge întotdeauna în cadrul metodei Gauss-Seidel? Dar în cazul SOR? </p>
-<div class="box note">
-<div class="box-title">Alte exemple</div>
-<div class="box-content"><p>Alte exerciții vor fi adăugate în curând. </p>
+<p> Exerciții de o dificultate asemănătoare se vor regăsi și în cadrul diverselor teste de laborator, așdar tratați-le cu seriozitate! </p>
+<div class="box error">
+<div class="box-title">S-au mutat!</div>
+<div class="box-content"><p>Problemele propuse aici au fost distribuite prin <strong>cartea de Metode Numerice</strong> ce se poate găsi <a href="./../../../numerical-methods/introducere/cuvant-inainte.html">aici</a>. Spor la lucru! </p>
 </div>
 </div>
-<h2 id="h2-metode-numerice-functionale"> Metode numerice funcționale <a class="hash-link" href="#h2-metode-numerice-functionale">#</a></h2>
-<p><strong>Ex. 1.</strong> Explicați grafic metoda secantei. </p>
-<p><strong>Ex. 2.</strong> Care este avantajul utilizării metodei secantei comparativ cu metoda tangentei? Comparați apoi ordinul de convergență al celor două. </p>
-<p><strong>Ex. 3.</strong> Prezentați extrapolarea Richardson și necesitatea (utilitatea) acesteia. Prezentați o formulă pentru derivarea numerică cu o eroare de ordinul \(O(h^4)\) - detaliați. </p>
-<p><strong>Ex. 4.</strong> Cunoscând \(\sin(0)=0\), \(\sin(0.25)\approx0.247\) și \(\sin(1)\approx0.841\), utilizați o tehnică de interpolare polinomială pentru a aproxima \(\sin(0.65)\) (se cere un rezultat numeric cu cel puțin două zecimale corecte). </p>
-<div class="box note">
-<div class="box-title">Alte exemple</div>
-<div class="box-content"><p>Alte exerciții vor fi adăugate în curând. </p>
-</div>
-</div>
-</div>
+<!--
+
+## Metode numerice matriceale
+
+**Ex. 1.** Să se calculeze factorizarea Crout pentru matricea următoare:
+
+$$A=\begin{bmatrix}1&-1&2\\3&3&-5\\2&0&0\end{bmatrix}$$
+
+**Ex. 2.** Fie $A$ o matrice pătratică a cărei factorizare QR este dată, $A=QR$. Cum poate fi soluționat ușor un sistem liniar de forma $A\bm{x}=\bm{b}$, presupunând că acesta are o unică soluție? Fiți cât se poate de expliciți.
+
+**Ex. 3.** Dați exemplu de un sistem rău condiționat cu două ecuații și două necunoscute. Calculați numărul său de condiționare și interpretați-l.
+
+**Ex. 4.** Să se găsească, prin orice metodă considerați potrivită, factorizarea QR a matricei:
+
+$$A=\begin{bmatrix}3&8&4&-1\\0&-7&-7&1\\0&5&-2&8\\0&0&0&9\end{bmatrix}$$
+
+**Ex. 5.** Implementați în Octave metoda lui Jacobi sub forma unei funcții ce soluționează un sistem de ecuații liniare de forma $A\bm{x}=\bm{b}$ utilizând formula analitică.
+
+**Ex. 6.** Explicați formularea matriceală a metodei lui Jacobi.
+
+**Ex. 7.** Care este clasa matricelor ce vor converge întotdeauna în cadrul metodei Gauss-Seidel? Dar în cazul SOR?
+
+|textbox>[class=note]
+|title>Alte exemple<title|
+|content>
+Alte exerciții vor fi adăugate în curând.
+<content|
+<textbox|
+
+## Metode numerice funcționale
+
+**Ex. 1.** Explicați grafic metoda secantei.
+
+**Ex. 2.** Care este avantajul utilizării metodei secantei comparativ cu metoda tangentei? Comparați apoi ordinul de convergență al celor două.
+
+**Ex. 3.** Prezentați extrapolarea Richardson și necesitatea (utilitatea) acesteia. Prezentați o formulă pentru derivarea numerică cu o eroare de ordinul $O(h^4)$ - detaliați.
+
+**Ex. 4.** Cunoscând $\sin(0)=0$, $\sin(0.25)\approx0.247$ și $\sin(1)\approx0.841$, utilizați o tehnică de interpolare polinomială pentru a aproxima $\sin(0.65)$ (se cere un rezultat numeric cu cel puțin două zecimale corecte).
+
+|textbox>[class=note]
+|title>Alte exemple<title|
+|content>
+Alte exerciții vor fi adăugate în curând.
+<content|
+<textbox|
+
+--></div>
                                     <footer class="article-footer" wi-element="article-footer"><div class="footer-content"><div class="footer-content-part"><a class="edit-page" href="#"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" aria-hidden="true">
 <g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g>
-</svg> Improve this page</a></div><div class="footer-content-part"><span class="last-update">Last updated on <b>Feb 20, 2024 (13:25)</b></span></div></div></footer>
+</svg> Improve this page</a></div><div class="footer-content-part"><span class="last-update">Last updated on <b>Mar 02, 2024 (15:13)</b></span></div></div></footer>
                                 </article>
                                 <nav class="previous-next" wi-element="previous-next"><a class="prev" href="past-lectures.html"><div class="sublabel">Previous</div><div class="label">Past labs</div></a><a class="prev" href="homework-checker.html"><div class="sublabel">Next</div><div class="label">Homework checker</div></a></nav>
                             </div>
                             <div class="center-doc-toc">
                                 <div class="toc-container">
-                                    <ul id="toc" wi-element="article-toc"><li><a href="#h2-metode-numerice-matriceale"> Metode numerice matriceale </a><ul></ul></li><li><a href="#h2-metode-numerice-functionale"> Metode numerice funcționale </a><ul></ul></li></ul>
+                                    <ul id="toc" wi-element="article-toc"></ul>
                                 </div>
                             </div>
                         </div>
@@ -204,7 +230,7 @@
                                 <a href="https://www.github.com/w1bb/IMD1">IMD1</a>
                             </li>
                             <li class="footer-column-item">
-                                <a href="https://www.github.com/w1bb/WiPyBG">WiPyBG</a>
+                                <a href="https://www.github.com/w1bb/GoBG">GoBG</a>
                             </li>
                         </ul>
                     </div>

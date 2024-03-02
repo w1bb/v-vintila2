@@ -135,82 +135,82 @@
 <path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path>
 </svg></a></li><li class="breadcrumb"><a href="../../welcome/who-am-i.html"><span>About me</span></a></li><li class="breadcrumb"><a href="../carpino.html"><span>🛠️  Hardware projects</span></a></li><li class="breadcrumb"><a href="../carpino.html"><span>Cârpino™</span></a></li><li class="breadcrumb selected"><a href="circuit-design.html"><span>Circuit design</span></a></li></ul>
                                     </nav>
-                                    <div id="main-article" wi-element="article"><h1 id="h1-carpino-s-circuit-design"> Cârpino's circuit design <a class="hash-link" href="#h1-carpino-s-circuit-design">#</a></h1>
+                                    <div id="main-article" wi-element="article"><h1 id="h1-carpino-s-circuit-design"> Cârpino's circuit design<a class="hash-link" href="#h1-carpino-s-circuit-design">#</a></h1>
 <p>The whole Cârpino board's design was made in <a href="https://www.kicad.org/">KiCad 7.0</a> (open-source software). </p>
-<p>The design is made open and is fully explained in this article. Screenshots will be provided along with short descriptions. </p>
-<h2 id="h2-the-schematic"> The schematic <a class="hash-link" href="#h2-the-schematic">#</a></h2>
+<p> The design is made open and is fully explained in this article. Screenshots will be provided along with short descriptions. </p>
+<h2 id="h2-the-schematic"> The schematic<a class="hash-link" href="#h2-the-schematic">#</a></h2>
 <p>For those interested to see the final Cârpino board, here is the complete schematic: </p>
 <div class="figure dock-top">
-<div class="subfigure"><img src="../../../img/projects/carpino/3.png"><div class="subcaption"><p>An overview of the whole schematic of Cârpino (the second revision) </p>
+<div class="subfigure"><img src="../../../img/projects/carpino/3.png"><div class="subcaption"><p> An overview of the whole schematic of Cârpino (the second revision) </p>
 </div></div>
 </div>
-<p>In the following paragraphs, I will break down the most important parts of the circuit so that the overview above makes more sense. </p>
-<h3 id="h3-the-power-supply"> The power supply <a class="hash-link" href="#h3-the-power-supply">#</a></h3>
+<p> In the following paragraphs, I will break down the most important parts of the circuit so that the overview above makes more sense. </p>
+<h3 id="h3-the-power-supply"> The power supply<a class="hash-link" href="#h3-the-power-supply">#</a></h3>
 <p>Considering an input voltage <strong>VCC</strong>, we want to get a <strong>5V</strong> output. To do so, we can use the NCP718 voltage regulator, which will reliably output the requested voltage, as long as <strong>VCC</strong> is high enough. </p>
-<p>A few capacitors should be used as well in order to reduce noise. </p>
+<p> A few capacitors should be used as well in order to reduce noise. </p>
 <div class="figure dock-top">
-<div class="subfigure"><img src="../../../img/projects/carpino/4.png"><div class="subcaption"><p>The <strong>VCC</strong> input </p>
+<div class="subfigure"><img src="../../../img/projects/carpino/4.png"><div class="subcaption"><p> The <strong>VCC</strong> input </p>
 </div></div>
 </div>
 <div class="figure dock-top">
-<div class="subfigure"><img src="../../../img/projects/carpino/5.png"><div class="subcaption"><p>The <strong>5V</strong> regulated output </p>
+<div class="subfigure"><img src="../../../img/projects/carpino/5.png"><div class="subcaption"><p> The <strong>5V</strong> regulated output </p>
 </div></div>
 </div>
-<p>It is also possible to power the board directly through the UART interface. In that case, no voltage regulation is required to get <strong>5V</strong>. </p>
-<p>It goes without saying that, whenever a <strong>5V</strong> input is required, a decoupling capacitor should be used as well: </p>
+<p> It is also possible to power the board directly through the UART interface. In that case, no voltage regulation is required to get <strong>5V</strong>. </p>
+<p> It goes without saying that, whenever a <strong>5V</strong> input is required, a decoupling capacitor should be used as well: </p>
 <div class="figure dock-top">
-<div class="subfigure"><img src="../../../img/projects/carpino/10.png"><div class="subcaption"><p>The <strong>5V</strong> regulated output </p>
+<div class="subfigure"><img src="../../../img/projects/carpino/10.png"><div class="subcaption"><p> The <strong>5V</strong> regulated output </p>
 </div></div>
 </div>
-<p>To get <strong>3.3V</strong>, we need to choose whether to convert <strong>VCC</strong> or <strong>5V</strong>. However, since we don't always get <strong>VCC</strong> (due to UART), we will convert the <strong>5V</strong>. </p>
-<p>Please note that the MCP1755 was used only because that was what I've had lying around at that moment - NCP718 can be used as well. </p>
+<p> To get <strong>3.3V</strong>, we need to choose whether to convert <strong>VCC</strong> or <strong>5V</strong>. However, since we don't always get <strong>VCC</strong> (due to UART), we will convert the <strong>5V</strong>. </p>
+<p> Please note that the MCP1755 was used only because that was what I've had lying around at that moment - NCP718 can be used as well. </p>
 <div class="figure dock-top">
-<div class="subfigure"><img src="../../../img/projects/carpino/6.png"><div class="subcaption"><p>The <strong>3.3V</strong> regulated output </p>
+<div class="subfigure"><img src="../../../img/projects/carpino/6.png"><div class="subcaption"><p> The <strong>3.3V</strong> regulated output </p>
 </div></div>
 </div>
-<h3 id="h3-the-16mhz-clock"> The 16MHz clock <a class="hash-link" href="#h3-the-16mhz-clock">#</a></h3>
+<h3 id="h3-the-16mhz-clock"> The 16MHz clock<a class="hash-link" href="#h3-the-16mhz-clock">#</a></h3>
 <p>A 16MHz crystal oscillator was used to generate the fixed clock frequency. As a design consideration, the crystal will be placed in close proximity to the ATmega644PA chip. </p>
 <div class="figure dock-top" style="max-width: 400px;">
-<div class="subfigure"><img src="../../../img/projects/carpino/7.png"><div class="subcaption"><p>The 16MHz connection </p>
+<div class="subfigure"><img src="../../../img/projects/carpino/7.png"><div class="subcaption"><p> The 16MHz connection </p>
 </div></div>
 </div>
-<h3 id="h3-the-avr-interface"> The AVR interface <a class="hash-link" href="#h3-the-avr-interface">#</a></h3>
+<h3 id="h3-the-avr-interface"> The AVR interface<a class="hash-link" href="#h3-the-avr-interface">#</a></h3>
 <p>The AVR interface requires 6 pins: a voltage input (<strong>5V</strong>), a ground pin (<strong>GND</strong>), a reset signal (\(\overline{\text{RESET}}\), active on 0), <strong>MISO</strong>, <strong>MOSI</strong> and <strong>SCK</strong>. </p>
-<p>More details can be found <a href="https://microchipdeveloper.com/8avr:programminginterfaces">here</a>. In theory, once the basic configuration is flashed on the chip, these pins should become unnecessary. </p>
+<p> More details can be found <a href="https://microchipdeveloper.com/8avr:programminginterfaces">here</a>. In theory, once the basic configuration is flashed on the chip, these pins should become unnecessary. </p>
 <div class="figure dock-top" style="max-width: 400px;">
-<div class="subfigure"><img src="../../../img/projects/carpino/8.png"><div class="subcaption"><p>The AVR interface </p>
+<div class="subfigure"><img src="../../../img/projects/carpino/8.png"><div class="subcaption"><p> The AVR interface </p>
 </div></div>
 </div>
-<p>The <strong>MISO</strong>, <strong>MOSI</strong>, <strong>SCK</strong> and \(\overline{\text{RESET}}\) pins should be directly connected, in this order, to the following ATmega644PA pins: <strong>PB6</strong>, <strong>PB5</strong>, <strong>PB7</strong> and \(\overline{\text{RESET}}\). </p>
-<h3 id="h3-the-uart-interface"> The UART interface <a class="hash-link" href="#h3-the-uart-interface">#</a></h3>
+<p> The <strong>MISO</strong>, <strong>MOSI</strong>, <strong>SCK</strong> and \(\overline{\text{RESET}}\) pins should be directly connected, in this order, to the following ATmega644PA pins: <strong>PB6</strong>, <strong>PB5</strong>, <strong>PB7</strong> and \(\overline{\text{RESET}}\). </p>
+<h3 id="h3-the-uart-interface"> The UART interface<a class="hash-link" href="#h3-the-uart-interface">#</a></h3>
 <p>In order to communicate via USB, an UART connection has to be established first. To do so, we will simply expose some of the ATmega644PA's pins to a pin header. </p>
 <div class="figure dock-top" style="max-width: 400px;">
-<div class="subfigure"><img src="../../../img/projects/carpino/9.png"><div class="subcaption"><p>The UART interface </p>
+<div class="subfigure"><img src="../../../img/projects/carpino/9.png"><div class="subcaption"><p> The UART interface </p>
 </div></div>
 </div>
-<h3 id="h3-the-reset-button"> The RESET button <a class="hash-link" href="#h3-the-reset-button">#</a></h3>
+<h3 id="h3-the-reset-button"> The RESET button<a class="hash-link" href="#h3-the-reset-button">#</a></h3>
 <p>Finally, a button can be used to manually reset the microcontroller: </p>
 <div class="figure dock-top" style="max-width: 250px;">
-<div class="subfigure"><img src="../../../img/projects/carpino/11.png"><div class="subcaption"><p>The reset button </p>
+<div class="subfigure"><img src="../../../img/projects/carpino/11.png"><div class="subcaption"><p> The reset button </p>
 </div></div>
 </div>
-<h3 id="h3-the-rest-of-the-schematic"> The rest of the schematic <a class="hash-link" href="#h3-the-rest-of-the-schematic">#</a></h3>
+<h3 id="h3-the-rest-of-the-schematic"> The rest of the schematic<a class="hash-link" href="#h3-the-rest-of-the-schematic">#</a></h3>
 <p>The only thing left to do is to expose the rest of the pins that the microcontroller offers via pins/pin headers. </p>
-<h2 id="h2-selecting-the-components"> Selecting the components <a class="hash-link" href="#h2-selecting-the-components">#</a></h2>
+<h2 id="h2-selecting-the-components"> Selecting the components<a class="hash-link" href="#h2-selecting-the-components">#</a></h2>
 <p>The real-world components need to be selected now. This is a simple process, but it requires trial and error and some experience. </p>
 <div class="figure dock-top">
-<div class="subfigure"><img src="../../../img/projects/carpino/12.png"><div class="subcaption"><p>The component choice </p>
+<div class="subfigure"><img src="../../../img/projects/carpino/12.png"><div class="subcaption"><p> The component choice </p>
 </div></div>
 </div>
-<p>You can find a bill of materials <a href="https://docs.google.com/spreadsheets/d/15G5Lt4wu2aP1kSrYG8EOJ7rEX4w8mfZEsqyKPEUlmHc/edit?usp=sharing">attached here</a>. </p>
-<h2 id="h2-the-pcb"> The PCB <a class="hash-link" href="#h2-the-pcb">#</a></h2>
+<p> You can find a bill of materials <a href="https://docs.google.com/spreadsheets/d/15G5Lt4wu2aP1kSrYG8EOJ7rEX4w8mfZEsqyKPEUlmHc/edit?usp=sharing">attached here</a>. </p>
+<h2 id="h2-the-pcb"> The PCB<a class="hash-link" href="#h2-the-pcb">#</a></h2>
 <p>Once everything else is ready, the PCB design process begins - this took me a while, since I wanted it to be neat, simple, and only require cooper routes on the back side. </p>
-<p>Yes, I ended up with a small cooper route on the front side, but the final result is really beautifully crafted: </p>
+<p> Yes, I ended up with a small cooper route on the front side, but the final result is really beautifully crafted: </p>
 <div class="figure dock-top">
-<div class="subfigure"><img src="../../../img/projects/carpino/13.png"><div class="subcaption"><p>The PCB design (in KiCad) </p>
+<div class="subfigure"><img src="../../../img/projects/carpino/13.png"><div class="subcaption"><p> The PCB design (in KiCad) </p>
 </div></div>
 </div>
-<h3 id="h3-important-considerations"> Important considerations <a class="hash-link" href="#h3-important-considerations">#</a></h3>
+<h3 id="h3-important-considerations"> Important considerations<a class="hash-link" href="#h3-important-considerations">#</a></h3>
 <p>A few considerations were taken into account: </p>
 <ul>
 <li>
@@ -224,7 +224,7 @@
 </li>
 </ul>
 <p>All of these allowed for a great final result! </p>
-<h2 id="h2-license"> License <a class="hash-link" href="#h2-license">#</a></h2>
+<h2 id="h2-license"> License<a class="hash-link" href="#h2-license">#</a></h2>
 <p>As you can tell, I've completely open-sourced the board's circuit design. However, I do ask that you keep the name of the board and give me credit whenever you use the design. </p>
 </div>
                                     <footer class="article-footer" wi-element="article-footer"><div class="footer-content"><div class="footer-content-part"><a class="edit-page" href="#"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" aria-hidden="true">
@@ -267,7 +267,7 @@
                                 <a href="https://www.github.com/w1bb/IMD1">IMD1</a>
                             </li>
                             <li class="footer-column-item">
-                                <a href="https://www.github.com/w1bb/WiPyBG">WiPyBG</a>
+                                <a href="https://www.github.com/w1bb/GoBG">GoBG</a>
                             </li>
                         </ul>
                     </div>
