@@ -1,0 +1,437 @@
+<!DOCTYPE html><html lang="en" data-theme="dark-mode"><head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <script src="../../../src/jquery-min.js"></script>
+    <script src="../../../src/jquery-ui.min.js"></script>
+    <script src="../../../src/index.js"></script>
+
+    <link rel="stylesheet" href="../../../css/katex.min.css"/>
+    <script defer="" src="../../../src/katex.min.js"></script>
+    <script defer="" src="../../../src/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+
+    <script src="../../../src/highlight.min.js"></script>
+    <script src="../../../src/matlab.min.js"></script>
+
+    <script>
+        function donate_alert(event) {
+            alert("Thank you for your interest in this project!\n\nIBAN (BCR):\nRO28 RNCB 0857 1709 5964 0001");
+            event.preventDefault();
+        }
+    </script>
+
+    <link rel="stylesheet" type="text/css" media="screen" href="../../../css/style.css"/>
+    <link rel="icon" type="image/x-icon" href="../../../img/icons/wi64.png"/>
+    <title>Metoda Simpson [ v-vintila ]</title>
+</head>
+<body class="dark-mode">
+    <script>
+        function set_color_mode(new_color_mode) {
+            if (new_color_mode == "light-mode") {
+                $("body").removeClass("dark-mode");
+                $("body").addClass("light-mode");
+                localStorage.setItem('theme', "light-mode");
+                document.querySelector("html").setAttribute("data-theme", "light-mode");
+            } else {
+                $("body").removeClass("light-mode");
+                $("body").addClass("dark-mode");
+                localStorage.setItem('theme', "dark-mode");
+                document.querySelector("html").setAttribute("data-theme", "dark-mode");
+            }
+        }
+
+        let saved_theme = localStorage.getItem("theme");
+        if (!saved_theme) {
+            saved_theme = "dark-mode";
+        }
+        set_color_mode(saved_theme);
+    </script>
+    <section id="wipybg">
+        <nav class="top">
+            <div class="nav-content">
+                <div class="nav-content-left" wi-element="top-nav">
+                    <div id="hamburger-open-nav-top-sidebar">
+                        <svg width="24" height="24" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+                    </div>
+                    
+                    
+                    
+                <a class="logo-container" href="../../introducere/cuvant-inainte.html"><div class="logo">Valentin-Ioan Vintilă</div></a><a class="section-link" href="../../../about-me/welcome/who-am-i.html">About me</a><a class="section-link" href="../../../blog/2024/payment-cards.html">Blog</a><a class="section-link selected" href="../../introducere/cuvant-inainte.html">Numerical Methods</a><a class="section-link" href="../../../docs/resume.pdf">Résumé</a></div>
+                <div class="nav-content-right">
+                    <a href="https://www.github.com/w1bb" class="section-link">
+                        GitHub
+                        <svg width="12" height="12" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU">
+                            <path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path>
+                        </svg>
+                    </a>
+                    <div class="toggle-color-mode-container">
+                        <div class="toggle-color-mode">
+                            <svg viewBox="0 0 24 24" width="24" height="24" class="lightToggleIcon_pyhR">
+                                <path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="search-box">
+                        <div id="search-box-toggle">
+                            <svg width="16" height="16" class="DocSearch-Search-Icon" viewBox="0 0 20 20">
+                                <path d="M14.386 14.386l4.0877 4.0877-4.0877-4.0877c-2.9418 2.9419-7.7115 2.9419-10.6533 0-2.9419-2.9418-2.9419-7.7115 0-10.6533 2.9418-2.9419 7.7115-2.9419 10.6533 0 2.9419 2.9418 2.9419 7.7115 0 10.6533z" stroke="currentColor" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path>
+                            </svg>
+                            <div class="search-box-text">Search (NOT WORKING)</div>
+                            <div class="search-box-key-container">
+                                <div class="search-box-key">/</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <div id="main-page">
+            <div class="doc">
+                <aside>
+                    <div id="aside-overlay"></div>
+                    <div class="sidebar-container">
+                        <div class="sidebar">
+                            <div class="sidebar-title-section">
+                                <div class="sidebar-title-section-content">
+                                    <div class="sidebar-title-section-content-left">
+                                        <a href="../../introducere/cuvant-inainte.html" class="logo-container">
+                                            <div class="logo">Valentin-Ioan Vintilă</div>
+                                        </a>
+                                    </div>
+                                    <div class="sidebar-title-section-content-right">
+                                        <div class="toggle-color-mode-container">
+                                            <div class="toggle-color-mode">
+                                                <svg viewBox="0 0 24 24" width="24" height="24" class="lightToggleIcon_pyhR">
+                                                    <path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <nav wi-element="aside-nav"><ul class="generic-tree"><li class="tome"><a href="../../../about-me/welcome/who-am-i.html">About me</a></li><li class="tome"><a href="../../../blog/2024/payment-cards.html">Blog</a></li><li class="tome"><a href="../../introducere/cuvant-inainte.html">Numerical Methods</a></li><li class="tome"><a href="../../../docs/resume.pdf">Résumé</a></li></ul><ul class="main-tree"><li class="main-tree-category"><div class="main-tree-category-title"><a class="main-tree-category-title-content" href="../../introducere/cuvant-inainte.html"><div class="title-text">Introducere</div><div class="title-collapse-btn"></div></a></div><ul class="secondary-tree lvl-1"><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../introducere/cuvant-inainte.html"><div class="title-text">Cuvânt înainte</div></a></div><ul class="secondary-tree lvl-2"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../introducere/notatii.html"><div class="title-text">Notații</div></a></div><ul class="secondary-tree lvl-2"></ul></li></ul></li><li class="main-tree-category"><div class="main-tree-category-title"><a class="main-tree-category-title-content" href="../../i-matrice/introducere.html"><div class="title-text">I. Matrice</div><div class="title-collapse-btn"></div></a></div><ul class="secondary-tree lvl-1"><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../i-matrice/introducere.html"><div class="title-text">Ce studiem?</div></a></div><ul class="secondary-tree lvl-2"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../i-matrice/1-lu.html"><div class="title-text">1. Factorizarea LU</div><div class="title-collapse-btn"></div></a></div><ul class="secondary-tree lvl-2"><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../i-matrice/1-lu/introducere.html"><div class="title-text">Introducere</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../i-matrice/1-lu/doolittle.html"><div class="title-text">Factorizarea Doolittle</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../i-matrice/1-lu/crout.html"><div class="title-text">Factorizarea Crout</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../i-matrice/1-lu/cholesky.html"><div class="title-text">Factorizarea Cholesky</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../i-matrice/1-lu/sisteme.html"><div class="title-text">Rezolvarea sistemelor</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../i-matrice/1-lu/alte-factorizari.html"><div class="title-text">Alte factorizări LU</div><div class="badge badge-t1">Bonus&nbsp;&nbsp;✨</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../i-matrice/1-lu/exercitii.html"><div class="title-text">Exerciții</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../i-matrice/1-lu/lectura-suplimentara.html"><div class="title-text">Lectură suplimentară</div></a></div><ul class="secondary-tree lvl-3"></ul></li></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../i-matrice/2-qr.html"><div class="title-text">2. Factorizarea QR</div><div class="title-collapse-btn"></div></a></div><ul class="secondary-tree lvl-2"><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../i-matrice/2-qr/introducere.html"><div class="title-text">Introducere</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../i-matrice/2-qr/gram-schmidt.html"><div class="title-text">Factorizarea Gram-Schmidt</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../i-matrice/2-qr/gram-schmidt-modificat.html"><div class="title-text">Factorizarea Gram-Schmidt Modificată</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../i-matrice/2-qr/householder.html"><div class="title-text">Factorizarea Householder</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../i-matrice/2-qr/givens.html"><div class="title-text">Factorizarea Givens</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../i-matrice/2-qr/sisteme.html"><div class="title-text">Rezolvarea sistemelor</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../i-matrice/2-qr/exercitii.html"><div class="title-text">Exerciții</div><div class="badge badge-t3">În&nbsp;lucru</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../i-matrice/2-qr/lectura-suplimentara.html"><div class="title-text">Lectură suplimentară</div></a></div><ul class="secondary-tree lvl-3"></ul></li></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../i-matrice/3-gauss.html"><div class="title-text">3. Eliminarea Guassiană</div><div class="title-collapse-btn"></div></a></div><ul class="secondary-tree lvl-2"><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../i-matrice/3-gauss/introducere.html"><div class="title-text">Introducere</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../i-matrice/3-gauss/g.html"><div class="title-text">Algoritmul G</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../i-matrice/3-gauss/gpp.html"><div class="title-text">Algoritmul GPP</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../i-matrice/3-gauss/gpps.html"><div class="title-text">Algoritmul GPPS</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../i-matrice/3-gauss/gpt.html"><div class="title-text">Algoritmul GPT</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../i-matrice/3-gauss/thomas.html"><div class="title-text">Algoritmul Thomas</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../i-matrice/3-gauss/gauss-jordan.html"><div class="title-text">Eliminarea Gauss-Jordan</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../i-matrice/3-gauss/exercitii.html"><div class="title-text">Exerciții</div><div class="badge badge-t3">În&nbsp;lucru</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../i-matrice/3-gauss/lectura-suplimentara.html"><div class="title-text">Lectură suplimentară</div></a></div><ul class="secondary-tree lvl-3"></ul></li></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../i-matrice/4-mi.html"><div class="title-text">4. Metode iterative de rezolvare a sistemelor</div><div class="title-collapse-btn"></div></a></div><ul class="secondary-tree lvl-2"><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../i-matrice/4-mi/introducere.html"><div class="title-text">Introducere</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../i-matrice/4-mi/jacobi.html"><div class="title-text">Metoda Jacobi</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../i-matrice/4-mi/gauss-seidel.html"><div class="title-text">Metoda Gauss-Seidel</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../i-matrice/4-mi/sor.html"><div class="title-text">Metoda suprarelaxării</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../i-matrice/4-mi/gradient-descendent.html"><div class="title-text">Metoda gradientului descendent</div><div class="badge badge-t1">Bonus&nbsp;&nbsp;✨</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../i-matrice/4-mi/exercitii.html"><div class="title-text">Exerciții</div><div class="badge badge-t3">În&nbsp;lucru</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../i-matrice/4-mi/lectura-suplimentara.html"><div class="title-text">Lectură suplimentară</div></a></div><ul class="secondary-tree lvl-3"></ul></li></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../i-matrice/5-vp.html"><div class="title-text">5. Valori proprii</div><div class="title-collapse-btn"></div></a></div><ul class="secondary-tree lvl-2"><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../i-matrice/5-vp/introducere.html"><div class="title-text">Introducere</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../i-matrice/5-vp/mpd.html"><div class="title-text">Metoda puterii directe</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../i-matrice/5-vp/mpi.html"><div class="title-text">Metoda puterii inverse</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../i-matrice/5-vp/mdh.html"><div class="title-text">Metoda deflației Householder</div><div class="badge badge-t1">Bonus&nbsp;&nbsp;✨</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../i-matrice/5-vp/mdw.html"><div class="title-text">Metoda deflației Wielandt</div><div class="badge badge-t1">Bonus&nbsp;&nbsp;✨</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../i-matrice/5-vp/qr.html"><div class="title-text">Metode QR</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../i-matrice/5-vp/dvs.html"><div class="title-text">Factorizarea DVS</div><div class="badge badge-t2">🔄</div><div class="badge badge-t1">Bonus&nbsp;&nbsp;✨</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../i-matrice/5-vp/exercitii.html"><div class="title-text">Exerciții</div><div class="badge badge-t3">În&nbsp;lucru</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../i-matrice/5-vp/lectura-suplimentara.html"><div class="title-text">Lectură suplimentară</div></a></div><ul class="secondary-tree lvl-3"></ul></li></ul></li></ul></li><li class="main-tree-category"><div class="main-tree-category-title"><a class="main-tree-category-title-content" href="../introducere.html"><div class="title-text">II. Funcții</div><div class="title-collapse-btn"></div></a></div><ul class="secondary-tree lvl-1"><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../introducere.html"><div class="title-text">Ce studiem?</div></a></div><ul class="secondary-tree lvl-2"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../6-ec-neliniare.html"><div class="title-text">6. Ecuații neliniare</div><div class="title-collapse-btn"></div></a></div><ul class="secondary-tree lvl-2"><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../6-ec-neliniare/taylor.html"><div class="title-text">Serii și polinoame Taylor</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../6-ec-neliniare/mas-1.html"><div class="title-text">Metoda aproximațiilor succesive</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../6-ec-neliniare/bisectie.html"><div class="title-text">Metoda bisecției</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../6-ec-neliniare/tangenta.html"><div class="title-text">Metoda tangentei</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../6-ec-neliniare/secanta.html"><div class="title-text">Metoda secantei</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../6-ec-neliniare/mas-2.html"><div class="title-text">Metoda aproximațiilor succesive pentru sisteme</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../6-ec-neliniare/newton.html"><div class="title-text">Metoda Newton</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../6-ec-neliniare/exercitii.html"><div class="title-text">Exerciții</div><div class="badge badge-t3">În&nbsp;lucru</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../6-ec-neliniare/lectura-suplimentara.html"><div class="title-text">Lectură suplimentară</div></a></div><ul class="secondary-tree lvl-3"></ul></li></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../7-interpolare.html"><div class="title-text">7. Metode de interpolare</div><div class="title-collapse-btn"></div></a></div><ul class="secondary-tree lvl-2"><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../7-interpolare/vandermonde.html"><div class="title-text">Interpolarea Vandermonde</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../7-interpolare/lagrange.html"><div class="title-text">Interpolarea Lagrange</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../7-interpolare/neville.html"><div class="title-text">Interpolarea Neville</div><div class="badge badge-t1">Bonus&nbsp;&nbsp;✨</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../7-interpolare/newton.html"><div class="title-text">Interpolarea Newton</div><div class="badge badge-t1">Bonus&nbsp;&nbsp;✨</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../7-interpolare/spline.html"><div class="title-text">Interpolarea cu funcții spline</div><div class="badge badge-t2">🔄</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../7-interpolare/bezier.html"><div class="title-text">Curbe Bézier</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../7-interpolare/exercitii.html"><div class="title-text">Exerciții</div><div class="badge badge-t3">În&nbsp;lucru</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../7-interpolare/lectura-suplimentara.html"><div class="title-text">Lectură suplimentară</div></a></div><ul class="secondary-tree lvl-3"></ul></li></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../8-aproximare.html"><div class="title-text">8. Metode de aproximare</div><div class="title-collapse-btn"></div></a></div><ul class="secondary-tree lvl-2"><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../8-aproximare/derivare.html"><div class="title-text">Aproximare prin derivare</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../8-aproximare/polinoame-ortogonale.html"><div class="title-text">Polinoame ortogonale</div><div class="badge badge-t2">🔄</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../8-aproximare/cmmp.html"><div class="title-text">Aproximare în sensul CMMP</div><div class="badge badge-t2">🔄</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../8-aproximare/pade.html"><div class="title-text">Aproximare Padé</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../8-aproximare/exercitii.html"><div class="title-text">Exerciții</div><div class="badge badge-t3">În&nbsp;lucru</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../8-aproximare/lectura-suplimentara.html"><div class="title-text">Lectură suplimentară</div></a></div><ul class="secondary-tree lvl-3"></ul></li></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../9-derivare.html"><div class="title-text">9. Derivarea numerică</div><div class="title-collapse-btn"></div></a></div><ul class="secondary-tree lvl-2"><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../9-derivare/ordin-I.html"><div class="title-text">Derivata de ordin I</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../9-derivare/richardson.html"><div class="title-text">Extrapolarea Richardson</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../9-derivare/ordin-superior.html"><div class="title-text">Derivata de ordin superior</div><div class="badge badge-t1">Bonus&nbsp;&nbsp;✨</div><div class="badge badge-t2">🔄</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../9-derivare/exercitii.html"><div class="title-text">Exerciții</div><div class="badge badge-t3">În&nbsp;lucru</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../9-derivare/lectura-suplimentara.html"><div class="title-text">Lectură suplimentară</div></a></div><ul class="secondary-tree lvl-3"></ul></li></ul></li><li class="secondary-tree-item selected"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../10-integrare.html"><div class="title-text">10. Integrarea numerică</div><div class="title-collapse-btn"></div></a></div><ul class="secondary-tree lvl-2"><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="cuadraturi.html"><div class="title-text">Cuadraturi</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="dreptunghiuri.html"><div class="title-text">Metoda dreptunghiurilor</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="trapeze.html"><div class="title-text">Metoda trapezelor</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item selected final tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="simpson.html"><div class="title-text">Metoda Simpson</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="newton-cotes.html"><div class="title-text">Generalizarea metodelor Newton-Cotes</div><div class="badge badge-t1">Bonus&nbsp;&nbsp;✨</div><div class="badge badge-t2">🔄</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="romberg.html"><div class="title-text">Metoda Romberg</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="cuadraturi-adaptive.html"><div class="title-text">Cuadraturi adaptive</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="cuadraturi-gaussiene.html"><div class="title-text">Cuadraturi gaussiene</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="exercitii.html"><div class="title-text">Exerciții</div><div class="badge badge-t3">În&nbsp;lucru</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="lectura-suplimentara.html"><div class="title-text">Lectură suplimentară</div></a></div><ul class="secondary-tree lvl-3"></ul></li></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../11-ec-diferentiale.html"><div class="title-text">11. Ecuații diferențiale</div><div class="title-collapse-btn"></div><div class="badge badge-t3">În&nbsp;lucru</div></a></div><ul class="secondary-tree lvl-2"><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../11-ec-diferentiale/corectitudine.html"><div class="title-text">Corectitudinea unei ODE</div><div class="badge badge-t3">În&nbsp;lucru</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../11-ec-diferentiale/euler.html"><div class="title-text">Metoda lui Euler</div><div class="badge badge-t3">În&nbsp;lucru</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../11-ec-diferentiale/runge-kutta.html"><div class="title-text">Metode Runge-Kutta explicite</div><div class="badge badge-t3">În&nbsp;lucru</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../11-ec-diferentiale/taylor.html"><div class="title-text">Metoda Taylor</div><div class="badge badge-t3">În&nbsp;lucru</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../11-ec-diferentiale/adams.html"><div class="title-text">Metoda Adams</div><div class="badge badge-t3">În&nbsp;lucru</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../11-ec-diferentiale/exercitii.html"><div class="title-text">Exerciții</div><div class="badge badge-t3">În&nbsp;lucru</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../11-ec-diferentiale/lectura-suplimentara.html"><div class="title-text">Lectură suplimentară</div><div class="badge badge-t3">În&nbsp;lucru</div></a></div><ul class="secondary-tree lvl-3"></ul></li></ul></li></ul></li><li class="main-tree-category"><div class="main-tree-category-title"><a class="main-tree-category-title-content" href="../../incheiere/bibliografie.html"><div class="title-text">Încheiere</div><div class="title-collapse-btn"></div></a></div><ul class="secondary-tree lvl-1"><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../incheiere/bibliografie.html"><div class="title-text">Bibliografie</div></a></div><ul class="secondary-tree lvl-2"></ul></li></ul></li></ul></nav>
+                            <div id="collapse-aside">
+                                <svg width="16" height="16" viewBox="0 0 20 20" aria-hidden="true" class="collapseSidebarButtonIcon_kv0_">
+                                    <g fill="#7a7a7a"><path d="M9.992 10.023c0 .2-.062.399-.172.547l-4.996 7.492a.982.982 0 01-.828.454H1c-.55 0-1-.453-1-1 0-.2.059-.403.168-.551l4.629-6.942L.168 3.078A.939.939 0 010 2.528c0-.548.45-.997 1-.997h2.996c.352 0 .649.18.828.45L9.82 9.472c.11.148.172.347.172.55zm0 0"></path><path d="M19.98 10.023c0 .2-.058.399-.168.547l-4.996 7.492a.987.987 0 01-.828.454h-3c-.547 0-.996-.453-.996-1 0-.2.059-.403.168-.551l4.625-6.942-4.625-6.945a.939.939 0 01-.168-.55 1 1 0 01.996-.997h3c.348 0 .649.18.828.45l4.996 7.492c.11.148.168.347.168.55zm0 0"></path></g>
+                                </svg>
+                            </div>
+                        </div>
+                        <div id="expand-aside">
+                            <svg width="16" height="16" viewBox="0 0 20 20" aria-hidden="true" class="collapseSidebarButtonIcon_kv0_">
+                                <g fill="#7a7a7a"><path d="M9.992 10.023c0 .2-.062.399-.172.547l-4.996 7.492a.982.982 0 01-.828.454H1c-.55 0-1-.453-1-1 0-.2.059-.403.168-.551l4.629-6.942L.168 3.078A.939.939 0 010 2.528c0-.548.45-.997 1-.997h2.996c.352 0 .649.18.828.45L9.82 9.472c.11.148.172.347.172.55zm0 0"></path><path d="M19.98 10.023c0 .2-.058.399-.168.547l-4.996 7.492a.987.987 0 01-.828.454h-3c-.547 0-.996-.453-.996-1 0-.2.059-.403.168-.551l4.625-6.942-4.625-6.945a.939.939 0 01-.168-.55 1 1 0 01.996-.997h3c.348 0 .649.18.828.45l4.996 7.492c.11.148.168.347.168.55zm0 0"></path></g>
+                            </svg>
+                        </div>
+                    </div>
+                </aside>
+                <main>
+                    <div class="center-doc-container">
+                        <div class="center-doc">
+                            <div class="center-doc-article">
+                                <article>
+                                    <nav class="nav-breadcrumbs">
+                                        <ul class="breadcrumbs" wi-element="breadcrumbs"><li class="breadcrumb"><a class="home" href="../../introducere/cuvant-inainte.html"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" xmlns:xlink= "http://www.w3.org/1999/xlink">
+<path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path>
+</svg></a></li><li class="breadcrumb"><a href="../../introducere/cuvant-inainte.html"><span>Numerical Methods</span></a></li><li class="breadcrumb"><a href="../introducere.html"><span>II. Funcții</span></a></li><li class="breadcrumb"><a href="../10-integrare.html"><span>10. Integrarea numerică</span></a></li><li class="breadcrumb selected"><a href="simpson.html"><span>Metoda Simpson</span></a></li></ul>
+                                    </nav>
+                                    <div id="main-article" wi-element="article"><h1 id="h1-metoda-simpson"> Metoda Simpson<a class="hash-link" href="#h1-metoda-simpson">#</a></h1>
+<p>Elementele geometrice utilizate până la acest moment pentru a aproxima arii au fost cele mai simple cu putință - există însă metode mai bune de a găsi rezultatul căutat. Spre exemplu, <strong>metoda Simpson</strong> propune utilizarea ariilor aflate sub <strong>parabolele</strong> unor ecuații de grad 2. </p>
+<p> Vom detalia aceasă descoperire în paragrafele ce urmează. </p>
+<h2 id="h2-metoda-simpson-1-47-3"> Metoda Simpson 1&#47;3<a class="hash-link" href="#h2-metoda-simpson-1-47-3">#</a></h2>
+<p>Există mai multe metode Simpson - începem cu cea mai simplă. </p>
+<p> Fie \(f:[a,b]\subset\mathbb{R}\rightarrow\mathbb{R}\) o funcție integrabilă și continuă pe întreg intervalul de definiție. Totodată, fie \(m\in\mathbb{R}\) ales astfel încât \(m=\frac{a+b}{2}\). </p>
+<p> Metoda Simpson utilizează aria aflată sub graficul unei <strong>ecuații de grad 2</strong> pentru a aproxima integrala căutată. Așadar, pentru a aproxima \(\int_a^bf(x)\,dx\), se începe prin descoperirea unei parabole care <strong>trece exact</strong> prin punctele \(\big(a,f(a)\big)\), \(\big(m, f(m)\big)\) și \(\big(b,f(b)\big)\). </p>
+<p> Pentru aceasta, se poate folosi, de exemplu, <a href="./../7-interpolare/lagrange.html">interpolarea polinomială Lagrange</a> - se obține polinomul \(L\in\mathbb{R}[x]\): </p>
+\[
+L(x)=\frac{(x-m)(x-b)}{(a-m)(a-b)}f(a)+\frac{(x-a)(x-b)}{(m-a)(m-b)}f(m)+\frac{(x-a)(x-m)}{(b-a)(b-m)}f(b)
+\]
+<p> Așadar, \(f(x)\approx L(x)\), \(\forall x\in\mathbb[a,b]\), deci \(\int_a^bf(x)\,dx\approx \int_a^bL(x)\,dx\), dar, spre deosebire de \(\int_a^bf(x)\,dx\), \(\int_a^bL(x)\,dx\) poate fi calculat ușor, fiind integrarea unui polinom. </p>
+<p> Într-un final, se obține această aproximare pentru integrala inițială: </p>
+\[
+\boxed{\int_a^bf(x)\,dx\approx\frac{b-a}{6}\left[f(a)+4f\left(\frac{a+b}{2}\right)+f(b)\right]}
+\]
+<div class="box note">
+<div class="box-title">Demonstrație</div>
+<div class="box-content"><p> Să încercăm să calculăm \(\int_a^bf(x)\,dx\): </p>
+\[\begin{split}
+\int_a^bf(x)\,dx&=\int_a^b\frac{(x-m)(x-b)}{(a-m)(a-b)}f(a)+\frac{(x-a)(x-b)}{(m-a)(m-b)}f(m)+\frac{(x-a)(x-m)}{(b-a)(b-m)}f(b)\,dx
+\end{split}\]
+<p> Luăm termenii pe rând. Pentru început: </p>
+\[\begin{split}
+\int_a^b\frac{(x-m)(x-b)}{(a-m)(a-b)}f(a)\,dx&=f(a)\int_a^b\frac{(x-m)(x-b)}{(a-m)(a-b)}\,dx\\
+&=f(a)\int_a^b\frac{\left(x-\frac{a+b}{2}\right)(x-b)}{\left(a-\frac{a+b}{2}\right)(a-b)}\,dx
+\end{split}\]
+<p> Vom face schimbarea de variabilă \(x=\frac{b-a}{2}u+\frac{a+b}{2}\), adică \(u=\frac{2x-a-b}{b-a}\), ceea ce înseamnă că \(dx=\frac{b-a}{2}du\). Întorcându-ne la integrala noastră: </p>
+\[\begin{split}
+f(a)\int_a^b\frac{\left(x-\frac{a+b}{2}\right)(x-b)}{\left(a-\frac{a+b}{2}\right)(a-b)}\,dx&=f(a)\int_{-1}^1\frac{\left(\frac{b-a}{2}u+\frac{a+b}{2}-\frac{a+b}{2}\right)(\frac{b-a}{2}u+\frac{a+b}{2}-b)}{\left(a-\frac{a+b}{2}\right)(a-b)}\cdot\frac{b-a}{2}\,du\\
+&=f(a)\int_{-1}^1\frac{\left(\frac{a-b}{2}\right)^2u\left(1-u\right)}{\frac{a-b}{2}(a-b)}\cdot\frac{a-b}{2}\,du\\
+&=\frac{a-b}{4}f(a)\int_{-1}^1u\left(1-u\right)\,du\\
+&=\frac{a-b}{4}f(a)\left[\frac{x^2}{2}-\frac{x^3}{3}\right]_{-1}^1\\
+&=\frac{a-b}{4}f(a)\left(\frac{1^2}{2}-\frac{1^3}{3}-\frac{(-1)^2}{2}+\frac{(-1)^3}{3}\right)\\
+&=\frac{a-b}{4}\cdot\frac{-2}{3}f(a)\\
+&=\frac{b-a}{6}f(a)
+\end{split}\]
+<p> Folosind același raționament și pentru celelalte integrale, am ajunge la formula enunțată anterior: </p>
+\[
+\boxed{\int_a^bf(x)\,dx\approx\frac{b-a}{6}\left[f(a)+4f\left(\frac{a+b}{2}\right)+f(b)\right]}
+\]
+</div>
+</div>
+<p> Această formulă poate fi îmbunătățită prin compunere, asemănător cu ceea ce am discutat în subcapitolele anterioare. Astfel, pentru mai multe intervale consecutive, se însumează toate aceste aproximări. </p>
+<p> Concret, fie \(f:[x_0,x_n]\subset\mathbb{R}\rightarrow\mathbb{R}\) o funcție integrabilă și continuă pe întreg intervalul de definiție. Totodată, fie mulțimea \(M=\Big\{(x_k,y_k)\in\mathbb{R}^2\,|\,y_k=f(x_k),\,k\in\overline{0,n}\Big\}\), unde \(n\in\mathbb{N}^*\) este par și \(x_k\lt x_{k+1}\), \(\forall k\lt n\), o mulțime de \(n+1\) puncte distincte și echidistante ordonate crescător, reprezentând evaluări ale funcției \(f\) (concluzionăm deci că metoda Simpson 1&#47;3 este o metodă de tip Newton-Cotes). </p>
+<p> Dacă notăm cu \(h=\frac{b-a}{n}\) distanța între oricare două puncte \(x_k\) și \(x_{k+1}\) consecutive, \(\forall k\in\overline{0,n-1}\), obținem următoarele două formule: </p>
+\[
+    \boxed{\begin{split}
+        \int_{x_0}^{x_n} f(x) \, dx &\approx \frac{h}{3}
+        \sum_{k=1}^{n/2}\big[f(x_{2k-2}) + 4f(x_{2k-1}) + f(x_{2k})\big] \\
+        &= \frac{h}{3}
+        \bigg[f(x_0) + 4\sum_{k=1}^{n/2} f(x_{2k-1}) + 2\sum_{k=1}^{n/2-1} f(x_{2k}) + f(x_n)\bigg]
+    \end{split}}
+\]
+<h3 id="h3-vizualizare"> Vizualizare<a class="hash-link" href="#h3-vizualizare">#</a></h3>
+<p>În spiritul competiției, să considerăm tot funcția \(f:[0,6]\rightarrow\mathbb{R}\), \(f(x)=\sin(x+2)+\sqrt{x}\). Vom ilustra metoda Simpson 1&#47;3 compusă folosind \(3\), \(5\), respectiv \(7\) puncte echidistante pe întreg intervalul \([0,6]\): </p>
+<div class="figure dock-top">
+<div class="subfigure"><img src="../../../img/nm/10-integrare/simpson-3p.svg" style="background: #ffffff;"><div class="subcaption"><p> <strong>O parabolă</strong> (trei puncte) </p>
+</div></div>
+<div class="subfigure"><img src="../../../img/nm/10-integrare/simpson-5p.svg" style="background: #ffffff;"><div class="subcaption"><p> <strong>Două parabole</strong> (cinci puncte) </p>
+</div></div>
+<div class="subfigure"><img src="../../../img/nm/10-integrare/simpson-7p.svg" style="background: #ffffff;"><div class="subcaption"><p> <strong>Trei parabole</strong> (șapte puncte) </p>
+</div></div>
+</div>
+<p> Observăm că rezultatele obținute prin această aproximare iau următoarea formă: </p>
+\[
+    \int_0^6\sin(x+2)+\sqrt{x}\,dx\approx\begin{cases}
+        \text{o parabolă:}&7.441\\
+        \text{două parabole:}&9.368\\
+        \text{trei parabole:}&9.444\\
+    \end{cases}
+\]
+<p> Amintim rezultatul corect, \(9.527\), respectiv aproximările obținute prin metoda trapezelor compuse: </p>
+\[
+    \int_0^6\sin(x+2)+\sqrt{x}\,dx\approx\begin{cases}
+        \text{un trapez:}&13.044\\
+        \text{trei trapeze:}&9.104\\
+        \text{șase trapeze:}&9.359\\
+    \end{cases}
+\]
+<p> Se observă deci capacitatea acestui algoritm de a calcula rezultatul mai rapid, în ciuda utilizării unui număr similar de puncte în aproximarea sa. </p>
+<h3 id="h3-estimarea-erorii-partiale"> Estimarea erorii parțiale<a class="hash-link" href="#h3-estimarea-erorii-partiale">#</a></h3>
+<p>Fie \([a,b]\) un interval luat în considerare pentru a se aplica, pe o funcție \(f\), metoda Simpson 1&#47;3. Atunci, eroarea metodei este dată de <strong>formula lui Stirling</strong>: </p>
+\[
+    \boxed{\varepsilon_i(a,b)\approx-\frac{f^{(4)}(\xi)}{180}(b-a)h^4=-\frac{f^{(4)}(\xi)}{90}h^5}\,,\,\,\xi\in(a,b)
+\]
+<p> unde \(h\in\mathbb{R}\) reprezintă media numerelor \(a\) și \(b\). Folosind <a href="https://en.wikipedia.org/wiki/Mean_value_theorem">teorema lui Lagrange</a>, există cel puțin un punct \(\xi\in(a,b)\) astfel încât: </p>
+\[
+f^{(4)}(\xi)=\left(f^{(3)}(\xi)\right)'=\frac{f^{(3)}(b)-f^{(3)}(a)}{b-a}
+\]
+<p> deci ecuația se mai poate scrie și sub forma: </p>
+\[
+\boxed{\varepsilon_i(a,b)\approx\frac{f^{(3)}(a)-f^{(3)}(b)}{180}h^4}\,,\,\,\forall\,x_0\in(a,b)
+\]
+<div class="box note">
+<div class="box-title">Demonstrație</div>
+<div class="box-content"><p> Dovada este inspirată de munca lui Scarborough<a href="../../incheiere/bibliografie.html#ref-48" class="reference-href">[48]</a>. </p>
+<p> Fie \(F(x)\) definită astfel încât: </p>
+\[
+\int_a^xf(x)\,dx=F(x)+\mathcal{C}
+\]
+<p> Atunci, pentru a calcula \(\int_{k-h}^{k+h}f(x)\,dx\), unde \(k-h\leq x\leq k+h\) și \(a+h\leq k\leq b-h\), se poate scrie formula următoare: </p>
+\[
+    \int_{k-h}^{k+h}f(x)\,dx=F(k+h)-F(k-h)
+\]
+<p> Vom transforma în <a href="./../6-ec-neliniare/taylor.html">serie Taylor</a> termenii \(F(k+h)\) și \(F(k-h)\), amintind că \(F'(x)=f(x)\): </p>
+\[\begin{split}
+    F(k+h)&=F(k)+f(k)h+\frac{f'(k)}{2!}h^2+\frac{f''(k)}{3!}h^3+\dots\\
+    F(k-h)&=F(k)-f(k)h+\frac{f'(k)}{2!}h^2-\frac{f''(k)}{3!}h^3+\dots
+\end{split}\]
+<p> Din aceste două ecuații, înlocuind în cea de mai sus, se obține: </p>
+\[
+    \int_{k-h}^{k+h}f(x)\,dx=2\left(f(k)h+\frac{f''(k)}{3!}h^3+\frac{f^{(4)}(k)}{5!}h^5+\dots\right)
+\]
+<p> Reținem această ecuație. Folosind metoda lui Simpson, valoarea integralei este dată de: </p>
+\[
+    \int_{k-h}^{k+h}f(x)\,dx\approx\frac{h}{3}\left[f(k-h)+4f(k)+f(k+h)\right]
+\]
+<p> Prin același artificiu de a scrie în serie Taylor funcțiile \(f(k+h)\) și \(f(k-h)\), se obține: </p>
+\[
+    \int_{k-h}^{k+h}f(x)\,dx\approx\frac{h}{3}\left[6f(k)+f''(k)h^2+\frac{2f^{(4)}(k)}{4!}h^4+\dots\right]
+\]
+<p> Prin scăderea acestei relații din cea reținută și considerând \(a=k+h\) și \(b=k-h\), se obține: </p>
+\[
+    \varepsilon_i(a,b)\approx-\frac{f^{(4)}(k)}{90}h^5
+\]
+<p> Din moment ce \(h=\dfrac{a+b}{2}\), aici se încheie demonstrația. </p>
+</div>
+</div>
+<h3 id="h3-estimarea-erorii-totale"> Estimarea erorii totale<a class="hash-link" href="#h3-estimarea-erorii-totale">#</a></h3>
+<p>Folosind ecuația erorii parțiale pentru întreg intervalul \([a,b]=[x_0,x_n]\), se poate calcula o formulă pentru obținerea unei erori absolute maxime a metodei Simpson 1&#47;3 compusă: </p>
+\[
+\varepsilon(f,h)=-\frac{x_n-x_0}{180}h^4\cdot f^{(4)}(\xi)\Rightarrow\boxed{\varepsilon(f,h)\leq\frac{x_n-x_0}{180}h^4\cdot\max_{\xi\in[x_0,x_n]}\left\{|f^{(4)}(\xi)|\right\}}
+\]
+<p> Aceasta nu va fi demonstrată, ci se va accepta drept adevărată ca atare. </p>
+<h3 id="h3-coduri-ilustrative"> Coduri ilustrative<a class="hash-link" href="#h3-coduri-ilustrative">#</a></h3>
+<p>Vom separa cazul implementării algoritmului Simpson simplu de cel compus. </p>
+<h4 id="h4-regula-lui-simpson-simpla"> Regula lui Simpson simplă<a class="hash-link" href="#h4-regula-lui-simpson-simpla">#</a></h4>
+<p>Funcția <code>simpson13_simplu</code> prezintă, în Matlab, o implementare posibilă a metodei Simpson 1&#47;3 simple, așa cum a fost explicată mai sus. Vom considera: </p>
+<ul>
+<li>
+<p> <code>a</code> - capătul stâng al integralei de calculat; </p>
+</li>
+<li>
+<p> <code>b</code> - capătul drept al integralei de calculat; </p>
+</li>
+<li>
+<p> <code>f</code> - funcția ce trebuie integrată. </p>
+</li>
+</ul>
+<p>În această situație, funcția va returna <code>I</code>, valoarea integralei căutate, adică \(I\approx\int_a^bf(x)\,dx\). </p>
+<div class="code-listing"><div class="copy-code"></div><pre><code class="language-matlab">function I = simpson13_simplu(a, b, f)
+    I = (b - a) * (f(a) + 4 * f((a+b)/2) + f(b)) / 6;
+end</code></pre></div>
+<h4 id="h4-metoda-lui-simpson-compusa"> Metoda lui Simpson compusă<a class="hash-link" href="#h4-metoda-lui-simpson-compusa">#</a></h4>
+<p>Funcția <code>simpson13_compus</code> va conține o implementare în Matlab pentru metoda Simpson 1&#47;3 compusă, în urma explicațiilor de mai sus. În acest context, folosim parametrii: </p>
+<ul>
+<li>
+<p> <code>a</code> - capătul stâng al integralei de calculat; </p>
+</li>
+<li>
+<p> <code>b</code> - capătul drept al integralei de calculat; </p>
+</li>
+<li>
+<p> <code>n</code> - numărul de parabole utilizat; </p>
+</li>
+<li>
+<p> <code>f</code> - funcția ce trebuie integrată. </p>
+</li>
+</ul>
+<p>În această situație, funcția va returna <code>I</code>, valoarea integralei căutate, adică \(I\approx\int_a^bf(x)\,dx\). </p>
+<div class="code-listing"><div class="copy-code"></div><pre><code class="language-matlab">function I = simpson13_compus(a, b, n, f)	
+    h = (b - a) / (2 * n);
+
+    s1 = 0;
+    for i = [1 : n]
+        s1 += f(a + (2*i-1) * h);
+    end
+
+    s2 = 0;
+    for i = [1 : n-1]
+        s2 += f(a + 2*i * h);
+    end
+
+    I = h * (f(a) + f(b) + 4*s1 + 2*s2) / 3;
+end</code></pre></div>
+<h2 id="h2-bonus-metoda-simpson-3-47-8"> (Bonus) Metoda Simpson 3&#47;8<a class="hash-link" href="#h2-bonus-metoda-simpson-3-47-8">#</a></h2>
+<p>Ideea din spatele metodei Simpson 1&#47;3 a fost revoluționară pentru că a utilizat interpolările unor polinoame de gradul \(2\); această noțiune se poate extinde pe polinoame de grad 3 și este cunoscută drept metoda <strong>Simpson 3&#47;8</strong>. </p>
+<p> Pe scurt, în cazul metodei compuse: fie \(f:[x_0,x_n]\subset\mathbb{R}\rightarrow\mathbb{R}\) o funcție integrabilă și continuă pe întreg intervalul de definiție. </p>
+<p> Totodată, fie mulțimea \(M=\Big\{(x_k,y_k)\in\mathbb{R}^2\,|\,y_k=f(x_k),\,k\in\overline{0,n}\Big\}\), unde \(n\in\mathbb{N}^*\) este divizibil cu \(3\) și \(x_k\lt x_{k+1}\), \(\forall k\lt n\), o mulțime de \(n+1\) puncte distincte și echidistante ordonate crescător, reprezentând evaluări ale funcției \(f\) - deci o altă metodă tip Newton-Cotes. </p>
+<p> Dacă notăm cu \(h=\frac{b-a}{n}\) distanța între oricare două abscise \(x_k\) și \(x_{k+1}\) consecutive, \(\forall k\in\overline{0,n-1}\), obținem următoarea formulă pentru metoda compusă: </p>
+\[
+    \boxed{\begin{split}
+            \int_{x_0}^{x_n} f(x) \, dx &\approx \frac{3h}{8}\bigg[f(x_0)+3f(x_1)+3f(x_2)+2f(x_3)+3f(x_4)+3f(x_5)+2f(x_6)+ \\
+            &\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\dots+3f(x_{n-2}) + 3f(x_{n-1}) + f(x_n)\bigg]\\
+            &= \frac{3h}{8} \bigg[f(x_0) + 3 \sum_{i \ne 3k}^{n-1} f(x_i) + 2 \sum_{j=1}^{n/3 - 1} f(x_{3j}) + f(x_n) \bigg]
+    \end{split}}
+\]
+<h3 id="h3-estimarea-erorii"> Estimarea erorii<a class="hash-link" href="#h3-estimarea-erorii">#</a></h3>
+<p>Nu vom intra în detalii, însă eroarea provocată de această metodă la nivel local (pe \([a,b]\subset\mathbb{R}\)) este dată de formula: </p>
+\[
+    \varepsilon(x)=-\frac{h^4}{405}(b-a)\cdot f^{(4)}(\xi)
+\]
+<p> unde \(\xi\in[a,b]\) este necunoscut și \(h=\frac{b-a}{2}\). Evident, o limită superioară a erorii absolute poate fi determinată ușor: </p>
+\[
+    \boxed{|\varepsilon(x)|\leq\frac{h^4}{405}(b-a)\cdot\max_{\xi\in[a,b]}\left|f^{(4)}(\xi)\right|}
+\]
+<h2 id="h2-concluzii"> Concluzii<a class="hash-link" href="#h2-concluzii">#</a></h2>
+<p>Metoda Simpson 1&#47;3 compusă este, atât în teorie, cât și în practică, mult mai rapidă, convergând de câteva ori bune mai ușor decât metoda trapezelor compuse. Singurul dezavantaj al acestei metode este creșterea numărului de puncte ce sunt necesare pentru a calcula estimarea. </p>
+
+ <p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/">The book <a property="dct:title" rel="cc:attributionURL" href="https://v-vintila.com">"Metode Numerice"</a>, written by <a rel="cc:attributionURL dct:creator" property="cc:attributionName" href="https://v-vintila.com">Valentin-Ioan Vintilă</a>, is licensed under <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">CC BY-NC-SA 4.0 <img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1"><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1"><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/nc.svg?ref=chooser-v1"><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/sa.svg?ref=chooser-v1"></a></p> 
+</div>
+                                    <footer class="article-footer" wi-element="article-footer"><div class="footer-content"><div class="footer-content-part"><a class="edit-page" href="#"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" aria-hidden="true">
+<g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g>
+</svg> Improve this page</a></div><div class="footer-content-part"><span class="last-update">Last updated on <b>Mar 22, 2024 (19:09)</b></span></div></div></footer>
+                                </article>
+                                <nav class="previous-next" wi-element="previous-next"><a class="prev" href="trapeze.html"><div class="sublabel">Previous</div><div class="label">Metoda trapezelor</div></a><a class="prev" href="newton-cotes.html"><div class="sublabel">Next</div><div class="label">Generalizarea metodelor Newton-Cotes</div></a></nav>
+                            </div>
+                            <div class="center-doc-toc">
+                                <div class="toc-container">
+                                    <ul id="toc" wi-element="article-toc"><li><a href="#h2-metoda-simpson-1-47-3"> Metoda Simpson 1&#47;3 </a><ul><li><a href="#h3-vizualizare"> Vizualizare </a></li><li><a href="#h3-estimarea-erorii-partiale"> Estimarea erorii parțiale </a></li><li><a href="#h3-estimarea-erorii-totale"> Estimarea erorii totale </a></li><li><a href="#h3-coduri-ilustrative"> Coduri ilustrative </a></li></ul></li><li><a href="#h2-bonus-metoda-simpson-3-47-8"> (Bonus) Metoda Simpson 3&#47;8 </a><ul><li><a href="#h3-estimarea-erorii"> Estimarea erorii </a></li></ul></li><li><a href="#h2-concluzii"> Concluzii </a><ul></ul></li></ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+        <footer class="page-footer">
+            <div class="footer-content">
+                <div class="footer-columns">
+                    <div class="footer-column">
+                        <div class="footer-column-title">Main topics</div>
+                        <ul class="footer-column-items">
+                            <li class="footer-column-item">
+                                <a href="https://www.v-vintila.com">About Valentin</a>
+                            </li>
+                            <li class="footer-column-item">
+                                <a href="https://www.v-vintila.com/numerical-methods/introducere/cuvant-inainte.html">Numerical Methods (RO)</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <div class="footer-column-title">Contribute</div>
+                        <ul class="footer-column-items">
+                            <li class="footer-column-item">
+                                <a href="#" onclick="donate_alert(event)">Donate</a>
+                            </li>
+                            <li class="footer-column-item">
+                                <a href="https://www.github.com/w1bb/IMD1">IMD1</a>
+                            </li>
+                            <li class="footer-column-item">
+                                <a href="https://www.github.com/w1bb/GoBG">GoBG</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <div class="footer-column-title">Social</div>
+                        <ul class="footer-column-items">
+                            <li class="footer-column-item">
+                                <a href="https://www.github.com/w1bb">GitHub</a>
+                            </li>
+                            <li class="footer-column-item">
+                                <a href="https://www.instagram.com/vi.vintila/">Instagram</a>
+                            </li>
+                            <li class="footer-column-item">
+                                <a href="https://linkedin.com/in/valentin-vintila">Linked In</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="separator"></div>
+                <span>The contents of this website are subject to copyright.</span>
+                <span>© Valentin-Ioan VINTILĂ 2022-2024</span>
+            </div>
+        </footer>
+        <div id="doc-search-overlay">
+            <div class="search-container">
+                <div class="search-box-container">
+                    <div class="search-box">
+                        <svg width="16" height="16" class="DocSearch-Search-Icon" viewBox="0 0 20 20">
+                            <path d="M14.386 14.386l4.0877 4.0877-4.0877-4.0877c-2.9418 2.9419-7.7115 2.9419-10.6533 0-2.9419-2.9418-2.9419-7.7115 0-10.6533 2.9418-2.9419 7.7115-2.9419 10.6533 0 2.9419 2.9418 2.9419 7.7115 0 10.6533z" stroke="currentColor" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                        </svg>
+                        <input type="text" id="search-input" placeholder="Search everywhere (NOT WORKING)"/>
+                    </div>
+                    <div class="cancel-button">
+                        <div id="canel-doc-search">Cancel</div>
+                    </div>
+                </div>
+                <div class="search-results">
+                    <div class="pre-search">Results will appear as you type</div>
+                </div>
+            </div>
+        </div>
+        <div id="image-zoom-overlay"></div>
+        <div id="scroll-to-top"></div>
+    </section>
+
+
+</body></html>
