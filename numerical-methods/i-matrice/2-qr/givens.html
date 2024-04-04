@@ -716,9 +716,9 @@
 
     for j = [1 : min(n-1, m)]
         for k = [j + 1 : n]
-            rho = sqrt(A(j,j)^2 + A(k,j)^2);
-            c = A(j,j) / rho;
-            s = -A(k,j) / rho;
+            rho = sqrt(A(j,j)&#94;2 + A(k,j)&#94;2);
+            c = A(j,j) &#47; rho;
+            s = -A(k,j) &#47; rho;
 
             aux = [c -s; s c] * [A(j, j:m); A(k, j:m)];
             A(j, j:m) = aux(1, :);
@@ -730,7 +730,7 @@
         end
     end
 
-    Q = Q';
+    Q = Q&apos;;
     R = A;
 end</code></pre></div>
 <h3 id="h3-analiza-complexitatii"> Analiza complexității<a class="hash-link" href="#h3-analiza-complexitatii">#</a></h3>

@@ -327,9 +327,9 @@ x_n^{(p)}
     for k = [1 : max_iter]
         for i = [1 : n]
             val_sum = (A(i,1:i-1) * x(1:i-1)) + (A(i,i+1:n) * x0(i+1:n));
-            x(i) = (1-omega) * x0(i) + omega * (b(i) - val_sum) / A(i,i);
+            x(i) = (1-omega) * x0(i) + omega * (b(i) - val_sum) &#47; A(i,i);
         end
-        if norm(x - x0) < tol
+        if norm(x - x0) &lt; tol
             break
         end
         x0 = x

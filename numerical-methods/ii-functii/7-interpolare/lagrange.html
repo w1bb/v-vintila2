@@ -250,7 +250,7 @@ function yp = lag_single(x, y, xp)
         l = 1;
         for j = [1 : n]
             if i != j
-                l *= (xp - x(j)) / (x(i) - x(j));
+                l *= (xp - x(j)) &#47; (x(i) - x(j));
             end
         end
         yp += y(i) * l;
@@ -350,8 +350,8 @@ A(x)=\begin{bmatrix}
 <div class="code-listing"><div class="copy-code"></div><pre><code class="language-matlab">function yp = lag_mat(x, y, xp)	
     n = length(x);
     U = diag(x) * ones(n) - ones(n) * diag(x) + eye(n);
-    V = diag(xp - x) * ~eye(n) + eye(n);
-    yp = prod(V) ./ prod(U) * y;
+    V = diag(xp - x) * &#126;eye(n) + eye(n);
+    yp = prod(V) .&#47; prod(U) * y;
 end</code></pre></div>
 <h2 id="h2-concluzii"> Concluzii<a class="hash-link" href="#h2-concluzii">#</a></h2>
 <p>Această metodă este robustă în comparație cu soluția Vandermonde, însă rămâne instabilă numeric, întrucât oscilează în capete. Nu se va folosi în practică niciodată această metodă pentru mai mult de \(50\) puncte. </p>

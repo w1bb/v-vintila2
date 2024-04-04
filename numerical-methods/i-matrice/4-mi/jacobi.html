@@ -326,9 +326,9 @@ b_n-\sum_{j=1,j\neq n}^na_{ij}x_j^{(p)}
     for k = [1 : max_iter]
         for i = [1 : n]
             val_sum = (A(i,:) * x0(:)) - (A(i,i) * x0(i));
-            x(i) = (b(i) - val_sum) / A(i,i);
+            x(i) = (b(i) - val_sum) &#47; A(i,i);
         end
-        if norm(x - x0) < tol
+        if norm(x - x0) &lt; tol
             break
         end
         x0 = x

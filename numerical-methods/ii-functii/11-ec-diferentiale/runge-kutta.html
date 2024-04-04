@@ -359,16 +359,16 @@
 </ul>
 <p>Atunci funcția va returna <code>y</code>, soluția ecuației diferențiale. </p>
 <div class="code-listing"><div class="copy-code"></div><pre><code class="language-matlab">function y = RK4(a, b, n, y0, f)
-    h = (b - a) / n
+    h = (b - a) &#47; n
     y = zeros(n+1, 1);
     y(1) = y0;
     for k = [1 : n]
         t = a + (k - 1) * h;
         psi1 = f(t,       y(k))
-        psi2 = f(t + h/2, y(k) + h*psi1/2)
-        psi3 = f(t + h/2, y(k) + h*psi2/2)
+        psi2 = f(t + h&#47;2, y(k) + h*psi1&#47;2)
+        psi3 = f(t + h&#47;2, y(k) + h*psi2&#47;2)
         psi4 = f(t + h,   y(k) + h*psi3)
-        y(k+1) = y(k) + (h/6) * (psi1 + 2*psi2 + 2*psi3 + psi4);
+        y(k+1) = y(k) + (h&#47;6) * (psi1 + 2*psi2 + 2*psi3 + psi4);
     end
 end</code></pre></div>
 <h2 id="h2-alte-metode-rk"> Alte metode RK<a class="hash-link" href="#h2-alte-metode-rk">#</a></h2>

@@ -263,14 +263,14 @@
 <div class="code-listing"><div class="copy-code"></div><pre><code class="language-matlab">function [lambda, y, steps] = MPI(A, y0, tol, max_iter)
     [m, n] = size(A);
     y = y0;
-    lambda = y' * A * y;
+    lambda = y&apos; * A * y;
     for steps = [1 : max_iter]
         t = (A - lambda) * y;
-        y = t / norm(t);
+        y = t &#47; norm(t);
         lambda_old = lambda;
-        lambda = y' * A * y;
-        err = abs((lambda - lambda_old) / lambda);
-        if err < tol
+        lambda = y&apos; * A * y;
+        err = abs((lambda - lambda_old) &#47; lambda);
+        if err &lt; tol
             return
         end
     end

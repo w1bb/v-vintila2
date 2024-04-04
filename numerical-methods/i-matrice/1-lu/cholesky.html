@@ -283,7 +283,7 @@ l_{11} & l_{21} & l_{31} \\
             for k = [1 : j-1]
                 S += L(i,k) * L(j,k);
             end
-            L(i,j) = (A(i,j) - S) / L(j,j);
+            L(i,j) = (A(i,j) - S) &#47; L(j,j);
         end
         % Valorile diagonale
         S = 0;

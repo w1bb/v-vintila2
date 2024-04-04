@@ -278,7 +278,7 @@ P_k(x_k)=P_{k-1}(x_k)+\alpha_k(x_k-x_0)\dots(x_k-x_{k-1})\Rightarrow\boxed{\alph
         for i = [1 : n-dj]
             j = i + dj;
             dif_div(i,j) = (dif_div(i+1,j) - dif_div(i,j-1));
-            dif_div(i,j) /= (M(j,1) - M(i,1));
+            dif_div(i,j) &#47;= (M(j,1) - M(i,1));
         end
     end
     yp = dif_div(1, 1);

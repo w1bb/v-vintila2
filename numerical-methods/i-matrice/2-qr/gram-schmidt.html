@@ -421,10 +421,10 @@
     n = length(A);
     Q = R = zeros(n);
     for i = [1 : n]
-        R(1:i-1, i) = Q(1:n, 1:i-1)' * A(1:n, i);
+        R(1:i-1, i) = Q(1:n, 1:i-1)&apos; * A(1:n, i);
         y = A(1:n, i) - Q(1:n, 1:i-1) * R(1:i-1, i);
         R(i, i) = norm(y);
-        Q(1:n, i) = y ./ R(i, i);
+        Q(1:n, i) = y .&#47; R(i, i);
     end
 end</code></pre></div>
 <p> Deoarece există o corespondență directă între \(\bm{a_i}\) și \(\bm{q_i}\), este imposibil de găsit un vector \(\bm{q_i}\) pentru \(i\gt n\) (adică \(A\in\mathbb{R}^{n\times m}\) și \(m\lt n\)), așadar această metodă poate fi utilizată e<strong>xclusiv pentru matricele pătratice</strong>. </p>

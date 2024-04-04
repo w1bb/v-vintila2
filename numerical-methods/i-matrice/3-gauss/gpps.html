@@ -279,7 +279,7 @@
     end
     for p = [1 : n-1]
         % Partea de GPPS:
-        [piv, l_piv] = max(abs(Ae(p:n, p)) ./ S(:,p:n)');
+        [piv, l_piv] = max(abs(Ae(p:n, p)) .&#47; S(:,p:n)&apos;);
         l_piv = l_piv + p - 1;
         temp = Ae(l_piv, :);
         Ae(l_piv,:) = Ae(p, :);
@@ -293,7 +293,7 @@
             continue;
         end
         for l = p+1 : n
-            arg = Ae(l, p) / Ae(p, p);
+            arg = Ae(l, p) &#47; Ae(p, p);
             Ae(l, :) = Ae(l, :) - arg * Ae(p, :);
         end
     end

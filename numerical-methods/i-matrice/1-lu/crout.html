@@ -301,7 +301,7 @@ l_{11},l_{21},l_{31}\rightarrow u_{12},u_{13}\rightarrow l_{22},l_{32}\rightarro
             for t = [k+1 : n]
                 S += L(k,t) * U(t,j);        
             end
-            U(i,k) = (A(k,j) - S) / L(k,k);
+            U(i,k) = (A(k,j) - S) &#47; L(k,k);
         end
     end
 end</code></pre></div>

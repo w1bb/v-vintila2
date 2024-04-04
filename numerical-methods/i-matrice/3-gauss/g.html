@@ -294,7 +294,7 @@
             continue;
         end
         for l = p+1 : n
-            arg = Ae(l, p) / Ae(p, p);
+            arg = Ae(l, p) &#47; Ae(p, p);
             Ae(l, :) = Ae(l, :) - arg * Ae(p, :);
         end
     end

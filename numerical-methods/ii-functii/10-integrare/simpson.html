@@ -287,7 +287,7 @@ f^{(4)}(\xi)=\left(f^{(3)}(\xi)\right)'=\frac{f^{(3)}(b)-f^{(3)}(a)}{b-a}
 </ul>
 <p>În această situație, funcția va returna <code>I</code>, valoarea integralei căutate, adică \(I\approx\int_a^bf(x)\,dx\). </p>
 <div class="code-listing"><div class="copy-code"></div><pre><code class="language-matlab">function I = simpson13_simplu(a, b, f)
-    I = (b - a) * (f(a) + 4 * f((a+b)/2) + f(b)) / 6;
+    I = (b - a) * (f(a) + 4 * f((a+b)&#47;2) + f(b)) &#47; 6;
 end</code></pre></div>
 <h4 id="h4-metoda-lui-simpson-compusa"> Metoda lui Simpson compusă<a class="hash-link" href="#h4-metoda-lui-simpson-compusa">#</a></h4>
 <p>Funcția <code>simpson13_compus</code> va conține o implementare în Matlab pentru metoda Simpson 1&#47;3 compusă, în urma explicațiilor de mai sus. În acest context, folosim parametrii: </p>
@@ -307,7 +307,7 @@ end</code></pre></div>
 </ul>
 <p>În această situație, funcția va returna <code>I</code>, valoarea integralei căutate, adică \(I\approx\int_a^bf(x)\,dx\). </p>
 <div class="code-listing"><div class="copy-code"></div><pre><code class="language-matlab">function I = simpson13_compus(a, b, n, f)	
-    h = (b - a) / (2 * n);
+    h = (b - a) &#47; (2 * n);
 
     s1 = 0;
     for i = [1 : n]
@@ -319,7 +319,7 @@ end</code></pre></div>
         s2 += f(a + 2*i * h);
     end
 
-    I = h * (f(a) + f(b) + 4*s1 + 2*s2) / 3;
+    I = h * (f(a) + f(b) + 4*s1 + 2*s2) &#47; 3;
 end</code></pre></div>
 <h2 id="h2-bonus-metoda-simpson-3-47-8"> (Bonus) Metoda Simpson 3&#47;8<a class="hash-link" href="#h2-bonus-metoda-simpson-3-47-8">#</a></h2>
 <p>Ideea din spatele metodei Simpson 1&#47;3 a fost revoluționară pentru că a utilizat interpolările unor polinoame de gradul \(2\); această noțiune se poate extinde pe polinoame de grad 3 și este cunoscută drept metoda <strong>Simpson 3&#47;8</strong>. </p>

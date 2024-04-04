@@ -1,0 +1,698 @@
+<!DOCTYPE html><html lang="en" data-theme="dark-mode"><head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <script src="../../../../src/jquery-min.js"></script>
+    <script src="../../../../src/jquery-ui.min.js"></script>
+    <script src="../../../../src/index.js"></script>
+
+    <link rel="stylesheet" href="../../../../css/katex.min.css"/>
+    <script defer="" src="../../../../src/katex.min.js"></script>
+    <script defer="" src="../../../../src/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+
+    <script src="../../../../src/highlight.min.js"></script>
+    <script src="../../../../src/matlab.min.js"></script>
+
+    <script>
+        function donate_alert(event) {
+            alert("Thank you for your interest in this project!\n\nIBAN (BCR):\nRO28 RNCB 0857 1709 5964 0001");
+            event.preventDefault();
+        }
+    </script>
+
+    <link rel="stylesheet" type="text/css" media="screen" href="../../../../css/style.css"/>
+    <link rel="icon" type="image/x-icon" href="../../../../img/icons/wi64.png"/>
+    <title>ED - Arduino (2) [ v-vintila ]</title>
+</head>
+<body class="dark-mode">
+    <script>
+        function set_color_mode(new_color_mode) {
+            if (new_color_mode == "light-mode") {
+                $("body").removeClass("dark-mode");
+                $("body").addClass("light-mode");
+                localStorage.setItem('theme', "light-mode");
+                document.querySelector("html").setAttribute("data-theme", "light-mode");
+            } else {
+                $("body").removeClass("light-mode");
+                $("body").addClass("dark-mode");
+                localStorage.setItem('theme', "dark-mode");
+                document.querySelector("html").setAttribute("data-theme", "dark-mode");
+            }
+        }
+
+        let saved_theme = localStorage.getItem("theme");
+        if (!saved_theme) {
+            saved_theme = "dark-mode";
+        }
+        set_color_mode(saved_theme);
+    </script>
+    <section id="wipybg">
+        <nav class="top">
+            <div class="nav-content">
+                <div class="nav-content-left" wi-element="top-nav">
+                    <div id="hamburger-open-nav-top-sidebar">
+                        <svg width="24" height="24" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+                    </div>
+                    
+                    
+                    
+                <a class="logo-container" href="../../../welcome/who-am-i.html"><div class="logo">Valentin-Ioan Vintilă</div></a><a class="section-link selected" href="../../../welcome/who-am-i.html">About me</a><a class="section-link" href="../../../../blog/2024/payment-cards.html">Blog</a><a class="section-link" href="../../../../numerical-methods/introducere/cuvant-inainte.html">Numerical Methods</a><a class="section-link" href="../../../../docs/resume.pdf">Résumé</a></div>
+                <div class="nav-content-right">
+                    <a href="https://www.github.com/w1bb" class="section-link">
+                        GitHub
+                        <svg width="12" height="12" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU">
+                            <path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path>
+                        </svg>
+                    </a>
+                    <div class="toggle-color-mode-container">
+                        <div class="toggle-color-mode">
+                            <svg viewBox="0 0 24 24" width="24" height="24" class="lightToggleIcon_pyhR">
+                                <path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="search-box">
+                        <div id="search-box-toggle">
+                            <svg width="16" height="16" class="DocSearch-Search-Icon" viewBox="0 0 20 20">
+                                <path d="M14.386 14.386l4.0877 4.0877-4.0877-4.0877c-2.9418 2.9419-7.7115 2.9419-10.6533 0-2.9419-2.9418-2.9419-7.7115 0-10.6533 2.9418-2.9419 7.7115-2.9419 10.6533 0 2.9419 2.9418 2.9419 7.7115 0 10.6533z" stroke="currentColor" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path>
+                            </svg>
+                            <div class="search-box-text">Search (NOT WORKING)</div>
+                            <div class="search-box-key-container">
+                                <div class="search-box-key">/</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <div id="main-page">
+            <div class="doc">
+                <aside>
+                    <div id="aside-overlay"></div>
+                    <div class="sidebar-container">
+                        <div class="sidebar">
+                            <div class="sidebar-title-section">
+                                <div class="sidebar-title-section-content">
+                                    <div class="sidebar-title-section-content-left">
+                                        <a href="../../../welcome/who-am-i.html" class="logo-container">
+                                            <div class="logo">Valentin-Ioan Vintilă</div>
+                                        </a>
+                                    </div>
+                                    <div class="sidebar-title-section-content-right">
+                                        <div class="toggle-color-mode-container">
+                                            <div class="toggle-color-mode">
+                                                <svg viewBox="0 0 24 24" width="24" height="24" class="lightToggleIcon_pyhR">
+                                                    <path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <nav wi-element="aside-nav"><ul class="generic-tree"><li class="tome"><a href="../../../welcome/who-am-i.html">About me</a></li><li class="tome"><a href="../../../../blog/2024/payment-cards.html">Blog</a></li><li class="tome"><a href="../../../../numerical-methods/introducere/cuvant-inainte.html">Numerical Methods</a></li><li class="tome"><a href="../../../../docs/resume.pdf">Résumé</a></li></ul><ul class="main-tree"><li class="main-tree-category"><div class="main-tree-category-title"><a class="main-tree-category-title-content" href="../../../welcome/who-am-i.html"><div class="title-text">👋  Welcome</div><div class="title-collapse-btn"></div></a></div><ul class="secondary-tree lvl-1"><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../../welcome/who-am-i.html"><div class="title-text">Who am I?</div></a></div><ul class="secondary-tree lvl-2"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../../welcome/contests.html"><div class="title-text">Contests</div><div class="badge badge-t1">UPDATED&nbsp;&nbsp;✨</div></a></div><ul class="secondary-tree lvl-2"></ul></li></ul></li><li class="main-tree-category"><div class="main-tree-category-title"><a class="main-tree-category-title-content" href="../../numerical-methods.html"><div class="title-text">🎓  Learning materials</div><div class="title-collapse-btn"></div></a></div><ul class="secondary-tree lvl-1"><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../numerical-methods.html"><div class="title-text">Numerical Methods</div><div class="title-collapse-btn"></div></a></div><ul class="secondary-tree lvl-2"><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../numerical-methods/numerical-methods-book.html"><div class="title-text">Numerical Methods book</div><div class="badge badge-t2">RO&nbsp;&nbsp;🌐</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../numerical-methods/past-lectures.html"><div class="title-text">Past labs</div><div class="badge badge-t2">RO&nbsp;&nbsp;🌐</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../numerical-methods/exercises.html"><div class="title-text">Exercises</div><div class="badge badge-t2">RO&nbsp;&nbsp;🌐</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../numerical-methods/homework-checker.html"><div class="title-text">Homework checker</div></a></div><ul class="secondary-tree lvl-3"></ul></li></ul></li><li class="secondary-tree-item selected"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../electronics.html"><div class="title-text">Electronics</div><div class="title-collapse-btn"></div></a></div><ul class="secondary-tree lvl-2"><li class="secondary-tree-item selected"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../past-lectures.html"><div class="title-text">Past labs</div><div class="title-collapse-btn"></div><div class="badge badge-t2">RO&nbsp;&nbsp;🌐</div></a></div><ul class="secondary-tree lvl-3"><li class="secondary-tree-item selected final tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="arduino-2.html"><div class="title-text">ED - Arduino (2)</div><div class="badge badge-t2">RO&nbsp;&nbsp;🌐</div></a></div><ul class="secondary-tree lvl-4"></ul></li></ul></li></ul></li></ul></li><li class="main-tree-category"><div class="main-tree-category-title"><a class="main-tree-category-title-content" href="../../../software-projects/uni-projects.html"><div class="title-text">💻  Software projects</div><div class="title-collapse-btn"></div></a></div><ul class="secondary-tree lvl-1"><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../../software-projects/uni-projects.html"><div class="title-text">Uni projects</div><div class="badge badge-t4">NEW&nbsp;&nbsp;😍</div></a></div><ul class="secondary-tree lvl-2"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../../software-projects/imd1.html"><div class="title-text">IMD1</div><div class="badge badge-t4">NEW&nbsp;&nbsp;😍</div></a></div><ul class="secondary-tree lvl-2"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../../software-projects/gobg.html"><div class="title-text">GoBG</div><div class="badge badge-t4">NEW&nbsp;&nbsp;😍</div></a></div><ul class="secondary-tree lvl-2"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../../software-projects/chess-engines.html"><div class="title-text">Chess Engines</div><div class="title-collapse-btn"></div></a></div><ul class="secondary-tree lvl-2"><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../../software-projects/chess-engines/wice.html"><div class="title-text">WiCE</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../../software-projects/chess-engines/adle.html"><div class="title-text">ADLE</div></a></div><ul class="secondary-tree lvl-3"></ul></li></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../../software-projects/wi-crypt.html"><div class="title-text">Wi-Crypt</div><div class="title-collapse-btn"></div></a></div><ul class="secondary-tree lvl-2"><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../../software-projects/wi-crypt/aes.html"><div class="title-text">AES 128/192/256</div></a></div><ul class="secondary-tree lvl-3"></ul></li></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../../software-projects/wiparser.html"><div class="title-text">WiParser</div></a></div><ul class="secondary-tree lvl-2"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../../software-projects/n-ai-spam.html"><div class="title-text">N-AI Spam</div></a></div><ul class="secondary-tree lvl-2"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../../software-projects/v-vintila.html"><div class="title-text">v-vintila.com</div><div class="badge badge-t1">UPDATED&nbsp;&nbsp;✨</div></a></div><ul class="secondary-tree lvl-2"></ul></li></ul></li><li class="main-tree-category"><div class="main-tree-category-title"><a class="main-tree-category-title-content" href="../../../hardware-projects/carpino.html"><div class="title-text">🛠️  Hardware projects</div><div class="title-collapse-btn"></div></a></div><ul class="secondary-tree lvl-1"><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../../hardware-projects/carpino.html"><div class="title-text">Cârpino™</div><div class="title-collapse-btn"></div><div class="badge badge-t3">HOT&nbsp;&nbsp;🔥</div></a></div><ul class="secondary-tree lvl-2"><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../../hardware-projects/carpino/circuit-design.html"><div class="title-text">Circuit design</div></a></div><ul class="secondary-tree lvl-3"></ul></li></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../../hardware-projects/ralarm.html"><div class="title-text">ralarm</div><div class="title-collapse-btn"></div></a></div><ul class="secondary-tree lvl-2"><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../../hardware-projects/ralarm/circuit-design.html"><div class="title-text">Circuit design</div></a></div><ul class="secondary-tree lvl-3"></ul></li></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../../hardware-projects/audio-amplifier.html"><div class="title-text">Stereo audio amplifier</div><div class="title-collapse-btn"></div></a></div><ul class="secondary-tree lvl-2"><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../../hardware-projects/audio-amplifier/circuit-design.html"><div class="title-text">Circuit design</div></a></div><ul class="secondary-tree lvl-3"></ul></li></ul></li></ul></li><li class="main-tree-category"><div class="main-tree-category-title"><a class="main-tree-category-title-content" href="../../../quantum-computing-projects/lab.html"><div class="title-text">⚛️  Quantum computing projects</div><div class="title-collapse-btn"></div></a></div><ul class="secondary-tree lvl-1"><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../../quantum-computing-projects/lab.html"><div class="title-text">Lab: Qiskit, QFT, QPE and beyond</div></a></div><ul class="secondary-tree lvl-2"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../../quantum-computing-projects/course.html"><div class="title-text">Course: Quantum Simulation - Perceiving nature through Quantum</div></a></div><ul class="secondary-tree lvl-2"></ul></li></ul></li><li class="main-tree-category"><div class="main-tree-category-title"><a class="main-tree-category-title-content" href="../../../smaller-projects/hazoses-trivia-bot.html"><div class="title-text">📖  Smaller projects</div><div class="title-collapse-btn"></div></a></div><ul class="secondary-tree lvl-1"><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../../smaller-projects/hazoses-trivia-bot.html"><div class="title-text">Hazoses trivia bot</div></a></div><ul class="secondary-tree lvl-2"></ul></li></ul></li></ul></nav>
+                            <div id="collapse-aside">
+                                <svg width="16" height="16" viewBox="0 0 20 20" aria-hidden="true" class="collapseSidebarButtonIcon_kv0_">
+                                    <g fill="#7a7a7a"><path d="M9.992 10.023c0 .2-.062.399-.172.547l-4.996 7.492a.982.982 0 01-.828.454H1c-.55 0-1-.453-1-1 0-.2.059-.403.168-.551l4.629-6.942L.168 3.078A.939.939 0 010 2.528c0-.548.45-.997 1-.997h2.996c.352 0 .649.18.828.45L9.82 9.472c.11.148.172.347.172.55zm0 0"></path><path d="M19.98 10.023c0 .2-.058.399-.168.547l-4.996 7.492a.987.987 0 01-.828.454h-3c-.547 0-.996-.453-.996-1 0-.2.059-.403.168-.551l4.625-6.942-4.625-6.945a.939.939 0 01-.168-.55 1 1 0 01.996-.997h3c.348 0 .649.18.828.45l4.996 7.492c.11.148.168.347.168.55zm0 0"></path></g>
+                                </svg>
+                            </div>
+                        </div>
+                        <div id="expand-aside">
+                            <svg width="16" height="16" viewBox="0 0 20 20" aria-hidden="true" class="collapseSidebarButtonIcon_kv0_">
+                                <g fill="#7a7a7a"><path d="M9.992 10.023c0 .2-.062.399-.172.547l-4.996 7.492a.982.982 0 01-.828.454H1c-.55 0-1-.453-1-1 0-.2.059-.403.168-.551l4.629-6.942L.168 3.078A.939.939 0 010 2.528c0-.548.45-.997 1-.997h2.996c.352 0 .649.18.828.45L9.82 9.472c.11.148.172.347.172.55zm0 0"></path><path d="M19.98 10.023c0 .2-.058.399-.168.547l-4.996 7.492a.987.987 0 01-.828.454h-3c-.547 0-.996-.453-.996-1 0-.2.059-.403.168-.551l4.625-6.942-4.625-6.945a.939.939 0 01-.168-.55 1 1 0 01.996-.997h3c.348 0 .649.18.828.45l4.996 7.492c.11.148.168.347.168.55zm0 0"></path></g>
+                            </svg>
+                        </div>
+                    </div>
+                </aside>
+                <main>
+                    <div class="center-doc-container">
+                        <div class="center-doc">
+                            <div class="center-doc-article">
+                                <article>
+                                    <nav class="nav-breadcrumbs">
+                                        <ul class="breadcrumbs" wi-element="breadcrumbs"><li class="breadcrumb"><a class="home" href="../../../welcome/who-am-i.html"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" xmlns:xlink= "http://www.w3.org/1999/xlink">
+<path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path>
+</svg></a></li><li class="breadcrumb"><a href="../../../welcome/who-am-i.html"><span>About me</span></a></li><li class="breadcrumb"><a href="../../numerical-methods.html"><span>🎓  Learning materials</span></a></li><li class="breadcrumb"><a href="../../electronics.html"><span>Electronics</span></a></li><li class="breadcrumb"><a href="../past-lectures.html"><span>Past labs</span></a></li><li class="breadcrumb selected"><a href="arduino-2.html"><span>ED - Arduino (2)</span></a></li></ul>
+                                    </nav>
+                                    <div id="main-article" wi-element="article"><h1 id="h1-arduino-2"> Arduino (2)<a class="hash-link" href="#h1-arduino-2">#</a></h1>
+<p>În laboratorul de astăzi, vom continua să ne jucăm cu plăcuțele <strong>Arduino</strong>, încercând să realizăm, printre altele, o comunicare între plăcuțe diferite, un VU meter și sunet la ieșire! </p>
+<div class="box admonition">
+<div class="box-title">Detalii suplimentare</div>
+<div class="box-content"><p> <strong>Laborator:</strong> Electronică Digitală (2023-2024 - lab3) </p>
+<p> <strong>Laborator original:</strong> Victor Stoica<a href="#ref-1" class="reference-href">[1]</a> </p>
+</div>
+</div>
+<h2 id="h2-0-pregatirea-instrumentelor"> 0. Pregătirea instrumentelor<a class="hash-link" href="#h2-0-pregatirea-instrumentelor">#</a></h2>
+<p>Pentru a ne asigura că <strong>platforma Arduino</strong> funcționează conform așteptărilor, vom încărca pe plăcuțele noastre exemplul <strong>Blink</strong> ce se găsește direct în <strong>Arduino IDE</strong>. </p>
+<ol type="1">
+<li>
+<p> Porniți calculatoarele <em>(pe Linux!)</em> </p>
+</li>
+<li>
+<p> Deschideți <strong>Arduino IDE</strong> și încărcați codul din exemplul Blink <strong>(File » Examples » 01. Basics » Blink)</strong> </p>
+<div class="figure dock-top">
+<div class="subfigure"><img src="../../../../img/ed/arduino/blink.jpg" style="background: #ffffff;"><div class="subcaption"><p> Încărcarea programului de test (Blink) </p>
+</div></div>
+</div>
+</li>
+<li>
+<p> Dați upload și verificați dacă plăcuța are un LED care se pornește și se oprește la un interval de o secundă. </p>
+</li>
+</ol>
+<h3 id="h3-depanare"> Depanare<a class="hash-link" href="#h3-depanare">#</a></h3>
+<p>În situația în care nu a funcționat codul anterior, puteți încerca următoarele: </p>
+<ol type="1">
+<li>
+<p> Dacă nu ați verificat deja, asigurați-vă că plăcuța este alimentată (ar trebui să existe un LED care stă aprins neîntrerupt) </p>
+</li>
+<li>
+<p> Asigurați-vă că portul COM este cel la care a fost conectată plăcuța Arduino <strong>(Tools » Port: &quot;...&quot;)</strong>, respectiv că platforma este configurată ca să compileze codul pentru Arduino <strong>(Tools » Board: &quot;...&quot;)</strong> </p>
+</li>
+<li>
+<p> Dacă vedeți că nu apar erori de Output, încercați să schimbați cablul cu cel al colegilor cărora le merge - este foarte posibil să apară o problemă de transmisie, greu de detectat altfel. </p>
+</li>
+</ol>
+<h2 id="h2-1-transmisia-datelor-prin-infrarosu"> 1. Transmisia datelor prin infraroșu<a class="hash-link" href="#h2-1-transmisia-datelor-prin-infrarosu">#</a></h2>
+<p>Dacă ați folosit la un moment dat o telecomandă (fie ea de televizor, de aer condiționat sau chiar de garaj), este foarte posibil să fi interacționat deja cu <strong>transmisia datelor prin infraroșu</strong> (prescurtat <em>IR</em>). </p>
+<div class="box note">
+<div class="box-title">Telecomandă TV</div>
+<div class="box-content"><p> În general, lumina IR a telecomenzii TV este pornită și oprită la o frecvență de obicei constantă (spre exemplu, în cazul standardului RC-5, discutăm de 36kHz). </p>
+</div>
+</div>
+<p> Avantajele principale ale tehnologiei sunt <strong>costul</strong> (sunt ieftine de produs) și faptul că <strong>nu sunt detectabile</strong> de ochiul uman. </p>
+<p> Din nefericire însă, dezavantajul semnificativ este că lumina IR trebuie îndreptată direct către receptor pentru ca acesta să capteze informațiile transmise. </p>
+<p> Așadar, dacă nu există un drum drept prin care să se propage semnalul între transmițător și receptor, <strong>nu ar trebui folosită transmisia IR!</strong> </p>
+<h3 id="h3-pregatirea-bibliotecii"> Pregătirea bibliotecii<a class="hash-link" href="#h3-pregatirea-bibliotecii">#</a></h3>
+<div class="box tip">
+<div class="box-title">Lucru în echipă</div>
+<div class="box-content"><p> Pentru acest exercițiu, veți lucra împreună cu colegii de la postul de lucru alăturat! Va trebui să vă decideți care dintre voi va pregăti <strong>receptorul</strong> și care <strong>emițătorul</strong>. </p>
+</div>
+</div>
+<p> Atât echipa ce se ocupă de receptor, cât și cea care se ocupă de emițător, vor descărca  biblioteca <a href="https://github.com/Arduino-IRremote/Arduino-IRremote/releases"><strong>Arduino-IRremote</strong></a> (de la cel mai recent Release: <strong>Assets » Source code (zip)</strong>) și o vor instala (din Arduino IDE: <strong>Sketch » Include Library » Add .ZIP Library...</strong>): </p>
+<div class="figure dock-top">
+<div class="subfigure"><img src="../../../../img/ed/arduino/include_lib.jpg" style="background: #ffffff;"><div class="subcaption"><p> Încărcare bibliotecă .ZIP </p>
+</div></div>
+</div>
+<p> Dacă biblioteca s-a instalat cu succes, o să primiți un mesaj, în partea de jos a aplicației, asemănător cu acesta: <em>&quot;Library added to your libraries. Check &apos;Include library&apos; menu&quot;</em>. </p>
+<p> Va trebui să realizați, în funcție de rolul echipei voastre, unul singur dintre cele două scheme de mai jos. </p>
+<h3 id="h3-receptor"> Receptor<a class="hash-link" href="#h3-receptor">#</a></h3>
+<p><strong>Doar echipa care se ocupă de receptor</strong> va realiza următorul montaj: </p>
+<div class="figure dock-top">
+<div class="subfigure"><img src="../../../../img/ed/arduino/ir_recv.jpg" style="background: #ffffff;"><div class="subcaption"><p> Schema logică a receptorului IR </p>
+</div></div>
+</div>
+<div class="box note">
+<div class="box-title">Pinout receptor</div>
+<div class="box-content"><p> Receptorul vostru are următorul pinout: </p>
+<div class="figure dock-top">
+<div class="subfigure"><img src="../../../../img/ed/arduino/ir_recv_comp.jpg" style="width: 80px;background: #ffffff;"><div class="subcaption"><p> Pinout receiver<a href="#ref-1" class="reference-href">[1]</a> </p>
+</div></div>
+</div>
+</div>
+</div>
+<p> Încărcați apoi exemplul ReceiveDemo <strong>(File » Examples » Add .ZIP IRremote » ReceiveDemo)</strong> și așteptați ca echipa care se ocupă cu transmițătorul să termine de realizat montajul lor. </p>
+<h3 id="h3-transmitator"> Transmițător<a class="hash-link" href="#h3-transmitator">#</a></h3>
+<p><strong>Doar echipa care se ocupă de transmițător</strong> va realiza următorul montaj: </p>
+<div class="figure dock-top">
+<div class="subfigure"><img src="../../../../img/ed/arduino/ir_send.jpg" style="background: #ffffff;"><div class="subcaption"><p> Schema logică a receptorului IR </p>
+</div></div>
+</div>
+<p> Încărcați apoi exemplul ReceiveDemo <strong>(File » Examples » Add .ZIP IRremote » SendDemo)</strong> și așteptați ca echipa care se ocupă cu receptorul să termine de realizat montajul lor. </p>
+<h3 id="h3-monitorul-serial"> Monitorul serial<a class="hash-link" href="#h3-monitorul-serial">#</a></h3>
+<p><strong>Ambele echipe</strong> pot deschide acum <strong>monitorul serial</strong> pentru a verifica dacă transmisia funcționează sau nu. </p>
+<p> Pentru a face asta, apăsați pe pictograma din colțul dreapta-sus al Arduino IDE, apoi asigurați-vă că aveți setat <strong>baud rate-ul</strong> la <strong>115200</strong>: </p>
+<div class="figure dock-top">
+<div class="subfigure"><img src="../../../../img/ed/arduino/serial_config.jpg" style="background: #ffffff;"><div class="subcaption"><p> Exemplu de <strong>așa nu!</strong> - setați corect baud rate-ul! </p>
+</div></div>
+</div>
+<h3 id="h3-depanare"> Depanare<a class="hash-link" href="#h3-depanare">#</a></h3>
+<p>Dacă transmisia &#47; recepția nu se realizează cu succes: </p>
+<ul>
+<li>
+<p> Verificați ca baud rate-ul să fie setat corect (115200); </p>
+</li>
+<li>
+<p> Urmăriți osciloscopul atât la transmisie, cât și la recepție. Asigurați-vă că triggerul este setat pe modul <strong>rising edge</strong>. </p>
+</li>
+<li>
+<p> Doar dacă <strong>nu</strong> aveți iPhone, puteți încerca să verificați semnalul luminos produs de LED folosind camera telefonului. Pe iPhone nu funcționează, întrucât este <del>un sistem inferior Androidului</del> montat un filtru IR pe camera dispozitivului. </p>
+</li>
+</ul>
+<h2 id="h2-2-generator-de-tonuri"> 2. Generator de tonuri<a class="hash-link" href="#h2-2-generator-de-tonuri">#</a></h2>
+<p>Dacă programați microcontrollerul să genereze semnale dreptunghiulare cu frecvență variabilă și conectați un <strong>buzer</strong> pasiv la pinul care generează aceste semnale, puteți obține note muzicale controlând pauza dintre două trenuri de impulsuri. </p>
+<h3 id="h3-montaj"> Montaj<a class="hash-link" href="#h3-montaj">#</a></h3>
+<p>Pentru început, realizați următorul montaj simplu pe plăcuțele voastre: </p>
+<div class="figure dock-top">
+<div class="subfigure"><img src="../../../../img/ed/arduino/buzzer.jpg" style="background: #ffffff;"><div class="subcaption"><p> Montaj buzzer </p>
+</div></div>
+</div>
+<div class="box note">
+<div class="box-title">Pinout buzzer</div>
+<div class="box-content"><p> În cadrul laboratorului, veți folosi un buzzer cu pinoutul: </p>
+<div class="figure dock-top">
+<div class="subfigure"><img src="../../../../img/ed/arduino/buzzer_pins.jpg" style="width: 200px;background: #ffffff;"><div class="subcaption"><p> Pinout buzzer </p>
+</div></div>
+</div>
+</div>
+</div>
+<h3 id="h3-melodii"> Melodii<a class="hash-link" href="#h3-melodii">#</a></h3>
+<p>Pentru a vă alege melodiile ce să fie <em>cântate</em> de plăcuța voastră, intrați pe repo-ul <a href="https://github.com/robsoncouto/arduino-songs"><strong>arduino-songs</strong></a> și alegeți de acolo. Încărcați apoi codul pe plăcuță. </p>
+<h3 id="h3-depanare"> Depanare<a class="hash-link" href="#h3-depanare">#</a></h3>
+<p>În principiu, puteți următorii pași pentru a repara eventualele probleme: </p>
+<ul>
+<li>
+<p> Asigurați-vă că ați respectat pinoutul buzzerului; </p>
+</li>
+<li>
+<p> Verificați că, în cod, folosiți pinul potrivit pentru output (conform circuitului, pinul <strong>D11</strong>) </p>
+</li>
+</ul>
+<h2 id="h2-3-simularea-functiilor-logice"> 3. Simularea funcțiilor logice<a class="hash-link" href="#h2-3-simularea-functiilor-logice">#</a></h2>
+<p>Ați învățat deja la PL funcțiile logice utilizate în general de ingineri: <strong>NOT, AND, OR și XOR</strong>. Le vom simula și noi folosind plăcuța Arduino! </p>
+<h3 id="h3-montaj"> Montaj<a class="hash-link" href="#h3-montaj">#</a></h3>
+<p>Realizați următorul montaj pe plăcuțele voastre: </p>
+<div class="figure dock-top">
+<div class="subfigure"><img src="../../../../img/ed/arduino/f_logic.jpg" style="background: #ffffff;"><div class="subcaption"><p> Montaj funcții logice </p>
+</div></div>
+</div>
+<h3 id="h3-cod"> Cod<a class="hash-link" href="#h3-cod">#</a></h3>
+<p>De data aceasta, va trebui să implementați voi următoarele funcțiile logice: </p>
+<ol type="1">
+<li>
+<p> <strong>NOT</strong> - la apăsarea butonului 1 (pinul D2), LED-ul va fi stins, iar dacă butonul nu este apăsat, LED-ul va fi aprins; </p>
+</li>
+<li>
+<p> <strong>AND</strong> - LED-ul va fi aprins doar atunci când sunt apăsate ambele butoane; </p>
+</li>
+<li>
+<p> <strong>OR</strong> - LED-ul va fi aprins atunci când se apasă oricare dintre butoane (chiar și ambele); </p>
+</li>
+<li>
+<p> <strong>XOR</strong> - LED-ul va fi aprins numai în cazul în care se apasă un singur buton (dar nu amândouă!). </p>
+</li>
+</ol>
+<h2 id="h2-4-debounce"> 4. Debounce<a class="hash-link" href="#h2-4-debounce">#</a></h2>
+<p>Atunci când se dorește utilizarea semnalului generat de apăsarea unui buton, trebuie să țineți cont de fenomenul de <strong>bouncing</strong>, despre care am discutat în <a href="#TODO">laboratoarele precedente</a>. </p>
+<p> Pentru a-l combate, vom discuta două strategii. </p>
+<h3 id="h3-debounce-software"> Debounce software<a class="hash-link" href="#h3-debounce-software">#</a></h3>
+<p>Pentru a rezolva problema de debounce din software, putem să verificăm dacă a trecut o perioadă de timp prestabilită (de ordinul milisecundelor, de obicei 50ms) de la ultima tranziție generată de buton și că starea butonului este cea dorită (1 sau 0 logic). </p>
+<p> Dacă toate aceste condiții se respectă, se poate considera că butonul a fost apăsat o singură dată. </p>
+<p> Puteți încărca codul de mai jos (pe care cu siguranță nu îl veți înțelege complet decât după ce parcurgeți materia de <a href="https://ocw.cs.pub.ro/courses/pm">PM</a> din anul 3) și să verificați funcționalitatea corectă a butonului. </p>
+<p> Acesta se folosește de registre, timere și întreruperi care stau ascunse în spatele tuturor funcțiilor Arduino de nivel înalt. În cazul nostru, acestea au fost utilizate pentru a optimiza codul. Puteți deschide <strong>monitorul serial</strong>, setat la baud rate-ul 115200 și să vedeți ce se întâmplă când apăsați butonul. </p>
+<div class="code-listing"><div class="copy-code"></div><pre><code class="language-cpp">#include &lt;avr&#47;io.h&gt;
+#include &lt;util&#47;delay.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;avr&#47;interrupt.h&gt;
+#include &lt;stdbool.h&gt;
+
+#define FOSC 16000000UL
+#define USART_BAUDRATE 115200
+#define BAUD_PRESCALE (FOSC &#47; (USART_BAUDRATE * 8UL) - 1)
+
+uint16_t d = 3000;
+char write_buffer[80];
+
+volatile uint64_t ms_counter = 0;
+volatile uint64_t previous_ms_counter = 0;
+volatile uint16_t print_ms_counter = 0;
+volatile uint8_t button1_press_detect = false;
+volatile uint8_t button1_debounce_ms_counter = 0;
+volatile uint8_t button1_state = 0;
+
+int btn_counter1 = 0;
+int button1_laststate = 1;
+
+void USART0_init(unsigned int UBRR0_value) &#123;
+    UBRR0 = UBRR0_value; &#47;&#47; setează baud rate. UBRR0 - registru pe 16 biți
+    UCSR0B = (1&lt;&lt;TXEN0); &#47;&#47; pornește transmițătorul
+    &#47;&#47; setează formatul frame-ului: 8 biți de date, 1 biți de stop, fără paritate
+    UCSR0C &#124;= (3&lt;&lt;UCSZ00);
+    UCSR0C &= &#126;(1&lt;&lt;USBS0);
+    UCSR0A &#124;= (1&lt;&lt;U2X0); &#47;&#47; activeaza modul viteza dubla
+&#125;
+
+void USART0_transmit (const char *data) &#123;
+    while ( *data != &apos;&#92;0&apos;) &#123;
+        while(!(UCSR0A & (1&lt;&lt;UDRE0))); &#47;&#47;așteaptă până când buffer-ul e gol
+        UDR0 = *data++; &#47;&#47; pune datele în buffer; transmisia va porni automat în urma scrierii
+    &#125;
+&#125;
+
+void init_timer2()
+&#123;
+    &#47;&#47; timer2 prescaler = 249 &#47; (12.000.000 &#47; 64) = 997.3 Hz
+    cli(); &#47;&#47; set global interrupt disable
+    OCR2A = 249; &#47;&#47; set top value
+    TCNT2 = 0; &#47;&#47; clear counter register
+    TCCR2A &#124;= (1 &lt;&lt; WGM21); &#47;&#47; CTC mode 2.from from datasheet
+    TCCR2A &= &#126;(1 &lt;&lt; WGM20); &#47;&#47; CTC mode 2.from from datasheet
+    TCCR2B &= &#126;(1 &lt;&lt; WGM22); &#47;&#47; CTC mode 2.from from datasheet
+    TIMSK2 &#124;= (1 &lt;&lt; OCIE2A); &#47;&#47; enable output compare A match interrupt
+    TCCR2B &#124;= (1 &lt;&lt; CS22); &#47;&#47; start timer, 64 From prescaler
+    sei(); &#47;&#47; set global interrupt enable
+&#125;
+
+void interrupt_config()&#123;
+    cli();
+    EIMSK &#124;= (1 &lt;&lt; INT0); &#47;&#47; activeaza intreruperea INT2 (pinul PB2)
+    EICRA &#124;= (1 &lt;&lt; ISC00); &#47;&#47; configureaza INT2 sa fie generata la schimbarea starii
+    sei();
+&#125;
+
+ISR (TIMER2_COMPA_vect)&#123;
+    ms_counter++; &#47;&#47; incrementare contor milisecunde
+    if (print_ms_counter)
+        print_ms_counter--; &#47;&#47; contor milisecunde pentru delay la afisare
+    if (button1_debounce_ms_counter)
+        button1_debounce_ms_counter--; &#47;&#47; contor milisecunde pentru debounce button1
+&#125;
+
+ISR (INT0_vect)&#123; &#47;&#47; s-a produs intreruperea aka s-a apasat butonul
+    button1_state = ((PIND & (1 &lt;&lt; PD2)) &gt;&gt; PD2); &#47;&#47;se memoreaza starea butonului
+    button1_debounce_ms_counter = 50; &#47;&#47;se initializaeaza contorul
+    button1_press_detect = true; &#47;&#47;se seteaza un flag
+    sprintf(write_buffer, &quot;B: %d&#92;r&#92;n&quot;, button1_state); &#47;&#47; mesaj de test
+    USART0_transmit (write_buffer);
+&#125;
+
+void init_gpio()
+&#123;
+    DDRD &= &#126;(_BV(PD2));
+    PORTD = _BV (PORTD2);
+    DDRB &#124;= (1 &lt;&lt; PB5);
+    PINB &#124;= (1 &lt;&lt; PB5);
+&#125;
+
+int main() &#123;
+    init_gpio(); &#47;&#47; initializare GPIO
+    USART0_init(BAUD_PRESCALE); &#47;&#47; initializare USART
+    interrupt_config(); &#47;&#47; initializare intreruperi
+    init_timer2(); &#47;&#47; initializare timer2
+    sprintf(write_buffer, &quot;Hello World&#92;r&#92;n&quot;); &#47;&#47; mesaj de test
+    USART0_transmit (write_buffer);
+    while (1)&#123;
+        if (ms_counter &gt;= previous_ms_counter + d)&#123;
+            previous_ms_counter = ms_counter;
+            sprintf(write_buffer, &quot;ms_counter: %lu&#92;r&#92;n&quot;, previous_ms_counter);
+            USART0_transmit (write_buffer);
+        &#125;
+        &#47;* daca butonul a fost apasat, si a trecut timpul de debounce, si
+        GPIO-ul se gaseste in 1 logic, atunci apasarea este &quot;valida&quot; *&#47;
+        if ((button1_press_detect) && (button1_debounce_ms_counter &lt;= 0))&#123;
+            if ((button1_state != button1_laststate))&#123;
+                button1_laststate = button1_state;
+                if(!(button1_state))&#123;
+                    btn_counter1 ++; &#47;&#47;se initializaeaza contorul
+                    button1_press_detect = false;
+                    PINB &#124;= (1 &lt;&lt; PIND5); &#47;&#47; face toggle la LED
+                &#125;
+            &#125;
+        &#125;
+    &#125;
+&#125;</code></pre></div>
+<h3 id="h3-debounce-hardware"> Debounce hardware<a class="hash-link" href="#h3-debounce-hardware">#</a></h3>
+<p>Mult mai accesibil vouă ar fi debounce-ul hardware, pe care l-am realizat deja sub o oarecare formă încă din <a href="#TODO">primul laborator de Arduino</a>. </p>
+<p> Acesta presupunea utilizarea unui condensator între piciorușele butonului, formându-se astfel... un filtru RC! </p>
+<h2 id="h2-5-vu-meter"> 5. VU meter<a class="hash-link" href="#h2-5-vu-meter">#</a></h2>
+<p>Un <strong>VU meter</strong> <em>(volume unit meter)</em> reprezintă o modalitate simplă de a transpune valorile citite de un senzor (fie el analogic sau digital) într-o formă ușor de interpretat vizual. </p>
+<p> Vom încerca să creăm și noi un astfel de circuit, luând-o pas cu pas. </p>
+<h3 id="h3-baza-circuitului"> Baza circuitului<a class="hash-link" href="#h3-baza-circuitului">#</a></h3>
+<p>Realizați următorul circuit folosind LED-urile pe care le găsiți în chit (nu este necesară respectarea unui cod de culori): </p>
+<div class="figure dock-top">
+<div class="subfigure"><img src="../../../../img/ed/arduino/vu1.jpg" style="background: #ffffff;"><div class="subcaption"><p> Circuit care stă la baza VU meterului </p>
+</div></div>
+</div>
+<p> Rulați apoi următorul cod: </p>
+<div class="code-listing"><div class="copy-code"></div><pre><code class="language-cpp">const int sensorMin = 1;
+const int sensorMax = 8;
+String inputString = &quot;&quot;;
+bool stringComplete = false;
+int sensorReading = 0;
+
+void serialEvent() &#123;
+    while (Serial.available()) &#123;
+        char inChar = (char)Serial.read();
+        inputString += inChar;
+        if (inChar == &apos;&#92;n&apos;) &#123;
+            stringComplete = true;
+        &#125;
+    &#125;
+&#125;
+
+void setup() &#123;
+    Serial.begin(9600);
+    DDRB &#124;= 3;
+    DDRD &#124;= (0X3F &lt;&lt; 2);
+    inputString.reserve(20);
+    Serial.println(&quot;Enter a value between 0 and 8&quot;);
+&#125;
+
+void loop() &#123;
+    if (stringComplete) &#123;
+        inputString.trim();
+        sensorReading = inputString.toInt();
+        Serial.println((String)&quot;sensor Reading: &quot; + sensorReading);
+        inputString = &quot;&quot;;
+        stringComplete = false;
+    &#125;
+    &#47;&#47; map the sensor range to a range of four options:
+    int range = map(sensorReading, sensorMin, sensorMax, 0, 8);
+    &#47;&#47; do something different depending on the range value:
+    switch (range) &#123;
+    case 1:
+        PORTD = 0x4;
+        PORTB = 0x00;
+        break;
+    case 2:
+        PORTD = 0xC;
+        PORTB = 0x00;
+        break;
+    case 3:
+        PORTD = 0x1C;
+        PORTB = 0x00;
+        break;
+    case 4:
+        PORTD = 0x3C;
+        PORTB = 0x00;
+        break;
+    case 5:
+        PORTD = 0x7C;
+        PORTB = 0x00;
+        break;
+    case 6:
+        PORTD = 0xFC;
+        PORTB = 0x00;
+        break;
+    case 7:
+        PORTB = 0x1;
+        PORTD = 0xFC;
+        break;
+    case 8:
+        PORTB = 0x3;
+        PORTD = 0xFC;
+        break;
+    default:
+        PORTB = 0x00;
+        PORTD = 0x00;
+        break;
+    &#125;
+    delay(1); &#47;&#47; delay in between reads for stability
+&#125;</code></pre></div>
+<p> Pentru a vedea că se schimbă ceva, va trebui să porniți <strong>monitorul serial</strong> cu baud rate-ul configurat corect (HINT: uitați-vă în cod, poate în funcția <code>setup()</code>) și să trimiteți date folosind căsuța de input. </p>
+<div class="box warning">
+<div class="box-title">Atenție!</div>
+<div class="box-content"><p> Verificați că aveți setat modul <strong>&quot;Both NL &amp; CR&quot;</strong> - altfel, este posibil ca inputul să nu fie corect recepționat de către plăcuță! </p>
+</div>
+</div>
+<h3 id="h3-potentiometru"> Potențiometru<a class="hash-link" href="#h3-potentiometru">#</a></h3>
+<p>Modificați acum circuitul anterior pentru a primi datele de intrare folosind pinul <strong>A0</strong> și un <strong>potențiometru</strong>: </p>
+<div class="figure dock-top">
+<div class="subfigure"><img src="../../../../img/ed/arduino/vu2.jpg" style="background: #ffffff;"><div class="subcaption"><p> Circuit cu potențiometru </p>
+</div></div>
+</div>
+<p> Codul îl veți modifica voi, astfel încât să se modifice starea LED-urilor în funcție de tensiunea citită la intrarea lui A0 (HINT: <code>sensorReading = analogRead(A0)</code>) </p>
+<h3 id="h3-microfon"> Microfon<a class="hash-link" href="#h3-microfon">#</a></h3>
+<p>Decuplați potențiometrul și puneți în locul său <strong>un microfon</strong> - veți conecta pinii astfel: </p>
+<ul>
+<li>
+<p> <strong>A0</strong> microfon - <strong>A0</strong> Arduino; </p>
+</li>
+<li>
+<p> <strong>G</strong> microfon - <strong>GND</strong> Arduino; </p>
+</li>
+<li>
+<p> <strong>+</strong> microfon - <strong>5V</strong> Arduino; </p>
+</li>
+<li>
+<p> <strong>D0</strong> microfon - rămâne în aer. </p>
+</li>
+</ul>
+<div class="box tip">
+<div class="box-title">Testare microfon</div>
+<div class="box-content"><p> Este posibil ca, atunci când cântați, microfonul să nu înregistreze foarte bine sunetele - așadar, mai bine, încercați să suflați în el! </p>
+</div>
+</div>
+<h2 id="h2-6-comunicare-spi"> 6. Comunicare SPI<a class="hash-link" href="#h2-6-comunicare-spi">#</a></h2>
+<p><strong>SPI</strong> <em>(Serial Peripheral Interface)</em> reprezintă o interfață de comunicații sincronă utilizată adesea pentru a realiza comunicația între două microcontrollere, un microcontroller și un periferic&#47;senzor sau alte contexte în care distanța de comunicație este <strong>relativ mică</strong> (de ordinul centimetrilor). </p>
+<div class="figure dock-top">
+<div class="subfigure"><img src="../../../../img/ed/arduino/spi.jpg" style="background: #ffffff;"><div class="subcaption"><p> Diagramă comunicare SPI </p>
+</div></div>
+</div>
+<h3 id="h3-vizualizarea-semnalului"> Vizualizarea semnalului<a class="hash-link" href="#h3-vizualizarea-semnalului">#</a></h3>
+<p>Să vizualizăm semnalul de pe linia <strong>SCK</strong> a Arduinoului (pinul 13) - analizați, folosind osciloscopul, semnalul, notând timpul de creștere&#47;descreștere (HINT: aveți butonul <strong>Measure</strong> pe osciloscop). </p>
+<p> Va fi nevoie să încărcați următorul cod: </p>
+<div class="code-listing"><div class="copy-code"></div><pre><code class="language-cpp">&#47;&#47;SPI Master
+#include&lt;SPI.h&gt;
+#define push 2
+#define LED 4
+
+&#47;*
+SPI_CLOCK_DIV2
+SPI_CLOCK_DIV4
+SPI_CLOCK_DIV8
+SPI_CLOCK_DIV16
+SPI_CLOCK_DIV32
+SPI_CLOCK_DIV64
+SPI_CLOCK_DIV128
+*&#47;
+
+int x;
+int value;
+
+void setup (void)&#123;
+    Serial.begin(9600);
+    pinMode(push,INPUT_PULLUP);
+    pinMode(LED,OUTPUT);
+    SPI.begin();
+    SPI.setClockDivider(SPI_CLOCK_DIV128);
+    digitalWrite(SS,HIGH);
+&#125;
+
+void loop(void)&#123;
+    byte m_send,m_receive;
+    value = digitalRead(push);
+    if(value == LOW)&#123;
+        x = 1;
+    &#125; else &#123;
+        x = 0;
+    &#125;
+    digitalWrite(SS, LOW);
+    m_send = x;
+    m_receive=SPI.transfer(m_send);
+    if(m_receive == 1) &#123;
+        digitalWrite(LED,HIGH);
+        Serial.println(&quot;GPIO state: HIGH&quot;);
+    &#125; else &#123;
+        digitalWrite(LED,LOW);
+        Serial.println(&quot;GPIO state: LOW&quot;);
+    &#125;
+    delay(100);
+&#125;</code></pre></div>
+<h3 id="h3-viteze-de-transfer"> Viteze de transfer<a class="hash-link" href="#h3-viteze-de-transfer">#</a></h3>
+<p>Modificați acum viteza de transfer a datelor (HINT: căutați linia <code>SPI.setClockDivider(SPI_CLOCK_DIV128)</code>) - înlocuiți prescaler-ul cu o valoare mai mică (64, 32, 16, 8, 4, 2). </p>
+<p> Ce se întâmplă cu semnalul? Ce se modifică? </p>
+<h3 id="h3-influenta-tensiunii-de-alimentare"> Influența tensiunii de alimentare<a class="hash-link" href="#h3-influenta-tensiunii-de-alimentare">#</a></h3>
+<p>Porniți acum sursa de laborator, setată la <strong>4V</strong> (NU ALTĂ VALOARE!) și limitată la <strong>100mA</strong>. Deconectați plăcuța Arduino de la calculator și conectați-o la sursa de laborator astfel: </p>
+<ul>
+<li>
+<p> Tensiunea de la sursă - <strong>VIN</strong> pe Arduino; </p>
+</li>
+<li>
+<p> Ground-ul de la sursă - <strong>GND</strong> pe Arduino; </p>
+</li>
+</ul>
+<p>Creșteți treptat tensiunea până la <strong>6V</strong> <strong>(NU DEPĂȘIȚI ACEASTĂ VALOARE CĂCI VEȚI ARDE PLĂCUȚA!)</strong> - ce se întâmplă cu semnalul? </p>
+<h2 id="h2-bibliografie"> Bibliografie<a class="hash-link" href="#h2-bibliografie">#</a></h2>
+<div class="bibliography">
+<div class="bib-entry" id="ref-1"><div class="bib-entry-index-wrapper"><div class="bib-entry-index">[1]</div></div><div class="bib-entry-text-wrapper"><div class="bib-entry-text"><span class="author">Victor Stoica</span> - <span class="title">Laborator 3, Platforma Arduino</span>, <span class="year">2024</span></div></div></div>
+</div>
+</div>
+                                    <footer class="article-footer" wi-element="article-footer"><div class="footer-content"><div class="footer-content-part"><a class="edit-page" href="#"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" aria-hidden="true">
+<g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g>
+</svg> Improve this page</a></div><div class="footer-content-part"><span class="last-update">Last updated on <b>Apr 04, 2024 (15:21)</b></span></div></div></footer>
+                                </article>
+                                <nav class="previous-next" wi-element="previous-next"><a class="prev" href="../past-lectures.html"><div class="sublabel">Previous</div><div class="label">Past labs</div></a><a class="prev" href="../../../software-projects/uni-projects.html"><div class="sublabel">Next</div><div class="label">Uni projects</div></a></nav>
+                            </div>
+                            <div class="center-doc-toc">
+                                <div class="toc-container">
+                                    <ul id="toc" wi-element="article-toc"><li><a href="#h2-0-pregatirea-instrumentelor"> 0. Pregătirea instrumentelor </a><ul><li><a href="#h3-depanare"> Depanare </a></li></ul></li><li><a href="#h2-1-transmisia-datelor-prin-infrarosu"> 1. Transmisia datelor prin infraroșu </a><ul><li><a href="#h3-pregatirea-bibliotecii"> Pregătirea bibliotecii </a></li><li><a href="#h3-receptor"> Receptor </a></li><li><a href="#h3-transmitator"> Transmițător </a></li><li><a href="#h3-monitorul-serial"> Monitorul serial </a></li><li><a href="#h3-depanare"> Depanare </a></li></ul></li><li><a href="#h2-2-generator-de-tonuri"> 2. Generator de tonuri </a><ul><li><a href="#h3-montaj"> Montaj </a></li><li><a href="#h3-melodii"> Melodii </a></li><li><a href="#h3-depanare"> Depanare </a></li></ul></li><li><a href="#h2-3-simularea-functiilor-logice"> 3. Simularea funcțiilor logice </a><ul><li><a href="#h3-montaj"> Montaj </a></li><li><a href="#h3-cod"> Cod </a></li></ul></li><li><a href="#h2-4-debounce"> 4. Debounce </a><ul><li><a href="#h3-debounce-software"> Debounce software </a></li><li><a href="#h3-debounce-hardware"> Debounce hardware </a></li></ul></li><li><a href="#h2-5-vu-meter"> 5. VU meter </a><ul><li><a href="#h3-baza-circuitului"> Baza circuitului </a></li><li><a href="#h3-potentiometru"> Potențiometru </a></li><li><a href="#h3-microfon"> Microfon </a></li></ul></li><li><a href="#h2-6-comunicare-spi"> 6. Comunicare SPI </a><ul><li><a href="#h3-vizualizarea-semnalului"> Vizualizarea semnalului </a></li><li><a href="#h3-viteze-de-transfer"> Viteze de transfer </a></li><li><a href="#h3-influenta-tensiunii-de-alimentare"> Influența tensiunii de alimentare </a></li></ul></li><li><a href="#h2-bibliografie"> Bibliografie </a><ul></ul></li></ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+        <footer class="page-footer">
+            <div class="footer-content">
+                <div class="footer-columns">
+                    <div class="footer-column">
+                        <div class="footer-column-title">Main topics</div>
+                        <ul class="footer-column-items">
+                            <li class="footer-column-item">
+                                <a href="https://www.v-vintila.com">About Valentin</a>
+                            </li>
+                            <li class="footer-column-item">
+                                <a href="https://www.v-vintila.com/numerical-methods/introducere/cuvant-inainte.html">Numerical Methods (RO)</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <div class="footer-column-title">Contribute</div>
+                        <ul class="footer-column-items">
+                            <li class="footer-column-item">
+                                <a href="#" onclick="donate_alert(event)">Donate</a>
+                            </li>
+                            <li class="footer-column-item">
+                                <a href="https://www.github.com/w1bb/IMD1">IMD1</a>
+                            </li>
+                            <li class="footer-column-item">
+                                <a href="https://www.github.com/w1bb/GoBG">GoBG</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <div class="footer-column-title">Social</div>
+                        <ul class="footer-column-items">
+                            <li class="footer-column-item">
+                                <a href="https://www.github.com/w1bb">GitHub</a>
+                            </li>
+                            <li class="footer-column-item">
+                                <a href="https://www.instagram.com/vi.vintila/">Instagram</a>
+                            </li>
+                            <li class="footer-column-item">
+                                <a href="https://linkedin.com/in/valentin-vintila">Linked In</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="separator"></div>
+                <span>The contents of this website are subject to copyright.</span>
+                <span>© Valentin-Ioan VINTILĂ 2022-2024</span>
+            </div>
+        </footer>
+        <div id="doc-search-overlay">
+            <div class="search-container">
+                <div class="search-box-container">
+                    <div class="search-box">
+                        <svg width="16" height="16" class="DocSearch-Search-Icon" viewBox="0 0 20 20">
+                            <path d="M14.386 14.386l4.0877 4.0877-4.0877-4.0877c-2.9418 2.9419-7.7115 2.9419-10.6533 0-2.9419-2.9418-2.9419-7.7115 0-10.6533 2.9418-2.9419 7.7115-2.9419 10.6533 0 2.9419 2.9418 2.9419 7.7115 0 10.6533z" stroke="currentColor" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                        </svg>
+                        <input type="text" id="search-input" placeholder="Search everywhere (NOT WORKING)"/>
+                    </div>
+                    <div class="cancel-button">
+                        <div id="canel-doc-search">Cancel</div>
+                    </div>
+                </div>
+                <div class="search-results">
+                    <div class="pre-search">Results will appear as you type</div>
+                </div>
+            </div>
+        </div>
+        <div id="image-zoom-overlay"></div>
+        <div id="scroll-to-top"></div>
+    </section>
+
+
+</body></html>

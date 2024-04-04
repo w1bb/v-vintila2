@@ -299,24 +299,24 @@
     psi = zeros(n, n);
     h = zeros(n, 1);
 
-    h(1) = (b - a) / 2;
+    h(1) = (b - a) &#47; 2;
     for i = [2 : n]
-        h(i) = h(i-1) / 2;
+        h(i) = h(i-1) &#47; 2;
     end
 
     psi(1,1) = h(1) * (f(a) + f(b));
     for i = [2 : n]
         S = 0;
-        for k = [1 : 2^(i-2)]
+        for k = [1 : 2&#94;(i-2)]
             S += f(a + (2*k-1) * h(i-1));
         end
-        psi(i,1) = psi(i-1,1) / 2 + h(i-1) * S;
+        psi(i,1) = psi(i-1,1) &#47; 2 + h(i-1) * S;
     end
 
     for j = [2 : n]
         for i = [j : n]
-            psi(i,j) = 4^(j-1) * psi(i,j-1) - psi(i-1,j-1);
-            psi(i,j) /= 4^(j-1) - 1;
+            psi(i,j) = 4&#94;(j-1) * psi(i,j-1) - psi(i-1,j-1);
+            psi(i,j) &#47;= 4&#94;(j-1) - 1;
         end
     end
 

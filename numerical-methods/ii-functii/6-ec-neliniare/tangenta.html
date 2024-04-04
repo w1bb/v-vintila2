@@ -227,11 +227,11 @@
     x = x_0;
     for k = [1 : max_iter]
         y0 = polyval(P, x);
-        if abs(y0) < err
+        if abs(y0) &lt; err
             return
         end
         dy0 = polyval(dP, x);
-        x -= y0 / dy0;
+        x -= y0 &#47; dy0;
     end
 end</code></pre></div>
 <h2 id="h2-licenta"> Licență<a class="hash-link" href="#h2-licenta">#</a></h2>

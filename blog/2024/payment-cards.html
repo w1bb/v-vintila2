@@ -188,10 +188,10 @@ n=\log_{1-\alpha}\left(\frac{\alpha f^{(n)}(x)+\beta}{\alpha x+\beta}\right)=\fr
 <div class="code-listing"><div class="copy-code"></div><pre><code class="language-python">import math
 
 def f_n(n, alpha, beta, x0):
-    return ((1-alpha)**n)*x0 + beta*(((1-alpha)**n)-1)/alpha
+    return ((1-alpha)**n)*x0 + beta*(((1-alpha)**n)-1)&#47;alpha
 
 def get_n(alpha, beta, x0, f0):
-    return (math.log(alpha*f0+beta)-math.log(alpha*x0+beta))/math.log(1-alpha)</code></pre></div>
+    return (math.log(alpha*f0+beta)-math.log(alpha*x0+beta))&#47;math.log(1-alpha)</code></pre></div>
 <p> As you can tell, <code>f_n</code> represents \(f^{(n)}\), while <code>get_n</code> computes \(n\) based on \(f^{(n)}\). </p>
 <h2 id="h2-plugging-in-the-data"> Plugging in the data<a class="hash-link" href="#h2-plugging-in-the-data">#</a></h2>
 <p>Considering: </p>
