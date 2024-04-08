@@ -1,0 +1,303 @@
+<!DOCTYPE html><html lang="en" data-theme="dark-mode"><head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <script src="../../../../src/jquery-min.js"></script>
+    <script src="../../../../src/jquery-ui.min.js"></script>
+    <script src="../../../../src/index.js"></script>
+
+    <link rel="stylesheet" href="../../../../css/katex.min.css"/>
+    <script defer="" src="../../../../src/katex.min.js"></script>
+    <script defer="" src="../../../../src/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+
+    <script src="../../../../src/highlight.min.js"></script>
+    <script src="../../../../src/matlab.min.js"></script>
+
+    <script>
+        function donate_alert(event) {
+            alert("Thank you for your interest in this project!\n\nIBAN (BCR):\nRO28 RNCB 0857 1709 5964 0001");
+            event.preventDefault();
+        }
+    </script>
+
+    <link rel="stylesheet" type="text/css" media="screen" href="../../../../css/style.css"/>
+    <link rel="icon" type="image/x-icon" href="../../../../img/icons/wi64.png"/>
+    <title>Octave using Docker [ v-vintila ]</title>
+</head>
+<body class="dark-mode">
+    <script>
+        function set_color_mode(new_color_mode) {
+            if (new_color_mode == "light-mode") {
+                $("body").removeClass("dark-mode");
+                $("body").addClass("light-mode");
+                localStorage.setItem('theme', "light-mode");
+                document.querySelector("html").setAttribute("data-theme", "light-mode");
+            } else {
+                $("body").removeClass("light-mode");
+                $("body").addClass("dark-mode");
+                localStorage.setItem('theme', "dark-mode");
+                document.querySelector("html").setAttribute("data-theme", "dark-mode");
+            }
+        }
+
+        let saved_theme = localStorage.getItem("theme");
+        if (!saved_theme) {
+            saved_theme = "dark-mode";
+        }
+        set_color_mode(saved_theme);
+    </script>
+    <section id="wipybg">
+        <nav class="top">
+            <div class="nav-content">
+                <div class="nav-content-left" wi-element="top-nav">
+                    <div id="hamburger-open-nav-top-sidebar">
+                        <svg width="24" height="24" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+                    </div>
+                    
+                    
+                    
+                <a class="logo-container" href="../../../welcome/who-am-i.html"><div class="logo">Valentin-Ioan Vintilă</div></a><a class="section-link selected" href="../../../welcome/who-am-i.html">About me</a><a class="section-link" href="../../../../blog/2024/payment-cards.html">Blog</a><a class="section-link" href="../../../../numerical-methods/introducere/cuvant-inainte.html">Numerical Methods</a><a class="section-link" href="../../../../docs/resume.pdf">Résumé</a></div>
+                <div class="nav-content-right">
+                    <a href="https://www.github.com/w1bb" class="section-link">
+                        GitHub
+                        <svg width="12" height="12" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU">
+                            <path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path>
+                        </svg>
+                    </a>
+                    <div class="toggle-color-mode-container">
+                        <div class="toggle-color-mode">
+                            <svg viewBox="0 0 24 24" width="24" height="24" class="lightToggleIcon_pyhR">
+                                <path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="search-box">
+                        <div id="search-box-toggle">
+                            <svg width="16" height="16" class="DocSearch-Search-Icon" viewBox="0 0 20 20">
+                                <path d="M14.386 14.386l4.0877 4.0877-4.0877-4.0877c-2.9418 2.9419-7.7115 2.9419-10.6533 0-2.9419-2.9418-2.9419-7.7115 0-10.6533 2.9418-2.9419 7.7115-2.9419 10.6533 0 2.9419 2.9418 2.9419 7.7115 0 10.6533z" stroke="currentColor" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path>
+                            </svg>
+                            <div class="search-box-text">Search (NOT WORKING)</div>
+                            <div class="search-box-key-container">
+                                <div class="search-box-key">/</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <div id="main-page">
+            <div class="doc">
+                <aside>
+                    <div id="aside-overlay"></div>
+                    <div class="sidebar-container">
+                        <div class="sidebar">
+                            <div class="sidebar-title-section">
+                                <div class="sidebar-title-section-content">
+                                    <div class="sidebar-title-section-content-left">
+                                        <a href="../../../welcome/who-am-i.html" class="logo-container">
+                                            <div class="logo">Valentin-Ioan Vintilă</div>
+                                        </a>
+                                    </div>
+                                    <div class="sidebar-title-section-content-right">
+                                        <div class="toggle-color-mode-container">
+                                            <div class="toggle-color-mode">
+                                                <svg viewBox="0 0 24 24" width="24" height="24" class="lightToggleIcon_pyhR">
+                                                    <path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <nav wi-element="aside-nav"><ul class="generic-tree"><li class="tome"><a href="../../../welcome/who-am-i.html">About me</a></li><li class="tome"><a href="../../../../blog/2024/payment-cards.html">Blog</a></li><li class="tome"><a href="../../../../numerical-methods/introducere/cuvant-inainte.html">Numerical Methods</a></li><li class="tome"><a href="../../../../docs/resume.pdf">Résumé</a></li></ul><ul class="main-tree"><li class="main-tree-category"><div class="main-tree-category-title"><a class="main-tree-category-title-content" href="../../../welcome/who-am-i.html"><div class="title-text">👋  Welcome</div><div class="title-collapse-btn"></div></a></div><ul class="secondary-tree lvl-1"><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../../welcome/who-am-i.html"><div class="title-text">Who am I?</div></a></div><ul class="secondary-tree lvl-2"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../../welcome/contests.html"><div class="title-text">Contests</div><div class="badge badge-t1">UPDATED&nbsp;&nbsp;✨</div></a></div><ul class="secondary-tree lvl-2"></ul></li></ul></li><li class="main-tree-category"><div class="main-tree-category-title"><a class="main-tree-category-title-content" href="../../numerical-methods.html"><div class="title-text">🎓  Learning materials</div><div class="title-collapse-btn"></div></a></div><ul class="secondary-tree lvl-1"><li class="secondary-tree-item selected"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../numerical-methods.html"><div class="title-text">Numerical Methods</div><div class="title-collapse-btn"></div></a></div><ul class="secondary-tree lvl-2"><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../numerical-methods-book.html"><div class="title-text">Numerical Methods book</div><div class="badge badge-t2">RO&nbsp;&nbsp;🌐</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item selected"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../past-lectures.html"><div class="title-text">Past labs</div><div class="title-collapse-btn"></div><div class="badge badge-t2">RO&nbsp;&nbsp;🌐</div></a></div><ul class="secondary-tree lvl-3"><li class="secondary-tree-item selected final tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="docker-octave.html"><div class="title-text">Octave using Docker</div><div class="badge badge-t2">RO&nbsp;&nbsp;🌐</div></a></div><ul class="secondary-tree lvl-4"></ul></li></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../exercises.html"><div class="title-text">Exercises</div><div class="badge badge-t2">RO&nbsp;&nbsp;🌐</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../homework-checker.html"><div class="title-text">Homework checker</div></a></div><ul class="secondary-tree lvl-3"></ul></li></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../electronics.html"><div class="title-text">Electronics</div><div class="title-collapse-btn"></div></a></div><ul class="secondary-tree lvl-2"><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../electronics/past-lectures.html"><div class="title-text">Past labs</div><div class="title-collapse-btn"></div><div class="badge badge-t2">RO&nbsp;&nbsp;🌐</div></a></div><ul class="secondary-tree lvl-3"><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../electronics/past-lectures/arduino-2.html"><div class="title-text">ED - Arduino (2)</div><div class="badge badge-t2">RO&nbsp;&nbsp;🌐</div></a></div><ul class="secondary-tree lvl-4"></ul></li></ul></li></ul></li></ul></li><li class="main-tree-category"><div class="main-tree-category-title"><a class="main-tree-category-title-content" href="../../../software-projects/uni-projects.html"><div class="title-text">💻  Software projects</div><div class="title-collapse-btn"></div></a></div><ul class="secondary-tree lvl-1"><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../../software-projects/uni-projects.html"><div class="title-text">Uni projects</div><div class="badge badge-t4">NEW&nbsp;&nbsp;😍</div></a></div><ul class="secondary-tree lvl-2"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../../software-projects/imd1.html"><div class="title-text">IMD1</div><div class="badge badge-t4">NEW&nbsp;&nbsp;😍</div></a></div><ul class="secondary-tree lvl-2"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../../software-projects/gobg.html"><div class="title-text">GoBG</div><div class="badge badge-t4">NEW&nbsp;&nbsp;😍</div></a></div><ul class="secondary-tree lvl-2"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../../software-projects/chess-engines.html"><div class="title-text">Chess Engines</div><div class="title-collapse-btn"></div></a></div><ul class="secondary-tree lvl-2"><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../../software-projects/chess-engines/wice.html"><div class="title-text">WiCE</div></a></div><ul class="secondary-tree lvl-3"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../../software-projects/chess-engines/adle.html"><div class="title-text">ADLE</div></a></div><ul class="secondary-tree lvl-3"></ul></li></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../../software-projects/wi-crypt.html"><div class="title-text">Wi-Crypt</div><div class="title-collapse-btn"></div></a></div><ul class="secondary-tree lvl-2"><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../../software-projects/wi-crypt/aes.html"><div class="title-text">AES 128/192/256</div></a></div><ul class="secondary-tree lvl-3"></ul></li></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../../software-projects/wiparser.html"><div class="title-text">WiParser</div></a></div><ul class="secondary-tree lvl-2"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../../software-projects/n-ai-spam.html"><div class="title-text">N-AI Spam</div></a></div><ul class="secondary-tree lvl-2"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../../software-projects/v-vintila.html"><div class="title-text">v-vintila.com</div><div class="badge badge-t1">UPDATED&nbsp;&nbsp;✨</div></a></div><ul class="secondary-tree lvl-2"></ul></li></ul></li><li class="main-tree-category"><div class="main-tree-category-title"><a class="main-tree-category-title-content" href="../../../hardware-projects/carpino.html"><div class="title-text">🛠️  Hardware projects</div><div class="title-collapse-btn"></div></a></div><ul class="secondary-tree lvl-1"><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../../hardware-projects/carpino.html"><div class="title-text">Cârpino™</div><div class="title-collapse-btn"></div><div class="badge badge-t3">HOT&nbsp;&nbsp;🔥</div></a></div><ul class="secondary-tree lvl-2"><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../../hardware-projects/carpino/circuit-design.html"><div class="title-text">Circuit design</div></a></div><ul class="secondary-tree lvl-3"></ul></li></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../../hardware-projects/ralarm.html"><div class="title-text">ralarm</div><div class="title-collapse-btn"></div></a></div><ul class="secondary-tree lvl-2"><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../../hardware-projects/ralarm/circuit-design.html"><div class="title-text">Circuit design</div></a></div><ul class="secondary-tree lvl-3"></ul></li></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../../hardware-projects/audio-amplifier.html"><div class="title-text">Stereo audio amplifier</div><div class="title-collapse-btn"></div></a></div><ul class="secondary-tree lvl-2"><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../../hardware-projects/audio-amplifier/circuit-design.html"><div class="title-text">Circuit design</div></a></div><ul class="secondary-tree lvl-3"></ul></li></ul></li></ul></li><li class="main-tree-category"><div class="main-tree-category-title"><a class="main-tree-category-title-content" href="../../../quantum-computing-projects/lab.html"><div class="title-text">⚛️  Quantum computing projects</div><div class="title-collapse-btn"></div></a></div><ul class="secondary-tree lvl-1"><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../../quantum-computing-projects/lab.html"><div class="title-text">Lab: Qiskit, QFT, QPE and beyond</div></a></div><ul class="secondary-tree lvl-2"></ul></li><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../../quantum-computing-projects/course.html"><div class="title-text">Course: Quantum Simulation - Perceiving nature through Quantum</div></a></div><ul class="secondary-tree lvl-2"></ul></li></ul></li><li class="main-tree-category"><div class="main-tree-category-title"><a class="main-tree-category-title-content" href="../../../smaller-projects/hazoses-trivia-bot.html"><div class="title-text">📖  Smaller projects</div><div class="title-collapse-btn"></div></a></div><ul class="secondary-tree lvl-1"><li class="secondary-tree-item tree-category-collapsed"><div class="secondary-tree-item-title"><a class="secondary-tree-item-title-content" href="../../../smaller-projects/hazoses-trivia-bot.html"><div class="title-text">Hazoses trivia bot</div></a></div><ul class="secondary-tree lvl-2"></ul></li></ul></li></ul></nav>
+                            <div id="collapse-aside">
+                                <svg width="16" height="16" viewBox="0 0 20 20" aria-hidden="true" class="collapseSidebarButtonIcon_kv0_">
+                                    <g fill="#7a7a7a"><path d="M9.992 10.023c0 .2-.062.399-.172.547l-4.996 7.492a.982.982 0 01-.828.454H1c-.55 0-1-.453-1-1 0-.2.059-.403.168-.551l4.629-6.942L.168 3.078A.939.939 0 010 2.528c0-.548.45-.997 1-.997h2.996c.352 0 .649.18.828.45L9.82 9.472c.11.148.172.347.172.55zm0 0"></path><path d="M19.98 10.023c0 .2-.058.399-.168.547l-4.996 7.492a.987.987 0 01-.828.454h-3c-.547 0-.996-.453-.996-1 0-.2.059-.403.168-.551l4.625-6.942-4.625-6.945a.939.939 0 01-.168-.55 1 1 0 01.996-.997h3c.348 0 .649.18.828.45l4.996 7.492c.11.148.168.347.168.55zm0 0"></path></g>
+                                </svg>
+                            </div>
+                        </div>
+                        <div id="expand-aside">
+                            <svg width="16" height="16" viewBox="0 0 20 20" aria-hidden="true" class="collapseSidebarButtonIcon_kv0_">
+                                <g fill="#7a7a7a"><path d="M9.992 10.023c0 .2-.062.399-.172.547l-4.996 7.492a.982.982 0 01-.828.454H1c-.55 0-1-.453-1-1 0-.2.059-.403.168-.551l4.629-6.942L.168 3.078A.939.939 0 010 2.528c0-.548.45-.997 1-.997h2.996c.352 0 .649.18.828.45L9.82 9.472c.11.148.172.347.172.55zm0 0"></path><path d="M19.98 10.023c0 .2-.058.399-.168.547l-4.996 7.492a.987.987 0 01-.828.454h-3c-.547 0-.996-.453-.996-1 0-.2.059-.403.168-.551l4.625-6.942-4.625-6.945a.939.939 0 01-.168-.55 1 1 0 01.996-.997h3c.348 0 .649.18.828.45l4.996 7.492c.11.148.168.347.168.55zm0 0"></path></g>
+                            </svg>
+                        </div>
+                    </div>
+                </aside>
+                <main>
+                    <div class="center-doc-container">
+                        <div class="center-doc">
+                            <div class="center-doc-article">
+                                <article>
+                                    <nav class="nav-breadcrumbs">
+                                        <ul class="breadcrumbs" wi-element="breadcrumbs"><li class="breadcrumb"><a class="home" href="../../../welcome/who-am-i.html"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" xmlns:xlink= "http://www.w3.org/1999/xlink">
+<path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path>
+</svg></a></li><li class="breadcrumb"><a href="../../../welcome/who-am-i.html"><span>About me</span></a></li><li class="breadcrumb"><a href="../../numerical-methods.html"><span>🎓  Learning materials</span></a></li><li class="breadcrumb"><a href="../../numerical-methods.html"><span>Numerical Methods</span></a></li><li class="breadcrumb"><a href="../past-lectures.html"><span>Past labs</span></a></li><li class="breadcrumb selected"><a href="docker-octave.html"><span>Octave using Docker</span></a></li></ul>
+                                    </nav>
+                                    <div id="main-article" wi-element="article"><h1 id="h1-octave-in-docker"> Octave în Docker<a class="hash-link" href="#h1-octave-in-docker">#</a></h1>
+<p>Acest miniarticol vă va fi de folos pentru a configura corect platforma <strong>Docker</strong> pe care se vor lucra laboratoarele practice de Metode Numerice. </p>
+<div class="box admonition">
+<div class="box-title">Detalii suplimentare</div>
+<div class="box-content"><p> <strong>Laborator:</strong> Metode Numerice (2023-2024) </p>
+</div>
+</div>
+<h2 id="h2-1-crearea-imaginii"> 1. Crearea imaginii<a class="hash-link" href="#h2-1-crearea-imaginii">#</a></h2>
+<p>Vom crea o imagine scriindu-ne propriul <strong>Dockerfile</strong>. Pentru aceasta, vom crea un fișier numit chiar <code>Dockerfile</code> în care vom trece următoarele reguli: </p>
+<div class="code-listing"><div class="copy-code"></div><pre><code class="language-docker">ARG BASE_CONTAINER=jupyter&#47;minimal-notebook
+FROM &#36;BASE_CONTAINER
+
+USER root
+
+# Install octave
+ENV DEBIAN_FRONTEND noninteractive
+RUN apt-get update && apt-get -yq dist-upgrade &#92;
+    && apt-get install -yq --no-install-recommends &#92;
+    octave &#92;
+    && apt update && apt install -yq gnuplot-qt &#92;
+    fonts-freefont-otf ghostscript &#92;
+    && rm -rf &#47;var&#47;lib&#47;apt&#47;lists&#47;*
+
+
+USER &#36;NB_UID
+
+# Install extra packages
+RUN conda install --quiet --yes &#92;
+    &apos;octave_kernel&apos;  && &#92;
+    conda clean -tipy && &#92;
+    fix-permissions &#36;CONDA_DIR && &#92;
+    fix-permissions &#47;home&#47;&#36;NB_USER
+
+
+USER &#36;NB_UID</code></pre></div>
+<p> Pe scurt: </p>
+<ul>
+<li>
+<p> Pornim de la container-ul <code>jupyter/minimal-notebook</code> pentru a avea o instanță funcțională de <code>Jupyter</code> </p>
+</li>
+<li>
+<p> Instalăm <code>Octave</code> și uneltele necesare pentru a putea crea ploturi; </p>
+</li>
+<li>
+<p> Configurăm kernelul de <code>Octave</code> pentru <code>Jupyter</code>. </p>
+</li>
+</ul>
+<h3 id="h3-comanda"> Comanda<a class="hash-link" href="#h3-comanda">#</a></h3>
+<p>După ce a fost creat fișierul <code>Dockerfile</code> într-un folder oarecare (să zicem că va avea calea <code>/path/to/Dockerfile</code>), putem crea imaginea noastră rulând din terminal (echivalent, <em>Command Prompt</em> - <code>cmd.exe</code> - pentru Windows): </p>
+<div class="code-listing"><div class="copy-code"></div><pre><code class="language-plaintext">docker build -t new-nm-octave &#47;path&#47;to&#47;Dockerfile</code></pre></div>
+<p> Astfel, se va crea imaginea denumită <strong>new-nm-octave</strong>. </p>
+<h2 id="h2-2-crearea-unui-container"> 2. Crearea unui container<a class="hash-link" href="#h2-2-crearea-unui-container">#</a></h2>
+<p>După ce ați creat imaginea, o putem folosi pentru a crea containere după chipul și asemănarea sa. Astfel, vom rula: </p>
+<div class="code-listing"><div class="copy-code"></div><pre><code class="language-plaintext">docker run --name new-octave-container new-nm-octave -p 8888:8888</code></pre></div>
+<p> Comanda poate fi înțeleasă astfel: </p>
+<ul>
+<li>
+<p> Se creează (<code>run</code>) un container denumit <strong>new-octave-container</strong> (<code>--name</code>)... </p>
+</li>
+<li>
+<p> ...pornind de la imaginea <strong>new-nm-octave</strong>... </p>
+</li>
+<li>
+<p> ...și se face port forwarding (<code>-p PORT_HOST:PORT_CONTAINER</code>) astfel încât să putem accesa portul 8888 (<code>PORT_CONTAINER</code>) din afara containerului la adresa 8888 (<code>PORT_HOST</code>). </p>
+</li>
+</ul>
+<h3 id="h3-accesarea-containerului"> Accesarea containerului<a class="hash-link" href="#h3-accesarea-containerului">#</a></h3>
+<p>Containerul poate fi acum pornit și oprit în orice moment folosind <code>docker start new-octave-container</code>, respectiv <code>docker stop new-octave-container</code>. </p>
+<h2 id="h2-3-accesarea-127-0-0-1-8888"> 3. Accesarea 127.0.0.1:8888<a class="hash-link" href="#h2-3-accesarea-127-0-0-1-8888">#</a></h2>
+<p>Teoretic, puteți în acest moment să accesați din browser <code>127.0.0.1:8888</code>, însă <strong>nu și practic</strong>. În realitate, Jupyter se folosește de token-uri unice pentru fiecare utilizator. Acest token apare în logul de pe ecran ce se formează atunci când vă creați containerul. </p>
+<p> Dacă însă nu l-ați notat atunci, puteți folosi, pe Linux, următoarea comandă pentru a găsi adresa corectă pe care să o accesați: </p>
+<div class="code-listing"><div class="copy-code"></div><pre><code class="language-bash">docker logs new-octave-container 2&gt;&1 &gt;&#47;dev&#47;null &#124; grep &apos;http:&#47;&#47;127.0.0.1:8888&#47;lab?token&apos; &#124; tail -n1</code></pre></div>
+<div class="box note">
+<div class="box-title">Pentru Windows</div>
+<div class="box-content"><p> Dacă folosiți un sistem de operare Windows, <del>mutați-vă pe un sistem superior</del> puteți să căutați manual în log, rulând simplu <code>docker logs new-octave-container</code> </p>
+</div>
+</div>
+</div>
+                                    <footer class="article-footer" wi-element="article-footer"><div class="footer-content"><div class="footer-content-part"><a class="edit-page" href="#"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" aria-hidden="true">
+<g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g>
+</svg> Improve this page</a></div><div class="footer-content-part"><span class="last-update">Last updated on <b>Apr 08, 2024 (17:17)</b></span></div></div></footer>
+                                </article>
+                                <nav class="previous-next" wi-element="previous-next"><a class="prev" href="../past-lectures.html"><div class="sublabel">Previous</div><div class="label">Past labs</div></a><a class="prev" href="../exercises.html"><div class="sublabel">Next</div><div class="label">Exercises</div></a></nav>
+                            </div>
+                            <div class="center-doc-toc">
+                                <div class="toc-container">
+                                    <ul id="toc" wi-element="article-toc"><li><a href="#h2-1-crearea-imaginii"> 1. Crearea imaginii </a><ul><li><a href="#h3-comanda"> Comanda </a></li></ul></li><li><a href="#h2-2-crearea-unui-container"> 2. Crearea unui container </a><ul><li><a href="#h3-accesarea-containerului"> Accesarea containerului </a></li></ul></li><li><a href="#h2-3-accesarea-127-0-0-1-8888"> 3. Accesarea 127.0.0.1:8888 </a><ul></ul></li></ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+        <footer class="page-footer">
+            <div class="footer-content">
+                <div class="footer-columns">
+                    <div class="footer-column">
+                        <div class="footer-column-title">Main topics</div>
+                        <ul class="footer-column-items">
+                            <li class="footer-column-item">
+                                <a href="https://www.v-vintila.com">About Valentin</a>
+                            </li>
+                            <li class="footer-column-item">
+                                <a href="https://www.v-vintila.com/numerical-methods/introducere/cuvant-inainte.html">Numerical Methods (RO)</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <div class="footer-column-title">Contribute</div>
+                        <ul class="footer-column-items">
+                            <li class="footer-column-item">
+                                <a href="#" onclick="donate_alert(event)">Donate</a>
+                            </li>
+                            <li class="footer-column-item">
+                                <a href="https://www.github.com/w1bb/IMD1">IMD1</a>
+                            </li>
+                            <li class="footer-column-item">
+                                <a href="https://www.github.com/w1bb/GoBG">GoBG</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <div class="footer-column-title">Social</div>
+                        <ul class="footer-column-items">
+                            <li class="footer-column-item">
+                                <a href="https://www.github.com/w1bb">GitHub</a>
+                            </li>
+                            <li class="footer-column-item">
+                                <a href="https://www.instagram.com/vi.vintila/">Instagram</a>
+                            </li>
+                            <li class="footer-column-item">
+                                <a href="https://linkedin.com/in/valentin-vintila">Linked In</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="separator"></div>
+                <span>The contents of this website are subject to copyright.</span>
+                <span>© Valentin-Ioan VINTILĂ 2022-2024</span>
+            </div>
+        </footer>
+        <div id="doc-search-overlay">
+            <div class="search-container">
+                <div class="search-box-container">
+                    <div class="search-box">
+                        <svg width="16" height="16" class="DocSearch-Search-Icon" viewBox="0 0 20 20">
+                            <path d="M14.386 14.386l4.0877 4.0877-4.0877-4.0877c-2.9418 2.9419-7.7115 2.9419-10.6533 0-2.9419-2.9418-2.9419-7.7115 0-10.6533 2.9418-2.9419 7.7115-2.9419 10.6533 0 2.9419 2.9418 2.9419 7.7115 0 10.6533z" stroke="currentColor" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                        </svg>
+                        <input type="text" id="search-input" placeholder="Search everywhere (NOT WORKING)"/>
+                    </div>
+                    <div class="cancel-button">
+                        <div id="canel-doc-search">Cancel</div>
+                    </div>
+                </div>
+                <div class="search-results">
+                    <div class="pre-search">Results will appear as you type</div>
+                </div>
+            </div>
+        </div>
+        <div id="image-zoom-overlay"></div>
+        <div id="scroll-to-top"></div>
+    </section>
+
+
+</body></html>
